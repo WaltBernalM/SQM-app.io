@@ -1,0 +1,31 @@
+<h2>Create report page</h2>
+
+<div class="wrapper">
+  <section class="form-section">
+    <form action="report/create" method="post">
+      {{#if errorMessage}}
+				<p class="error-message">{{errorMessage}}</p>
+			{{/if}}
+      <label class="form-label" for="userId"> Supplier Name: </label>
+      <select name="userId" class="form-field" id="">
+        {{#each allUsers}}
+          <option value="{{_id}}">{{org}}</option>
+        {{/each}}
+      </select>
+
+      <label class="form-label" for="partNumber">Part Number: </label>
+			<div>
+				<input 
+					class="form-field" 
+					id="partNumber" 
+					placeholder="123456" 
+					type="text"
+					required="required"
+					name="partNumber"
+				/>
+			</div>
+    </form>
+  </section>
+</div>
+
+

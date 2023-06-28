@@ -1,7 +1,7 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require("mongoose")
 
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
-const userSchema = new Schema(
+const mainSchema = new Schema(
   {
     username: {
       type: String,
@@ -15,6 +15,10 @@ const userSchema = new Schema(
       unique: true,
       trim: true,
       lowercase: true,
+      match: [
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        "Please enter a valid email address",
+      ],
     },
     password: {
       type: String,
@@ -22,31 +26,34 @@ const userSchema = new Schema(
     },
     org: {
       type: String,
-      unique: true,
       required: true,
       trim: true,
+      unique: true,
     },
+    users: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     main: {
       type: Boolean,
-      default: false,
+      default: true,
     },
-    // defects: [{
+    complaints: [{
+      type: Schema.Types.ObjectId,
+      ref: "Complaint",
+    }],
+    // reports: [{
     //   type: Schema.Types.ObjectId,
-    //   ref: "Defect"
+    //   ref: "Report",
     // }],
-    // reports: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "Report",
-    //   },
-    // ],
   },
   {
-    // this second object adds extra properties: `createdAt` and `updatedAt`
     timestamps: true,
   }
 )
 
-const User = model("User", userSchema);
+const Main = model("Main", mainSchema)
 
-module.exports = User;
+module.exports = Main

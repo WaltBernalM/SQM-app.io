@@ -1,0 +1,24 @@
+{{#if userInSession}}
+  <nav class="navbar navbar-expand">
+      <div class="navbar-nav">
+        <div class="nav-item mx-2">
+          <a href="/auth/create" class="btn btn-success">Add Supplier Account</a>
+        </div>
+        <div class="nav-item mx-2">
+          <a href="/complaint/create" class="btn btn-warning">Add Complaint</a>
+        </div>
+      </div>
+  </nav>
+
+  <h2>Your Profile</h2>
+  {{#with userInSession}}
+    <h3>Welcome, {{ username }}!</h3>
+    <p>This is your profile page my friend from {{org}}!</p>
+    <p>email: {{email}}</p>
+    {{#if main}}
+      <p>You have Main user privileges</p>
+    {{/if}}
+  {{/with}}
+{{else}}
+  <br><p>Still no logged in user, sorry!</p>
+{{/if}}

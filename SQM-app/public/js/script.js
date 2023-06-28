@@ -2,3 +2,14 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("SQM-app JS imported successfully!");
 });
+
+
+window.addEventListener('load', () => { 
+  const today = new Date()
+  const day = '0' + String(today.getDate())
+  const month = '0' + String(today.getMonth() + 1)
+  const year = String(today.getFullYear())
+  const fullDate = `${year}-${month.slice(-2)}-${day.slice(-2)}`
+  
+  document.querySelector('#problemDateForm')?.setAttribute('max', fullDate)
+})

@@ -1,24 +1,72 @@
-<div id="form">
-  <h2>Sign Up</h2>
-  <form action="/auth/signup" method="POST">
+<div class="wrapper">
+	<h2>Main User Sign-up</h2>
+	<section class="form-section">
+		<form action="/auth/signup" method="POST">
+			{{#if errorMessage}}
+				<p class="error-message">{{errorMessage}}</p>
+			{{/if}}
+			<label class="form-label" for="username"> Username: </label>
+			<div>
+				<input 
+					class="form-field" 
+					id="username" 
+					placeholder="username" 
+					type="text" 
+					required="required"
+					name="username"
+				/>
+			</div>
+			
+			<label class="form-label" for="email">Email: </label>
+			<div>
+				<input 
+					class="form-field" 
+					id="email" 
+					placeholder="email" 
+					type="email" 
+					required="required"
+					name="email"
+				/>
+			</div>
 
-    <label> Username
-      <input type="text" name="username" placeholder="Your username" />
-    </label>
 
-    <label> Email
-      <input type="email" name="email" placeholder="Your email" />
-    </label>
+			<label class="form-label" for="password"> password: </label>
+			<div>
+				<input
+					class="form-field" 
+					id="password" 
+					placeholder="password" 
+					type="password"
+					name="password"
+				/>
+			</div>
 
-    <label> Password
-      <input type="password" name="password" placeholder="Your password" />
-    </label>
+			<label class="form-label" for="confirmPassword"> Confirm password: </label>
+			<div>
+				<input
+					class="form-field" 
+					id="confirmPassword" 
+					placeholder="confirm password" 
+					type="password"
+					name="confirmPassword"
+				/>
+			</div>
 
-    <button type="submit">Sign Up</button>
+			<label class="form-label" for="username"> Organization: </label>
+			<div>
+				<input 
+					class="form-field" 
+					id="username" 
+					placeholder="Organization Name" 
+					type="text"
+					required="required"
+					name="org"
+				/>
+			</div>
 
-
-    {{#if errorMessage}}
-      <p class="error">{{errorMessage}}</p>
-    {{/if}}
-  </form>
+			<div>
+				<button class="pet-form-button" type="submit">Sign-up</button>
+			</div>
+		</form>
+	</section>
 </div>

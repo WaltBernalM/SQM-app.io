@@ -1,24 +1,36 @@
-<div id="login-form">
-  <h2>Log In</h2>
-  <form action="/auth/login" method="POST">
+<div class="wrapper">
+	<h2>User Login</h2>
+	<section class="form-section">
+		<form action="/auth/login" method="POST">
+			{{#if errorMessage}}
+				<p class="error-message">{{errorMessage}}</p>
+			{{/if}}
+			<label class="form-label" for="email">Email: </label>
+			<div>
+				<input 
+					class="form-field" 
+					id="email" 
+					placeholder="email" 
+					type="text" 
+					required="required"
+					name="email"
+				/>
+			</div>
 
-    <label> Username
-      <input type="text" name="username" placeholder="Your username" />
-    </label>
+			<label class="form-label" for="password"> password: </label>
+			<div>
+				<input
+					class="form-field" 
+					id="password" 
+					placeholder="password" 
+					type="password"
+					name="password"
+				/>
+			</div>
 
-    <label> Email
-      <input type="email" name="email" placeholder="Your email" />
-    </label>
-
-    <label> Password
-      <input type="password" name="password" placeholder="Your password" />
-    </label>
-
-    <button type="submit">Log In</button>
-
-
-    {{#if errorMessage}}
-      <p class="error">{{errorMessage}}</p>
-    {{/if}}
-  </form>
+			<div>
+				<button class="pet-form-button" type="submit">Login</button>
+			</div>
+		</form>
+	</section>
 </div>
