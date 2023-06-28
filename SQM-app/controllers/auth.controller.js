@@ -2,6 +2,8 @@ const User = require("../models/User.model")
 const MainUser = require("../models/Main.model")
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
+const Complaint = require("../models/Complaint.model")
+const Report = require("../models/Report.model")
 
 /**
  * Signup
@@ -81,8 +83,21 @@ const postSignup = async (req, res, next) => {
  */
 const getProfile = async (req, res, next) => {
   try {
-    // @ts-ignore
-    res.render("user/main-user-profile", { userInSession: req.session.currentUser })
+    // console.log(req.session.currentUser)
+    const { main: isMain } = req.session.currentUser
+    if (isMain) {
+      const { _id: mainId } = req.session.currentUser
+      const allReports = await Report.find({ mainId }).populate('userId')
+      
+      // @ts-ignore
+      res.render("user/main-user-profile", {
+        userInSession: req.session.currentUser,
+        allReports
+      })
+    } else {
+      const { _id: userId } = req.session.currentUser
+    }
+    
   } catch (error) {
     next(error)
   }

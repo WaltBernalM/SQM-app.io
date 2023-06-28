@@ -11,14 +11,45 @@
   </nav>
 
   <h2>Your Profile</h2>
-  {{#with userInSession}}
-    <h3>Welcome, {{ username }}!</h3>
-    <p>This is your profile page my friend from {{org}}!</p>
-    <p>email: {{email}}</p>
-    {{#if main}}
-      <p>You have Main user privileges</p>
-    {{/if}}
-  {{/with}}
+  <h3>Welcome, {{ userInSession.username }}!</h3>
+  <p>This is your profile page my friend from {{userInSession.org}}!</p>
+  <p>email: {{userInSession.email}}</p>
+  {{#if userInSession.main}}
+    <p>You have Main user privileges</p>
+    main: {{userInSession.main}}
+    
+    
+  {{/if}}
+
+  <div class="container-fluid" id="main-table">
+    <div id="toolbar">
+    </div>
+    
+    <table id="table" class="table table-hover table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Complaint ID</th>
+          <th scope="col">Report ID</th>
+          <th scope="col">Supplier</th>
+          <th scope="col">Creation date</th>
+          <th scope="col">Approval</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each allReports}}
+        <tr>
+          <td><a href="/complaint/details{{complaint}}">{{complaint}}</a></td>
+          <td><a href="/report/details{{_id}}">{{_id}}</a></td>
+          <td><a href="/auth/edit-user/{{userId._id}}">{{userId.org}}</a></td>
+          <td class="date-type">{{createdAt}}</td>
+          <td>{{approval}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  
 {{else}}
   <br><p>Still no logged in user, sorry!</p>
 {{/if}}

@@ -1,5 +1,5 @@
 const User = require("../models/User.model")
-const MainUser = require("../models/Main.model")
+const Main = require("../models/Main.model")
 const Complaint = require("../models/Complaint.model")
 const Report = require("../models/Report.model")
 const mongoose = require("mongoose")
@@ -14,7 +14,7 @@ const getCreateComplaint = async (req, res, next) => {
     return res.render("complaint/create", { errorMessage: "No suppliers available" })
   }
 
-  const main = await MainUser.findById(mainId).populate("users")
+  const main = await Main.findById(mainId).populate("users")
   const allSuppliers = main?.users
 
   res.render("complaint/create", { allSuppliers })
@@ -70,6 +70,7 @@ const postCreateComplaint = async (req, res, next) => {
       })
     }
 
+    // Creates the complaint
     const complaintCreated = await Complaint.create({
       mainId,
       userId,
@@ -81,6 +82,7 @@ const postCreateComplaint = async (req, res, next) => {
       problemImg,
     })
 
+    // Creates the report by complaint data
     const complaint = complaintCreated._id
     const reportCreated = await Report.create({
       complaint,
@@ -88,10 +90,25 @@ const postCreateComplaint = async (req, res, next) => {
       userId,
     })
 
+    // Adds the id of the report to the complaint
     const report = reportCreated._id
     const updatedComplaint = await Complaint.findByIdAndUpdate(complaint, {
       report,
     })
+
+    // Adds the id of the created complaint and report to the Main account
+    const updatedMain = await Main.findByIdAndUpdate(
+      mainId,
+      { $push: { complaints: complaint} },
+      { new: true }
+    )
+    
+    // Adds the id of the created report to the User account
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $push: { reports: report, complaints: complaint } },
+      { new: true }
+    )
 
     res.redirect(`/auth/profile`)
 
