@@ -121,8 +121,6 @@ const postCreateComplaint = async (req, res, next) => {
   }
 }
 
-// Read of Complaint and trigger of Report
-
 
 module.exports = {
   getCreateComplaint,

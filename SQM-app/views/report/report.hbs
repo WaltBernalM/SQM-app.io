@@ -1,0 +1,149 @@
+
+{{#with report}}
+<h2>Report: {{_id}}</h2>
+{{!-- D3 form --}}
+<form action="http://localhost:3000/report/{{_id}}" method="post">
+  {{#with d3}}
+  <div class="container-content">
+    {{!-- D1 --}}
+    <div class="container-media-content">
+      <ul class="list-group list-group-flush rounded-2">
+        <li class="list-group-item fw-bold list-group-item-dark">D1 Build the team: </li>
+        <li class="list-group-item list-group-item-dark">{{teamMembers.[0]}}</li>
+        <li class="list-group-item list-group-item-dark">{{teamMembers.[1]}}</li>
+        <li class="list-group-item list-group-item-dark">{{teamMembers.[2]}}</li>
+        <li class="list-group-item list-group-item-dark">{{teamMembers.[3]}}</li>
+      </ul>
+    </div>
+
+    {{!-- D2 --}}
+    <div class="container-media-content d-flex flex-column">
+      <div class="container fw-bold">D2 Describe the problem:</div>
+      <table id="table" class="table table-hover table-dark">
+        <thead>
+          <tr>
+            <th scope="col">5W2H</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>What?</td>
+            <td>{{w5h2.[0]}}</td>
+          </tr>
+          <tr>
+            <td>When?</td>
+            <td>{{w5h2.[1]}}</td>
+          </tr>
+          <tr>
+            <td>Where?</td>
+            <td>{{w5h2.[2]}}</td>
+          </tr>
+          <tr>
+            <td>Who?</td>
+            <td>{{w5h2.[3]}}</td>
+          </tr>
+          <tr>
+            <td>Why?</td>
+            <td>{{w5h2.[4]}}</td>
+          </tr>
+          <tr>
+            <td>how?</td>
+            <td>{{w5h2.[5]}}</td>
+          </tr>
+          <tr>
+            <td>How many?</td>
+            <td>{{w5h2.[6]}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    {{!-- D3 --}}
+    <div class="container-media-content d-flex flex-column">
+      <div class="container fw-bold">D3 containment actions:</div>
+      <table id="table" class="table table-hover table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Action description</th>
+            <th scope="col">Owner</th>
+              <th scope="col">Due date</th>
+            <th scope="col">Closure date</th>
+            <th scope="col">Closed</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each allReports}}
+          <tr>
+            <td><a title="Details" href="/complaint/details/{{complaint}}">{{complaint}}</a></td>
+            <td><a title="Details" href="/report/{{_id}}">{{_id}}</a></td>
+            <td><a title="Edit" href="/auth/edit-user/{{userId._id}}">{{userId.org}}</a></td>
+            <td class="date-type">{{createdAt}}</td>
+            <td>{{approval}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {{/with}}
+</form>
+
+{{#unless userInSession.main}}
+<!-- Button switch to edit/see -->
+<button type="submit" class="btn btn-warning">Switch</button>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAction">
+  + action
+</button>
+{{/unless}}
+
+<!-- Modal POST to create Action -->
+<div class="modal fade" id="createAction" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog form-section">
+    <form class="modal-content bg-dark" action="/aciton/create" method="POST">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">New action</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="container d-flex flex-column">
+          <div class="form-group">
+            <div class="container">
+              <label for="dStep" class="form-label">Step: </label>
+            </div>
+            <select name="dStep" id="" class="ml-4 form-control">
+              <option value="d3">D3</option>
+              <option value="d5d5">D5</option>
+              <option value="d7">D7</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="content" class="form-label">Action: </label>
+            <input class="form-field" type="text" name="content" id="" required="required" placeholder="Brief description">
+          </div>
+          <div class="form-group">
+            <label for="content" class="form-label">Owner: </label>
+            <input class="form-field" type="text" name="ownerName" id="" required="required" placeholder="Full name">
+          </div>
+          
+          <div class="form-group">
+            <div class="container">
+              <label for="problemDate" class="form-label">Duedate: </label>
+            </div>
+            <input class="form-control" type="date" id="dueDate" required="required" name="dueDate" max="">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Create</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{{/with}}

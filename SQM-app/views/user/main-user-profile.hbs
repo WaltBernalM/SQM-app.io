@@ -42,8 +42,8 @@
         <tbody>
           {{#each allReports}}
           <tr>
-            <td><a title="Details" href="/complaint/details{{complaint}}">{{complaint}}</a></td>
-            <td><a title="Details" href="/report/details{{_id}}">{{_id}}</a></td>
+            <td><a title="Details" href="/complaint/details/{{complaint}}">{{complaint}}</a></td>
+            <td><a title="Details" href="/report/{{_id}}">{{_id}}</a></td>
             <td><a title="Edit" href="/auth/edit-user/{{userId._id}}">{{userId.org}}</a></td>
             <td class="date-type">{{createdAt}}</td>
             <td>{{approval}}</td>
@@ -55,8 +55,8 @@
       <table id="table" class="table table-hover table-dark">
         <thead>
           <tr>
-            <th scope="col">Complaint ID</th>
             <th scope="col">Report ID</th>
+            <th scope="col">Complaint ID</th>
             <th scope="col">Creation date</th>
             <th scope="col">Approval</th>
           </tr>
@@ -64,8 +64,8 @@
         <tbody>
           {{#each allReports}}
           <tr>
-            <td><a href="/complaint/details{{complaint}}">{{complaint}}</a></td>
-            <td><a href="/report/details{{_id}}">{{_id}}</a></td>
+            <td><a href="/report/{{_id}}">{{_id}}</a></td>
+            <td><a href="/complaint/details/{{complaint}}">{{complaint}}</a></td>
             <td class="date-type">{{createdAt}}</td>
             <td>{{approval}}</td>
           </tr>

@@ -98,9 +98,13 @@ const getProfile = async (req, res, next) => {
       })
     } else {
       const { _id: userId } = req.session.currentUser
+      const allReports = await Report.find({ userId })
+      
+      console.log(allReports)
 
       res.render("user/main-user-profile", {
-        userInSession: req.session.currentUser
+        userInSession: req.session.currentUser,
+        allReports
       })
     }
     
