@@ -1,0 +1,71 @@
+<div class="wrapper">
+	<h2>Create Supplier User</h2>
+	<section class="form-section">
+		<form action="/auth/create-user" method="POST">
+			{{#if errorMessage}}
+				<p class="error-message">{{errorMessage}}</p>
+			{{/if}}
+			<label class="form-label" for="username"> Username: </label>
+			<div>
+				<input 
+					class="form-field" 
+					id="username" 
+					placeholder="username" 
+					type="text" 
+					required="required"
+					name="username"
+				/>
+			</div>
+			
+			<label class="form-label" for="email">Email: </label>
+			<div>
+				<input 
+					class="form-field" 
+					id="email" 
+					placeholder="email" 
+					type="email" 
+					required="required"
+					name="email"
+				/>
+			</div>
+
+			<label class="form-label" for="password"> password: </label>
+			<div>
+				<input
+					class="form-field" 
+					id="password" 
+					placeholder="password" 
+					type="password"
+					name="password"
+				/>
+			</div>
+
+			<label class="form-label" for="confirmPassword"> Confirm password: </label>
+			<div>
+				<input
+					class="form-field" 
+					id="confirmPassword" 
+					placeholder="confirm password" 
+					type="password"
+					name="confirmPassword"
+				/>
+			</div>
+
+			<label class="form-label" for="username"> Organization: </label>
+			<div>
+				<input 
+					class="form-field" 
+					id="username" 
+					placeholder="Organization Name" 
+					type="text"
+					required="required"
+					name="org"
+				/>
+			</div>
+
+			<div>
+				<button class="pet-form-button" type="submit">Sign-up</button>
+			</div>
+		</form>
+	</section>
+</div>

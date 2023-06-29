@@ -30,16 +30,22 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    complaints: [{
-      type: Schema.Types.ObjectId,
-      ref: "Complaint"
-    }],
+    complaints: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Complaint",
+      },
+    ],
     reports: [
       {
         type: Schema.Types.ObjectId,
         ref: "Report",
       },
     ],
+    // mainId: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "Main",
+    // },
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

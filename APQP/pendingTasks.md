@@ -1,12 +1,12 @@
-# Views
 - [x] Homepage view
 - [x] Login view
 - [x] Signup view
 - [x] Profile view
 - [x] Create Complaint view
-- [ ] Create User edit view
+- [ ] Create User view
 - [x] Add User list in Profile view (only for Main)
-- [ ] Read and list Complaint && Report (Main and User) in Profile view
+- [x] Read and list Complaint && Report in Profile view (for Main)
+- [ ] Read and list Complaint && Report in Profile view (for User)
 - [ ] Add details button for Complaint && Report
 - [ ] Add delete button to delete Complaint && Report to list (only for Main)
 - [ ] Add buttons for Actions addition for Complaint && Report (only for User)
@@ -33,11 +33,11 @@
 # Main Account
 - [x] Create Main account
 - [x] Read Main account
-- [x] Update Main account
+- [ ] Update Main account
 
 # User Account
 - [ ] Create User by Main
-- [x] Read User by Main
+- [x] Read Users by Main
 - [ ] Update User by Main
 - [ ] Delete User by Main
 

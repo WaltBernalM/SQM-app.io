@@ -15,8 +15,9 @@
 
 			<section class="navigation">
 				{{!-- Using guard.auth.middleware --}}
+				<a href="/" class="navbar-button">Home</a>
 				{{#if isLoggedIn}} 
-					<a href="/" class="navbar-button">Home</a>
+					
 					<a href="/auth/profile" class="navbar-button">Profile</a>
 					<a href="/auth/logout" class="navbar-button">Logout</a>
 				{{else}}
