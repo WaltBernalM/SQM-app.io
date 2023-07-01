@@ -1,20 +1,32 @@
 const express = require("express")
 const reportRouter = express.Router()
 const {
-  getReport,
-  postReport,
+  getReportDetails,
+  postReportUpdate,
 } = require("../controllers/report.controller")
+
+const {
+  postCreateAction
+} = require("../controllers/action.controller")
 
 const isLoggedIn = require("../middleware/isLoggedIn")
 const isLoggedOut = require("../middleware/isLoggedOut")
 const isMainUser = require("../middleware/isMainUser")
+const isUser = require("../middleware/isUser")
 const logStatus = require("../middleware/logStatus")
 
-// /* View Report */
-// reportRouter.get("/:reportId", isLoggedIn, isMainUser, getViewReport)
+/* View Report details */
+reportRouter.get(`/:reportId/details`, isLoggedIn, logStatus, getReportDetails)
 
-/* Edit Report */
-reportRouter.get(`/:reportId`, isLoggedIn, logStatus, getReport)
-reportRouter.post(`/:reportId`, isLoggedIn, isMainUser, postReport)
+reportRouter.post(`/:reportId/update`, isLoggedIn, isUser, postReportUpdate)
+
+// Action Routes from Report
+reportRouter.post(
+  `/:reportId/action/create`,
+  isLoggedIn,
+  isUser,
+  postCreateAction
+)
+
 
 module.exports = reportRouter

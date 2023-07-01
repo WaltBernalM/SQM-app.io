@@ -2,14 +2,6 @@ const { Schema, model } = require("mongoose")
 
 const actionSchema = new Schema(
   {
-    mainId: {
-      type: Schema.Types.ObjectId,
-      ref: "Main",
-    },
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
     content: {
       type: String,
       required: true,
@@ -31,7 +23,10 @@ const actionSchema = new Schema(
     },
     closeDate: {
       type: Date,
-      required: true,
+    },
+    reportId: {
+      type: Schema.Types.ObjectId,
+      ref: "Main",
     },
   },
   {

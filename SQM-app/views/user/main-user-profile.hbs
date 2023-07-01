@@ -34,19 +34,47 @@
           <tr>
             <th scope="col">Complaint ID</th>
             <th scope="col">Report ID</th>
-              <th scope="col">Supplier</th>
+            <th scope="col">Part Number</th>
+            <th scope="col">Supplier</th>
             <th scope="col">Creation date</th>
-            <th scope="col">Approval</th>
+            <th scope="col">Report approval</th>
+            <td scope="col"></td>
           </tr>
         </thead>
         <tbody>
-          {{#each allReports}}
+          {{#each allComplaints}}
           <tr>
-            <td><a title="Details" href="/complaint/details/{{complaint}}">{{complaint}}</a></td>
-            <td><a title="Details" href="/report/{{_id}}">{{_id}}</a></td>
-            <td><a title="Edit" href="/auth/edit-user/{{userId._id}}">{{userId.org}}</a></td>
+            <td><a href="/complaint/{{_id}}/details">{{_id}}</a></td>
+            <td><a href="/report/{{report._id}}/details">{{report._id}}</a></td>
+            <td>{{partNumber}}</td>
+            <td>{{userId.org}}</td>
             <td class="date-type">{{createdAt}}</td>
-            <td>{{approval}}</td>
+            <td>{{report.approval}}</td>
+            <td>
+              {{!-- Modal button to POST delete Compalint --}}
+              <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteComplaint{{_id}}">Delete</button>
+              {{!-- Modal POST to delete Complaint and all related data to it--}}
+              <div class="modal fade" id="deleteComplaint{{_id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog form-section">
+                  <form class="modal-content bg-dark" action="/auth/delete-user/{{_id}}" method="POST">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5 text-danger fw-bold" id="staticBackdropLabel">Are you sure?</h1>
+                    </div>      
+                    <div class="modal-body">
+                      <p>
+                        <strong>Please confirm deletion of Complaint {{_id}}</strong>
+                        <br><br>
+                        <strong class="text-warning fs-sm">This will also delete the Related Report and Actions to this Complaint</strong>
+                      </p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      <button class="btn btn-outline-danger" type="submit">Confirm</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </td>
           </tr>
           {{/each}}
         </tbody>
@@ -55,19 +83,19 @@
       <table id="table" class="table table-hover table-dark">
         <thead>
           <tr>
-            <th scope="col">Report ID</th>
             <th scope="col">Complaint ID</th>
+            <th scope="col">Report ID</th>
             <th scope="col">Creation date</th>
             <th scope="col">Approval</th>
           </tr>
         </thead>
         <tbody>
-          {{#each allReports}}
+          {{#each allComplaints}}
           <tr>
-            <td><a href="/report/{{_id}}">{{_id}}</a></td>
-            <td><a href="/complaint/details/{{complaint}}">{{complaint}}</a></td>
+            <td><a href="/complaint/{{_id}}/details">{{_id}}</a></td>
+            <td><a href="/report/{{report._id}}/details">{{report._id}}</a></td>
             <td class="date-type">{{createdAt}}</td>
-            <td>{{approval}}</td>
+            <td>{{report.approval}}</td>
           </tr>
           {{/each}}
         </tbody>

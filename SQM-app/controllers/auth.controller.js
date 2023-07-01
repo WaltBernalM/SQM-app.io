@@ -6,14 +6,8 @@ const Complaint = require("../models/Complaint.model")
 const Report = require("../models/Report.model")
 const Main = require("../models/Main.model")
 
-/**
- * Signup
- */
-
 // GET
 const getSignup = (req, res) => res.render("auth/signup")
-
-// POST
 const postSignup = async (req, res, next) => {
   const { username, email, password, confirmPassword, org } = req.body
 
@@ -89,22 +83,28 @@ const getProfile = async (req, res, next) => {
 
     if (isMain) {
       const { _id: mainId } = req.session.currentUser
-      const allReports = await Report.find({ mainId }).populate('userId')
+      const mainUser = await MainUser.find({ _id: mainId })
+        .populate({
+          path: 'complaints',
+          populate: [
+            { path: 'userId' },
+            { path: 'report' }
+          ]
+        })
       
-      // @ts-ignore
-      res.render("user/main-user-profile", {
-        userInSession: req.session.currentUser,
-        allReports
-      })
-    } else {
-      const { _id: userId } = req.session.currentUser
-      const allReports = await Report.find({ userId })
-      
-      console.log(allReports)
+      const { complaints: allComplaints } = mainUser[0]
 
       res.render("user/main-user-profile", {
         userInSession: req.session.currentUser,
-        allReports
+        allComplaints
+      })
+    } else {
+      const { _id: userId } = req.session.currentUser
+      const allComplaints = await Complaint.find({ userId }).populate('report')
+
+      res.render("user/main-user-profile", {
+        userInSession: req.session.currentUser,
+        allComplaints
       })
     }
     

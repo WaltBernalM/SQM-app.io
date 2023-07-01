@@ -36,7 +36,7 @@
 - [ ] Update Main account
 
 # User Account
-- [ ] Create User by Main
+- [x] Create User by Main
 - [x] Read Users by Main
 - [ ] Update User by Main
 - [ ] Delete User by Main
@@ -50,14 +50,17 @@
 
 # Report
 - [x] Create Report by Complaint creation
-- [x] Read all Reports in list and in detail => userId and mainId
-- [ ] Update for specific Report => userId and mainId
+- [x] Read all Reports in list and in detail => userId
+- [ ] Read all Reports in list and in detail => mainId
+- [ ] Update for specific Report => userId
+- [ ] Update for specific Report => mainId
 - [ ] Delete report by Complaint deletion
 
 # Action
-- [ ] Create Action for specific Report part(see model) => only userId
-- [ ] Read actions from specific Report => userId and mainId
-- [ ] Update action for specific Report => only userId
+- [x] Create Action for specific Report part(see model) => userId
+- [x] Read actions from specific Report => userId
+- [ ] Read actions from specific Report => userId
+- [x] Update action for specific Report => only userId
 - [ ] Delete action for specific Report => only userId
 
 # Middleware

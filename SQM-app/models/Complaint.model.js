@@ -2,13 +2,13 @@ const { Schema, model } = require("mongoose")
 
 const complaintSchema = new Schema(
   {
-    mainId: {
-      type: Schema.Types.ObjectId,
-      ref: "Main",
-    },
     userId: {
       type: Schema.Types.ObjectId,
       ref: "User",
+    },
+    report: {
+      type: Schema.Types.ObjectId,
+      ref: "Report"
     },
     partNumber: {
       type: String,
@@ -34,10 +34,6 @@ const complaintSchema = new Schema(
     problemImg: {
       type: String,
       required: true,
-    },
-    report: {
-      type: Schema.Types.ObjectId,
-      ref: "Report"
     }
   },
   {

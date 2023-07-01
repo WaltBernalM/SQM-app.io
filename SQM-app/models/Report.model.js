@@ -2,25 +2,13 @@ const { Schema, model } = require("mongoose")
 
 const reportSchema = new Schema(
   {
-    complaint: {
-      type: Schema.Types.ObjectId,
-      ref: "Complaint"
-    },
-    mainId: {
-      type: Schema.Types.ObjectId,
-      ref: "Main",
-    },
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
     d3: {
       type: Object,
       default: {
         teamMembers: [],
         w5h2: [],
         subTime: Date.now(),
-        attachments: [],
+        attachment: String,
         approval: false,
         appTime: Date.now(),
       },
@@ -30,18 +18,18 @@ const reportSchema = new Schema(
       default: {
         whyDet: [],
         whyOcc: [],
-        rootCauseDet: [],
-        rootCauseOcc: [],
-        attachments: [],
+        rootCauseDet: String,
+        rootCauseOcc: String,
+        attachment: String,
         subTime: Date.now(),
         approval: false,
-        applyTime: Date.now(),
+        appTime: Date.now(),
       },
     },
     d5d6: {
       type: Object,
       default: {
-        attachments: [],
+        attachment: String,
         subTime: Date.now(),
         approval: false,
         appTime: Date.now(),
@@ -50,7 +38,7 @@ const reportSchema = new Schema(
     d7: {
       type: Object,
       default: {
-        attachments: [],
+        attachment: String,
         subTime: Date.now(),
         approval: false,
         appTime: Date.now(),
