@@ -16,4 +16,6 @@ const logStatus = require("../middleware/logStatus")
 /* View Report details */
 actionRouter.post(`/:actionId/update`, isLoggedIn, isUser, postActionUpdate)
 
+actionRouter.post(`/:actionId/delete`, isLoggedIn, isUser, postActionDelete)
+
 module.exports = actionRouter

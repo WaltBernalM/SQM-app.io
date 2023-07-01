@@ -1,3 +1,4 @@
+// @ts-nocheck
 const User = require("../models/User.model")
 const Main = require("../models/Main.model")
 const Complaint = require("../models/Complaint.model")
@@ -68,8 +69,21 @@ const postActionUpdate = async (req, res, next) => {
 
 }
 
-const postActionDelete = async (req, res, next) => { 
+const postActionDelete = async (req, res, next) => {
+  try {
+    const { actionId } = req.params
+    const actionDeleted = await Action.findById(actionId)
+    const report = await Report.findById(actionDeleted?.reportId)
 
-}
+    report.actionsD3.pull(actionDeleted)
+    report.actionsD5D6.pull(actionDeleted)
+    report.actionsD7.pull(actionDeleted)
+    await report.save()
+
+    res.redirect(`/report/${report._id}/details`)
+  } catch (error) {
+    next(error)
+  }
+};
 
 module.exports = { postCreateAction, postActionUpdate, postActionDelete}
