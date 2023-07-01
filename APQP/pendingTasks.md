@@ -52,7 +52,7 @@
 - [x] Create Report by Complaint creation
 - [x] Read all Reports in list and in detail => userId
 - [ ] Read all Reports in list and in detail => mainId
-- [ ] Update for specific Report => userId
+- [x] Update for specific Report => userId
 - [ ] Update for specific Report => mainId
 - [ ] Delete report by Complaint deletion
 
@@ -61,7 +61,7 @@
 - [x] Read actions from specific Report => userId
 - [ ] Read actions from specific Report => userId
 - [x] Update action for specific Report => only userId
-- [ ] Delete action for specific Report => only userId
+- [x] Delete action for specific Report => only userId
 
 # Middleware
 - [ ] Function of uploadFile.js middleware

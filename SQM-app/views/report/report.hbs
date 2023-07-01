@@ -9,6 +9,8 @@
   <div class="form-section d-flex flex-column">
     {{!-- D3 form --}}
     <form action="http://localhost:3000/report/{{_id}}/update" method="post" class="col-md-12 row">
+        <input type="hidden" name="submissionD" value="3">
+        
         {{!-- D1 --}}
         <div class="form-group">
 				<label class="form-label" for="team"> D1 Build the Team: </label>
@@ -139,7 +141,7 @@
             id="d3Attachment" 
             placeholder="" 
             type="file"
-            name="attachment"
+            name="d3Attachment"
             accept=".xlsx, .xlsm, .pdf, .docx, .pptx, .pptm" 
           />
           <div class="container bg-transparent">
@@ -257,6 +259,7 @@
   {{!-- D4 content --}}
   <div class="form-section d-flex flex-column">
     <form action="http://localhost:3000/report/{{_id}}/update" method="post" class="col-md-12 row">
+      <input type="hidden" name="submissionD" value="4">
       {{!-- 5 whys and Root Causes--}}
       <div class="form-group">
         <label class="form-label" for="table">D4 Root Cause Analysis:</label>
@@ -336,7 +339,6 @@
               <td>
                 <textarea class="form-field" 
                   type="text"
-                  required="required"
                   name="whyDet3"
                   cols="20"
                   rows="1"
@@ -356,7 +358,6 @@
               <td>
                 <textarea class="form-field" 
                   type="text"
-                  required="required"
                   name="whyDet4"
                   cols="20"
                   rows="1"
@@ -377,7 +378,7 @@
                 <textarea class="form-field" 
                   type="text"
                   required="required"
-                  name="whyDet4"
+                  name="rootCauseDet"
                   cols="20"
                   rows="1"
                 >{{d4.rootCauseDet}}</textarea>
@@ -385,7 +386,8 @@
               <td>
                 <textarea class="form-field" 
                   type="text"
-                  name="whyOcc4"
+                  required="required"
+                  name="rootCauseOcc"
                   cols="20"
                   rows="1"
                 >{{d4.rootCauseOcc}}</textarea>
@@ -425,6 +427,7 @@
   {{!-- D5 & D6 content --}}
   <div class="form-section d-flex flex-column">
     <form action="http://localhost:3000/report/{{_id}}/update" method="post" class="col-md-12 row">
+      <input type="hidden" name="submissionD" value="5">
       {{!-- attachments--}}
       <div class="form-group">
         <label class="form-label" for="problemImg">D5/D6 attachment: </label>
@@ -433,7 +436,7 @@
           id="d5d6Attachment" 
           placeholder="" 
           type="file"
-          name="attachment"
+          name="d5d6Attachment"
           accept=".xlsx, .xlsm, .pdf, .docx, .pptx, .pptm" 
         />
         <div class="container bg-transparent">
@@ -551,6 +554,7 @@
   {{!-- D7 content --}}
   <div class="form-section d-flex flex-column">
     <form action="http://localhost:3000/report/{{_id}}/update" method="post" class="col-md-12 row">
+      <input type="hidden" name="submissionD" value="7">
       {{!-- attachments--}}
       <div class="form-group">
         <label class="form-label" for="problemImg">D7 attachment: </label>
@@ -559,7 +563,7 @@
           id="d7Attachment" 
           placeholder="" 
           type="file"
-          name="attachment"
+          name="d7Attachment"
           accept=".xlsx, .xlsm, .pdf, .docx, .pptx, .pptm" 
         />
         <div class="container bg-transparent">
@@ -677,8 +681,6 @@
 
 
   {{#unless userInSession.main}}
-  <!-- Button switch to edit/see -->
-  <button type="submit" class="btn btn-warning">Switch</button>
   <!-- Button trigger modal -->
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAction">
     + action
