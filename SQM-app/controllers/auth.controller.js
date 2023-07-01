@@ -274,6 +274,28 @@ const postUpdateUser = async (req, res, next) => {
   
 }
 
+const postDeleteUser = async (req, res, next) => { 
+  try {
+    const { userId } = req.params
+    
+    const deletedUser = await User.findByIdAndDelete(userId)
+    
+    const deletedInComplaints = await Complaint.updateMany(
+      {userId: deletedUser?._id},
+      { $unset: {userId: 1}}
+    )
+    
+    const deletedInReports = await Report.updateMany(
+      { userId: deletedUser?._id },
+      { $unset: { userId: 1 } }
+    )
+
+    res.redirect("/auth/users-list")
+  } catch (error) {
+    next(error)
+  }
+}
+
 module.exports = {
   getSignup,
   postSignup,
@@ -284,4 +306,5 @@ module.exports = {
   postCreateUser,
   getUsersList,
   getUpdateUser,
+  postDeleteUser,
 }

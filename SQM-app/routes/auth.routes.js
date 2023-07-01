@@ -10,6 +10,7 @@ const {
   postCreateUser,
   getUsersList,
   getUpdateUser,
+  postDeleteUser,
 } = require("../controllers/auth.controller")
 
 const isLoggedIn = require("../middleware/isLoggedIn")
@@ -53,5 +54,7 @@ userRouter.get(
 userRouter.get("/edit-user/:userId", isLoggedIn, logStatus, isMainUser, getUpdateUser)
 
 userRouter.post("/edit-user/:userId")
+
+userRouter.post("/delete-user/:userId", isLoggedIn, logStatus, isMainUser, postDeleteUser)
 
 module.exports = userRouter
