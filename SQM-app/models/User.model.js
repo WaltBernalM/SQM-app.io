@@ -30,18 +30,18 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    complaints: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Complaint",
-      },
-    ],
-    reports: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Report",
-      },
-    ],
+    // complaints: [
+    //   {
+    //     type: Schema.Types.ObjectId,
+    //     ref: "Complaint",
+    //   },
+    // ],
+    // reports: [
+    //   {
+    //     type: Schema.Types.ObjectId,
+    //     ref: "Report",
+    //   },
+    // ],
     // mainId: {
     //   type: Schema.Types.ObjectId,
     //   ref: "Main",

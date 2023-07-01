@@ -44,10 +44,6 @@ const mainSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Complaint",
     }],
-    // reports: [{
-    //   type: Schema.Types.ObjectId,
-    //   ref: "Report",
-    // }],
   },
   {
     timestamps: true,

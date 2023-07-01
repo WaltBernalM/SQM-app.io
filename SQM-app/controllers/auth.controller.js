@@ -6,14 +6,8 @@ const Complaint = require("../models/Complaint.model")
 const Report = require("../models/Report.model")
 const Main = require("../models/Main.model")
 
-/**
- * Signup
- */
-
 // GET
 const getSignup = (req, res) => res.render("auth/signup")
-
-// POST
 const postSignup = async (req, res, next) => {
   const { username, email, password, confirmPassword, org } = req.body
 
@@ -89,18 +83,28 @@ const getProfile = async (req, res, next) => {
 
     if (isMain) {
       const { _id: mainId } = req.session.currentUser
-      const allReports = await Report.find({ mainId }).populate('userId')
+      const mainUser = await MainUser.find({ _id: mainId })
+        .populate({
+          path: 'complaints',
+          populate: [
+            { path: 'userId' },
+            { path: 'report' }
+          ]
+        })
       
-      // @ts-ignore
+      const { complaints: allComplaints } = mainUser[0]
+
       res.render("user/main-user-profile", {
         userInSession: req.session.currentUser,
-        allReports
+        allComplaints
       })
     } else {
       const { _id: userId } = req.session.currentUser
+      const allComplaints = await Complaint.find({ userId }).populate('report')
 
       res.render("user/main-user-profile", {
-        userInSession: req.session.currentUser
+        userInSession: req.session.currentUser,
+        allComplaints
       })
     }
     
@@ -270,6 +274,28 @@ const postUpdateUser = async (req, res, next) => {
   
 }
 
+const postDeleteUser = async (req, res, next) => { 
+  try {
+    const { userId } = req.params
+    
+    const deletedUser = await User.findByIdAndDelete(userId)
+    
+    const deletedInComplaints = await Complaint.updateMany(
+      {userId: deletedUser?._id},
+      { $unset: {userId: 1}}
+    )
+    
+    const deletedInReports = await Report.updateMany(
+      { userId: deletedUser?._id },
+      { $unset: { userId: 1 } }
+    )
+
+    res.redirect("/auth/users-list")
+  } catch (error) {
+    next(error)
+  }
+}
+
 module.exports = {
   getSignup,
   postSignup,
@@ -280,4 +306,5 @@ module.exports = {
   postCreateUser,
   getUsersList,
   getUpdateUser,
+  postDeleteUser,
 }

@@ -10,15 +10,43 @@
         <th scope="col">Organization</th>
         <th scope="col">Username</th>
         <th scope="col">Email</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       {{#each usersList}}
         <tr>
-          <td><a class="btn btn-outline-warning" href="/auth/edit-user/{{_id}}">Edit</a></td>
+          <td>
+            <a class="btn btn-outline-warning" href="/auth/edit-user/{{_id}}">Edit</a>
+          </td>
           <td>{{org}}</td>
           <td>{{username}}</td>
           <td>{{email}}</td>
+          <td>
+            {{!-- Modal button to Post delete User --}}
+            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteUser{{_id}}">Delete</button>
+            <!-- Modal POST to delete User -->
+            <div class="modal fade" id="deleteUser{{_id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog form-section">
+                <form class="modal-content bg-dark" action="/auth/delete-user/{{_id}}" method="POST">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-danger fw-bold" id="staticBackdropLabel">Are you sure?</h1>
+                  </div>      
+                  <div class="modal-body">
+                    <p>
+                      <strong>Please confirm deletion of {{org}}</strong>
+                      <br><br>
+                      <strong class="text-warning fs-sm">This will also affect current Reports and Complaints related to this Supplier</strong>
+                    </p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn btn-outline-danger" type="submit">Confirm</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </td>
         </tr>
       {{/each}}
     </tbody>

@@ -39,8 +39,11 @@ const complaintRoutes = require("./routes/complaint.routes")
 app.use("/complaint", complaintRoutes)
 
 // User of report routes
-// const reportRoutes = require("./routes/report.routes")
-// app.use("/report", reportRoutes)
+const reportRoutes = require("./routes/report.routes")
+app.use("/report", reportRoutes)
+
+const actionRoutes = require("./routes/action.routes")
+app.use("/action", actionRoutes)
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

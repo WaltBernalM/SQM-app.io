@@ -1,26 +1,32 @@
-// const express = require("express")
-// const reportRouter = express.Router()
-// const {
-//   getCreateReport,
-//   postCreateReport,
-//   getViewReport,
-//   getEditReport,
-//   postEditReport,
-// } = require("../controllers/report.controller")
+const express = require("express")
+const reportRouter = express.Router()
+const {
+  getReportDetails,
+  postReportUpdate,
+} = require("../controllers/report.controller")
 
-// const isLoggedIn = require("../middleware/isLoggedIn")
-// const isLoggedOut = require("../middleware/isLoggedOut")
-// const isMainUser = require("../middleware/isMainUser")
+const {
+  postCreateAction
+} = require("../controllers/action.controller")
 
-// /* Create  Report */
-// reportRouter.get("/create", isLoggedIn, isMainUser, getCreateReport)
-// reportRouter.post("/create", isMainUser, postCreateReport)
+const isLoggedIn = require("../middleware/isLoggedIn")
+const isLoggedOut = require("../middleware/isLoggedOut")
+const isMainUser = require("../middleware/isMainUser")
+const isUser = require("../middleware/isUser")
+const logStatus = require("../middleware/logStatus")
 
-// /* View Report */
-// reportRouter.get("/:reportId", isLoggedIn, isMainUser, getViewReport)
+/* View Report details */
+reportRouter.get(`/:reportId/details`, isLoggedIn, logStatus, getReportDetails)
 
-// /* Edit Report */
-// reportRouter.get(`/edit/:reportId`, isLoggedIn, isMainUser, getEditReport)
-// reportRouter.post(`/edit/:reportId`, isLoggedIn, isMainUser, postEditReport)
+reportRouter.post(`/:reportId/update`, isLoggedIn, isUser, postReportUpdate)
 
-// module.exports = reportRouter
+// Action Routes from Report
+reportRouter.post(
+  `/:reportId/action/create`,
+  isLoggedIn,
+  isUser,
+  postCreateAction
+)
+
+
+module.exports = reportRouter
