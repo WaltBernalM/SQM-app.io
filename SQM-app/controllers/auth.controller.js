@@ -6,8 +6,10 @@ const Complaint = require("../models/Complaint.model")
 const Report = require("../models/Report.model")
 const Main = require("../models/Main.model")
 
-// GET
+/* Get Sign up */
 const getSignup = (req, res) => res.render("auth/signup")
+
+/* Post Sign up*/
 const postSignup = async (req, res, next) => {
   const { username, email, password, confirmPassword, org } = req.body
 
@@ -34,20 +36,6 @@ const postSignup = async (req, res, next) => {
       })
     }
 
-    // email format validation
-    // const userFound = await User.findOne({ email })
-    // if (userFound) {
-    // 	return res.render("auth/signup", { errorMessage: "email already registered" })
-    // }
-
-    // passwor safety validation
-    // const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/
-    // if (!regex.test(password)) {
-    // 	return res.status(400).render("auth/signup", {
-    // 		errorMessage: "Password must contain 1 special character, 1 uppercased letter, 1 digit, and larger than 7 characters"
-    // 	})
-    // }
-
     const salt = bcrypt.genSaltSync(12)
     const encryptedPass = bcrypt.hashSync(password, salt)
     const mainUserCreated = await MainUser.create({
@@ -73,12 +61,9 @@ const postSignup = async (req, res, next) => {
   }
 }
 
-/**
- * profile
- */
+/* profile */
 const getProfile = async (req, res, next) => {
   try {
-    // console.log(req.session.currentUser)
     const { main: isMain } = req.session.currentUser
 
     if (isMain) {
@@ -107,21 +92,17 @@ const getProfile = async (req, res, next) => {
         allComplaints
       })
     }
-    
   } catch (error) {
     next(error)
   }
 }
 
-/**
- * Login
- */
-
+/* Login */
 const getLogin = (req, res) => {
   res.render("auth/login")
 }
 
-//login for User and MainUser
+/* login for User and MainUser */
 const postLogin = async (req, res, next) => {
   const { email, password } = req.body
 
@@ -277,7 +258,6 @@ const postUpdateUser = async (req, res, next) => {
 const postDeleteUser = async (req, res, next) => { 
   try {
     const { userId } = req.params
-    
     const deletedUser = await User.findByIdAndDelete(userId)
     
     const deletedInComplaints = await Complaint.updateMany(
