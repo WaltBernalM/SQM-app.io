@@ -17,7 +17,7 @@ const postCreateAction = async (req, res, next) => {
     } = req.body
 
     // Security check for missing fields
-    if (!ownerName || !dueDate) { 
+    if (!ownerName || !dateToConvert || !content) { 
       return res.redirect(`/report/${reportId}/details`)
     }
     
@@ -76,7 +76,7 @@ const postActionUpdate = async (req, res, next) => {
 const postActionDelete = async (req, res, next) => {
   try {
     const { actionId } = req.params
-    const actionDeleted = await Action.findById(actionId)
+    const actionDeleted = await Action.findByIdAndDelete(actionId)
     const report = await Report.findById(actionDeleted?.reportId)
 
     report.actionsD3.pull(actionDeleted)

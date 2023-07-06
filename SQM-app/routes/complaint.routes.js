@@ -4,7 +4,8 @@ const {
   getCreateComplaint,
   postCreateComplaint,
   getDetailsComplaint,
-  postUpdateComplaint
+  postUpdateComplaint,
+  postDeleteComplaint
 } = require("../controllers/complaint.controller")
 
 
@@ -24,5 +25,8 @@ complaintRouter.get('/:complaintId/details', logStatus, isLoggedIn, getDetailsCo
 
 /* Update */
 complaintRouter.post('/:complaintId/update', fileUploader.single('problemImg'), postUpdateComplaint)
+
+/* Delete */
+complaintRouter.post('/:complaintId/delete', postDeleteComplaint)
 
 module.exports = complaintRouter

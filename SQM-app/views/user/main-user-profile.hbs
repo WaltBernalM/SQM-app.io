@@ -62,7 +62,7 @@
               {{!-- Modal POST to delete Complaint and all related data to it--}}
               <div class="modal fade" id="deleteComplaint{{_id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog form-section">
-                  <form class="modal-content bg-dark" action="/auth/delete-user/{{_id}}" method="POST">
+                  <form class="modal-content bg-dark" action="/complaint/{{_id}}/delete" method="POST">
                     <div class="modal-header">
                       <h1 class="modal-title fs-5 text-danger fw-bold" id="staticBackdropLabel">Are you sure?</h1>
                     </div>      
@@ -98,8 +98,8 @@
         <tbody>
           {{#each allComplaints}}
           <tr>
-            <td><a class="btn btn-outline-primary"href="/report/{{_id}}/details">{{_id}}</a></td>
-            <td><a href="/report/{{report._id}}/details">{{report._id}}</a></td>
+            <td><a class="btn btn-outline-primary" href="/report/{{_id}}/details">{{_id}}</a></td>
+            <td><a class="btn btn-outline-info" href="/report/{{report._id}}/details">{{report._id}}</a></td>
             <td class="date-type">{{report.createdAt}}</td>
             <td>
               {{#if report.approval}}

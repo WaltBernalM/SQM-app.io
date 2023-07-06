@@ -1,6 +1,7 @@
 // @ts-nocheck
 const User = require("../models/User.model")
 const Main = require("../models/Main.model")
+const Action = require("../models/Action.model")
 const Complaint = require("../models/Complaint.model")
 const Report = require("../models/Report.model")
 const mongoose = require("mongoose")
@@ -148,8 +149,6 @@ const getDetailsComplaint = async (req, res, next) => {
 }
 
 const postUpdateComplaint = async (req, res, next) => { 
-  console.log('req:', req.file)
-
   const { _id: mainId } = req.session.currentUser
   const { complaintId } = req.params
   const { userId, partNumber, batch, quantity, problemDesc, problemDate, existingProblemImg } = req.body
@@ -233,9 +232,42 @@ const postUpdateComplaint = async (req, res, next) => {
   }
 }
 
+const postDeleteComplaint = async (req, res, next) => { 
+  try {
+    const { _id: mainId } = req.session.currentUser
+    const { complaintId } = req.params
+
+    // Deletion of Complaint
+    const complaintDeleted = await Complaint.findByIdAndDelete(complaintId)
+    console.log("complaint deleted: ", complaintDeleted._id)
+    
+    // Deletion of Complaint from Main's complaints Array
+    const main = await Main.findById(mainId)
+    main.complaints.pull(complaintDeleted)
+    await main.save()
+
+    // Deletion of Report related to Complaint
+    const relatedReportDeleted = await Report.findByIdAndDelete(complaintDeleted.report)
+    console.log("report deleted: ", relatedReportDeleted._id)
+
+    // Deletion of Actions related to Report
+    const { actionsD3, actionsD5D6, actionsD7 } = relatedReportDeleted
+    const allActionsId = [...actionsD3, ...actionsD5D6, ...actionsD7]
+    for (const actionId of allActionsId) {
+      const deletedAction = await Action.findByIdAndDelete(actionId)
+      console.log("action deleted: ", deletedAction._id)
+    }
+
+    res.redirect("/auth/profile")
+  } catch (error) {
+    next(error)
+  }
+}
+
 module.exports = {
   getCreateComplaint,
   postCreateComplaint,
   getDetailsComplaint,
-  postUpdateComplaint
+  postUpdateComplaint,
+  postDeleteComplaint
 }
