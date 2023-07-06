@@ -91,6 +91,7 @@
           <tr>
             <th scope="col">Complaint ID</th>
             <th scope="col">Report ID</th>
+            <th scope="col">Part Number</th>
             <th scope="col">Creation date</th>
             <th scope="col">Approval</th>
           </tr>
@@ -99,7 +100,12 @@
           {{#each allComplaints}}
           <tr>
             <td><a class="btn btn-outline-primary" href="/report/{{_id}}/details">{{_id}}</a></td>
-            <td><a class="btn btn-outline-info" href="/report/{{report._id}}/details">{{report._id}}</a></td>
+            <td>
+              <a class="btn btn-outline-info" href="/report/{{report._id}}/details">
+              {{report._id}}
+              </a>
+            </td>
+            <td>{{partNumber}}</td>
             <td class="date-type">{{report.createdAt}}</td>
             <td>
               {{#if report.approval}}
