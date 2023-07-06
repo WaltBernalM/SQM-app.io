@@ -15,5 +15,11 @@ window.addEventListener('load', () => {
 
   // setup dates for the table in profile
   const dates = document.querySelectorAll('.date-type')
-  dates.forEach(date => date.innerHTML = date.innerHTML.slice(4, 15))
+  dates.forEach(date => {
+    const utcDate = new Date(date.innerHTML).toString()
+    date.innerHTML = utcDate.slice(4, 15)
+  })
+
+  // Setup for date in New Action form
+  document.querySelector('#dueDate')?.setAttribute('min', fullDate)
 })

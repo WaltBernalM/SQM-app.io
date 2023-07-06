@@ -44,19 +44,25 @@
         <tbody>
           {{#each allComplaints}}
           <tr>
-            <td><a href="/complaint/{{_id}}/details">{{_id}}</a></td>
-            <td><a href="/report/{{report._id}}/details">{{report._id}}</a></td>
+            <td><a class="btn btn-outline-primary"href="/complaint/{{_id}}/details">{{_id}}</a></td>
+            <td><a class="btn btn-outline-info" href="/report/{{report._id}}/details">{{report._id}}</a></td>
             <td>{{partNumber}}</td>
             <td>{{userId.org}}</td>
             <td class="date-type">{{createdAt}}</td>
-            <td>{{report.approval}}</td>
+            <td>
+              {{#if report.approval}}
+              Approved
+              {{else}}
+              On-going
+              {{/if}}
+            </td>
             <td>
               {{!-- Modal button to POST delete Compalint --}}
               <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteComplaint{{_id}}">Delete</button>
               {{!-- Modal POST to delete Complaint and all related data to it--}}
               <div class="modal fade" id="deleteComplaint{{_id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog form-section">
-                  <form class="modal-content bg-dark" action="/auth/delete-user/{{_id}}" method="POST">
+                  <form class="modal-content bg-dark" action="/complaint/{{_id}}/delete" method="POST">
                     <div class="modal-header">
                       <h1 class="modal-title fs-5 text-danger fw-bold" id="staticBackdropLabel">Are you sure?</h1>
                     </div>      
@@ -85,6 +91,7 @@
           <tr>
             <th scope="col">Complaint ID</th>
             <th scope="col">Report ID</th>
+            <th scope="col">Part Number</th>
             <th scope="col">Creation date</th>
             <th scope="col">Approval</th>
           </tr>
@@ -92,10 +99,21 @@
         <tbody>
           {{#each allComplaints}}
           <tr>
-            <td><a href="/complaint/{{_id}}/details">{{_id}}</a></td>
-            <td><a href="/report/{{report._id}}/details">{{report._id}}</a></td>
-            <td class="date-type">{{createdAt}}</td>
-            <td>{{report.approval}}</td>
+            <td><a class="btn btn-outline-primary" href="/report/{{_id}}/details">{{_id}}</a></td>
+            <td>
+              <a class="btn btn-outline-info" href="/report/{{report._id}}/details">
+              {{report._id}}
+              </a>
+            </td>
+            <td>{{partNumber}}</td>
+            <td class="date-type">{{report.createdAt}}</td>
+            <td>
+              {{#if report.approval}}
+              Approved
+              {{else}}
+              On-going
+              {{/if}}
+            </td>
           </tr>
           {{/each}}
         </tbody>

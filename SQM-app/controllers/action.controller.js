@@ -1,3 +1,4 @@
+// @ts-nocheck
 const User = require("../models/User.model")
 const Main = require("../models/Main.model")
 const Complaint = require("../models/Complaint.model")
@@ -14,11 +15,15 @@ const postCreateAction = async (req, res, next) => {
       ownerName,
       dueDate: dateToConvert,
     } = req.body
+
+    // Security check for missing fields
+    if (!ownerName || !dateToConvert || !content) { 
+      return res.redirect(`/report/${reportId}/details`)
+    }
     
     const dueDate = new Date(dateToConvert)
     const actionCreated = await Action.create({ content, ownerName, dueDate, reportId })
 
-    console.log(destination)
     let reportUpdated
     if (destination === "d3") {
       reportUpdated = await Report.findByIdAndUpdate(
@@ -68,8 +73,21 @@ const postActionUpdate = async (req, res, next) => {
 
 }
 
-const postActionDelete = async (req, res, next) => { 
+const postActionDelete = async (req, res, next) => {
+  try {
+    const { actionId } = req.params
+    const actionDeleted = await Action.findByIdAndDelete(actionId)
+    const report = await Report.findById(actionDeleted?.reportId)
 
-}
+    report.actionsD3.pull(actionDeleted)
+    report.actionsD5D6.pull(actionDeleted)
+    report.actionsD7.pull(actionDeleted)
+    await report.save()
+
+    res.redirect(`/report/${report._id}/details`)
+  } catch (error) {
+    next(error)
+  }
+};
 
 module.exports = { postCreateAction, postActionUpdate, postActionDelete}

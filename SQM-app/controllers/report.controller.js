@@ -1,21 +1,17 @@
-// @ts-ignore
+// @ts-nocheck
+
 const User = require("../models/User.model")
-// @ts-ignore
 const Main = require("../models/Main.model")
-// @ts-ignore
 const Complaint = require("../models/Complaint.model")
 const Report = require("../models/Report.model")
-// @ts-ignore
 const mongoose = require("mongoose")
+const { report } = require("../app")
 
 const getReportDetails = async (req, res, next) => {
-  const { main: isMain } = req.session.currentUser
-
-  if (!isMain) {
-    const { _id: userId } = req.session.currentUser
+  try {
     const { reportId } = req.params
 
-    const complaint = await Complaint.find({ report: reportId }).populate({
+    const complaint = await Complaint.findOne({ report: reportId }).populate({
       path: "report",
       populate: [
         { path: "actionsD3" },
@@ -24,60 +20,201 @@ const getReportDetails = async (req, res, next) => {
       ],
     })
 
-    const { report } = complaint[0]
-
-    // @ts-ignore
-    const { d3, actionsD3, d4, d5d6, actionsD5D6, d7, actionsD7, approval } =
-      report
-    const {
-      teamMembers,
-      w5h2,
-      attachments: d3Attachments,
-      approval: d3Approval,
-    } = d3
-    const {
-      whyDet,
-      whyOcc,
-      rootCauseDet,
-      rootCauseOcc,
-      attachments: d4Attachments,
-      approval: d4Approval,
-    } = d4
-    const { attachments: d4d5Attachments, d5d6approval: d5d6Approval } = d5d6
-    const { attachments: d7Attachments, d5d6approval: d7Approval } = d7
+    const { report } = complaint
 
     res.render("report/report", {
       userInSession: req.session.currentUser,
       report,
-      reportId,
+      complaint,
     })
-  } else {
-    
+  } catch (error) {
+    next(error)
   }
 }
 
 const postReportUpdate = async (req, res, next) => {
-  const { reportId } = req.params
+  try {
+    const { reportId } = req.params
+    const report = await Report.findById(reportId)
 
-  // d3 update values
-  const { member0, member1, member2, member3, w0, w1, w2, w3, w4, w5, w6, attachment } = req.body
+    // d3 update values
+    let {
+      member0,
+      member1,
+      member2,
+      member3,
+      w0,
+      w1,
+      w2,
+      w3,
+      w4,
+      w5,
+      w6,
+      d3Attachment,
+    } = req.body
+    if (report.d3.teamMembers[0] !== null && !member0)
+      member0 = report.d3.teamMembers[0]
+    if (report.d3.teamMembers[1] !== null && !member1)
+      member1 = report.d3.teamMembers[1]
+    if (report.d3.teamMembers[2] !== null && !member2)
+      member2 = report.d3.teamMembers[2]
+    if (report.d3.teamMembers[3] !== null && !member3)
+      member3 = report.d3.teamMembers[3]
+    let teamMembers = Array(member0, member1, member2, member3)
 
-  const teamMembers = Array(member0, member1, member2, member3)
-  const w5h2 = Array(w0, w1, w2, w3, w4, w5, w6)
+    if (report.d3.w5h2[0] !== null && !w0) w0 = report.d3.w5h2[0]
+    if (report.d3.w5h2[1] !== null && !w1) w1 = report.d3.w5h2[1]
+    if (report.d3.w5h2[2] !== null && !w2) w2 = report.d3.w5h2[2]
+    if (report.d3.w5h2[3] !== null && !w3) w3 = report.d3.w5h2[3]
+    if (report.d3.w5h2[4] !== null && !w4) w4 = report.d3.w5h2[4]
+    if (report.d3.w5h2[5] !== null && !w5) w5 = report.d3.w5h2[5]
+    if (report.d3.w5h2[6] !== null && !w6) w6 = report.d3.w5h2[6]
+    let w5h2 = Array(w0, w1, w2, w3, w4, w5, w6)
 
-  const updatedReport = await Report.findByIdAndUpdate(reportId, {
-      'd3.teamMembers': teamMembers,
-      'd3.w5h2': w5h2,
-    },
-    { new: true }
-  )
+    if (!member0 || !member1 || !member2 || !member3 || !w0 || !w1 || !w2 || !w3 || !w4 || !w5 || !w6) {
+      return res.redirect(`/report/${reportId}/details`)
+    }
 
-  console.log(updatedReport)
+    if (report.d3.attachment != null && !d3Attachment) d3Attachment = report.d3.attachment
 
-  res.redirect(`/report/${reportId}/details`)
+    // d4 update values
+    let {
+      whyDet0,
+      whyOcc0,
+      whyDet1,
+      whyOcc1,
+      whyDet2,
+      whyOcc2,
+      whyDet3,
+      whyOcc3,
+      whyDet4,
+      whyOcc4,
+      rootCauseDet,
+      rootCauseOcc,
+      d4Attachment,
+    } = req.body
+
+    if (report.d4.whyDet[0] !== null && !whyDet0)
+      whyDet0 = report.d4.whyDet[0]
+    if (report.d4.whyDet[1] !== null && !whyDet1)
+      whyDet1 = report.d4.whyDet[1]
+    if (report.d4.whyDet[2] !== null && !whyDet2)
+      whyDet2 = report.d4.whyDet[2]
+    if (report.d4.whyDet[3] !== null && !whyDet3)
+      whyDet3 = report.d4.whyDet[3]
+    if (report.d4.whyDet[4] !== null && !whyDet4)
+      whyDet4 = report.d4.whyDet[4]
+    let whyDet = Array(whyDet0, whyDet1, whyDet2, whyDet3, whyDet4)
+
+    if (report.d4.whyOcc[0] !== null && !whyOcc0)
+      whyOcc0 = report.d4.whyOcc[0]
+    if (report.d4.whyOcc[1] !== null && !whyOcc1)
+      whyOcc1 = report.d4.whyOcc[1]
+    if (report.d4.whyOcc[2] !== null && !whyOcc2)
+      whyOcc2 = report.d4.whyOcc[2]
+    if (report.d4.whyOcc[3] !== null && !whyOcc3)
+      whyOcc3 = report.d4.whyOcc[3]
+    if (report.d4.whyOcc[4] !== null && !whyOcc4)
+      whyOcc4 = report.d4.whyOcc[4]
+    let whyOcc = Array(whyOcc0, whyOcc1, whyOcc2, whyOcc3, whyOcc4)
+
+    if (report.d4.rootCauseDet != null && !rootCauseDet)
+      rootCauseDet = report.d4.rootCauseDet
+    if (report.d4.rootCauseOcc != null && !rootCauseOcc)
+      rootCauseOcc = report.d4.rootCauseOcc
+
+    if (report.d4.attachment != null && !d4Attachment)
+      d4Attachment = report.d4.attachment
+    
+    if (!whyDet0 || !whyDet1 || !whyDet2 || !whyOcc0 || !whyOcc1 || !whyOcc2 || !rootCauseDet || !rootCauseOcc) {
+      return res.redirect(`/report/${reportId}/details`)
+    }
+
+    // d5d6 values
+    let { d5d6Attachment } = req.body
+    if (report.d5d6.attachment != null && !d5d6Attachment)
+      d5d6Attachment = report.d5d6.attachment
+
+    // d7 values
+    let { d7Attachment } = req.body
+    if (report.d7.attachment != null && !d7Attachment)
+      d7Attachment = report.d7.attachment
+
+    // Update of Report
+    const updatedReport = await Report.findByIdAndUpdate(
+      reportId,
+      {
+        "d3.teamMembers": teamMembers,
+        "d3.w5h2": w5h2,
+        "d3.attachment": d3Attachment,
+        "d4.whyDet": whyDet,
+        "d4.whyOcc": whyOcc,
+        "d4.rootCauseDet": rootCauseDet,
+        "d4.rootCauseOcc": rootCauseOcc,
+        "d4.attachment": d4Attachment,
+        "d5d6.attachment": d5d6Attachment,
+        "d7.attachment": d7Attachment,
+      },
+      { new: true }
+    )
+
+    console.log(
+      `D${req.body.submissionD} was updated at ${updatedReport?.updatedAt}`
+    )
+
+    res.redirect(`/report/${reportId}/details`)
+  } catch (error) {
+    next(error)
+  }
+}
+
+const postApproveReport = async (req, res, next) => { 
+  try {
+    const { approveD } = req.body
+    const { reportId } = req.params
+
+    const reportFound = await Report.findById(reportId)
+    let reportFullApproval = reportFound.approval
+
+    const { d3, d4, d5d6, d7 } = reportFound
+    let d3Approval = d3.approval,
+      d4Approval = d4.approval,
+      d5d6Approval = d5d6.approval,
+      d7Approval = d7.approval
+
+    if (approveD === "3") d3Approval === false ? (d3Approval = true) : (d3Approval = false)
+    if (approveD === "4") d4Approval === false ? (d4Approval = true) : (d4Approval = false)
+    if (approveD === "5") d5d6Approval === false ? (d5d6Approval = true) : (d5d6Approval = false)
+    if (approveD === "7") d7Approval === false ? (d7Approval = true) : (d7Approval = false)
+
+    if (d3Approval && d4Approval && d5d6Approval && d7Approval) {
+      reportFullApproval = true
+    } else {
+      reportFullApproval = false
+    }
+
+    console.log('report Full approval: ', reportFullApproval)
+
+    const partialApprovedReport = await Report.findByIdAndUpdate(
+      reportId,
+      {
+        "d3.approval": d3Approval,
+        "d4.approval": d4Approval,
+        "d5d6.approval": d5d6Approval,
+        "d7.approval": d7Approval,
+        "approval": reportFullApproval
+      },
+      { new: true }
+    )
+
+    res.redirect(`/report/${reportId}/details`)
+  } catch (error) {
+    next(error)
+  }
 }
 
 module.exports = {
   getReportDetails,
   postReportUpdate,
+  postApproveReport
 }
