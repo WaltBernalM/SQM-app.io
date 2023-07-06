@@ -1,7 +1,6 @@
 <div class="wrapper">
   <section class="form-section">
-		
-    <form action="/complaint/create" method="post" enctype="multipart/form-data">
+    <form action="/complaint/{{complaint._id}}/update" method="post" enctype="multipart/form-data">
       {{#if errorMessage}}
 				<p class="error-message">{{errorMessage}}</p>
 			{{/if}}
@@ -9,6 +8,10 @@
 			<div class="form-group">
 				<label class="form-label" for="userId"> Supplier: </label>
 				<select name="userId" class="form-control" id="">
+          {{#with complaint}}
+          <option value="{{userId._id}}" selected>{{userId.org}}</option>
+          {{/with}}
+
 					{{#each allSuppliers}}
 						<option value="{{_id}}">{{org}}</option>
 					{{/each}}
@@ -25,6 +28,7 @@
 					type="text"
 					required="required"
 					name="partNumber"
+          value="{{complaint.partNumber}}"
 				/>
 			</div>
 
@@ -37,6 +41,7 @@
 					type="text"
 					required="required"
 					name="batch"
+          value="{{complaint.batch}}"
 				/>
 			</div>
 
@@ -49,7 +54,8 @@
 					type="number"
 					required="required"
 					name="quantity"
-          min="0"
+          min="1"
+          value="{{complaint.quantity}}"
 				/>
 			</div>
 
@@ -64,7 +70,7 @@
 					name="problemDesc"
           cols="40"
           rows="3"
-				></textarea>
+				>{{complaint.problemDesc}}</textarea>
 			</div>
 
 			<div class="form-group">
@@ -72,28 +78,44 @@
 				<input 
 					class="form-control"
 					id="problemDateForm"
-					type="date" 
+					type="date"
 					required="required"
 					name="problemDate"
 					max=""
+          value="{{configuredDate}}"
 				>
 			</div>
 
 			<div class="form-group">
-				<label class="form-label" for="problemImg">Problem image: </label>
+				<label class="form-label" for="problemImg">Problem images: </label>
+				<input type="text" name="existingProblemImg" hidden value="{{complaint.problemImg}}">
 				<input 
 					class="form-control-file" 
 					id="problemImg" 
-					placeholder="" 
+					placeholder=""
 					type="file"
+          {{#unless complaint.problemImg}}
 					required="required"
+          {{/unless}}
 					name="problemImg"
-          accept=".gif, .jpg, .jpeg, .png," 
+          accept=".gif, .jpg, .jpeg, .png,"
 				/>
 			</div>
 
+      {{#if complaint.problemImg}}
+      <div class="container mb-2 d-flex flex-column">
+				<p>There's an image previously uploaded</p>
+				<img src="{{complaint.problemImg}}" alt="" width="50px" class="mb-3">
+        <a href="{{complaint.problemImg}}" class="btn btn-outline-primary" download>
+          See full Image
+        </a>
+      </div>
+      {{/if}}
+
 			<div>
-				<button class="pet-form-button" type="submit">Submit</button>
+				{{#if allSuppliers}}
+				<button class="pet-form-button" type="submit">Save</button>
+				{{/if}}
 			</div>
     </form>
   </section>

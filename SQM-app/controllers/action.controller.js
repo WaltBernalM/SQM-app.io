@@ -15,11 +15,15 @@ const postCreateAction = async (req, res, next) => {
       ownerName,
       dueDate: dateToConvert,
     } = req.body
+
+    // Security check for missing fields
+    if (!ownerName || !dueDate) { 
+      return res.redirect(`/report/${reportId}/details`)
+    }
     
     const dueDate = new Date(dateToConvert)
     const actionCreated = await Action.create({ content, ownerName, dueDate, reportId })
 
-    console.log(destination)
     let reportUpdated
     if (destination === "d3") {
       reportUpdated = await Report.findByIdAndUpdate(

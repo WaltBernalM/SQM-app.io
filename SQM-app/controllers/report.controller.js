@@ -71,8 +71,11 @@ const postReportUpdate = async (req, res, next) => {
     if (report.d3.w5h2[6] !== null && !w6) w6 = report.d3.w5h2[6]
     let w5h2 = Array(w0, w1, w2, w3, w4, w5, w6)
 
-    if (report.d3.attachment != null && !d3Attachment)
-      d3Attachment = report.d3.attachment
+    if (!member0 || !member1 || !member2 || !member3 || !w0 || !w1 || !w2 || !w3 || !w4 || !w5 || !w6) {
+      return res.redirect(`/report/${reportId}/details`)
+    }
+
+    if (report.d3.attachment != null && !d3Attachment) d3Attachment = report.d3.attachment
 
     // d4 update values
     let {
@@ -122,6 +125,10 @@ const postReportUpdate = async (req, res, next) => {
 
     if (report.d4.attachment != null && !d4Attachment)
       d4Attachment = report.d4.attachment
+    
+    if (!whyDet0 || !whyDet1 || !whyDet2 || !whyOcc0 || !whyOcc1 || !whyOcc2 || !rootCauseDet || !rootCauseOcc) {
+      return res.redirect(`/report/${reportId}/details`)
+    }
 
     // d5d6 values
     let { d5d6Attachment } = req.body

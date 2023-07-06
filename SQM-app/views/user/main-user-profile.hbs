@@ -44,12 +44,18 @@
         <tbody>
           {{#each allComplaints}}
           <tr>
-            <td><a href="/complaint/{{_id}}/details">{{_id}}</a></td>
-            <td><a href="/report/{{report._id}}/details">{{report._id}}</a></td>
+            <td><a class="btn btn-outline-primary"href="/complaint/{{_id}}/details">{{_id}}</a></td>
+            <td><a class="btn btn-outline-info" href="/report/{{report._id}}/details">{{report._id}}</a></td>
             <td>{{partNumber}}</td>
             <td>{{userId.org}}</td>
             <td class="date-type">{{createdAt}}</td>
-            <td>{{report.approval}}</td>
+            <td>
+              {{#if report.approval}}
+              Approved
+              {{else}}
+              On-going
+              {{/if}}
+            </td>
             <td>
               {{!-- Modal button to POST delete Compalint --}}
               <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteComplaint{{_id}}">Delete</button>
@@ -92,10 +98,16 @@
         <tbody>
           {{#each allComplaints}}
           <tr>
-            <td><a href="/complaint/{{_id}}/details">{{_id}}</a></td>
+            <td><a class="btn btn-outline-primary"href="/report/{{_id}}/details">{{_id}}</a></td>
             <td><a href="/report/{{report._id}}/details">{{report._id}}</a></td>
-            <td class="date-type">{{createdAt}}</td>
-            <td>{{report.approval}}</td>
+            <td class="date-type">{{report.createdAt}}</td>
+            <td>
+              {{#if report.approval}}
+              Approved
+              {{else}}
+              On-going
+              {{/if}}
+            </td>
           </tr>
           {{/each}}
         </tbody>
