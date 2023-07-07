@@ -1,12 +1,12 @@
 // @ts-nocheck
-
-const User = require("../models/User.model")
-const Main = require("../models/Main.model")
+// const User = require("../models/User.model")
+// const Main = require("../models/Main.model")
+// const mongoose = require("mongoose")
+// const { report } = require("../app")
+// const { Binary } = require("bson")
 const Complaint = require("../models/Complaint.model")
 const Report = require("../models/Report.model")
-const mongoose = require("mongoose")
-const { report } = require("../app")
-const { Binary } = require("bson")
+const getContentType = require("../utils/getContentType")
 
 const getReportDetails = async (req, res, next) => {
   try {
@@ -124,10 +124,10 @@ const postReportUpdate = async (req, res, next) => {
     //   return res.redirect(`/report/${reportId}/details`)
     // }
 
-
     // Attachment upload
     let d3Attachment = null, d4Attachment = null, d5d6Attachment = null, d7Attachment = null
     if (req.files) {
+      console.log(req.files)
       if (req.files.d3Attachment) {
         const d3File = req.files.d3Attachment[0];
         d3Attachment = {
@@ -251,8 +251,50 @@ const postApproveReport = async (req, res, next) => {
   }
 }
 
+const getDownloadAttachment = async (req, res, next) => { 
+  try {
+    const { reportId, attachmentName } = req.params
+
+    const report = await Report.findById(reportId)
+
+    let attachmentData, attachmentFileName
+    if (attachmentName === "d3" && report.d3.attachment) {
+      attachmentData = report.d3.attachment.data
+      attachmentFileName = report.d3.attachment.filename
+    }
+    if (attachmentName === "d4" && report.d4.attachment) {
+      attachmentData = report.d4.attachment.data
+      attachmentFileName = report.d4.attachment.filename
+    }
+    if (attachmentName === "d5d6" && report.d5d6.attachment) {
+      attachmentData = report.d5d6.attachment.data
+      attachmentFileName = report.d5d6.attachment.filename
+    }
+    if (attachmentName === "d7" && report.d7.attachment) {
+      attachmentData = report.d7.attachment.data
+      attachmentFileName = report.d7.attachment.filename
+    }
+
+    if (attachmentData && attachmentFileName) {
+      const contentType = getContentType(attachmentFileName)
+
+      res.setHeader("Content-Type", contentType)
+      res.setHeader(
+        "Contet-disposition",
+        `attachment; filename=${attachmentFileName}`
+      )
+      res.send(attachmentData.buffer)
+    } else {
+      res.status(404).send("Attachment not found")
+    }
+  } catch (error) {
+    next(error)
+  }
+}
+
 module.exports = {
   getReportDetails,
   postReportUpdate,
-  postApproveReport
+  postApproveReport,
+  getDownloadAttachment,
 }

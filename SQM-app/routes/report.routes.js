@@ -3,7 +3,8 @@ const reportRouter = express.Router()
 const {
   getReportDetails,
   postReportUpdate,
-  postApproveReport
+  postApproveReport,
+  getDownloadAttachment,
 } = require("../controllers/report.controller")
 
 const {
@@ -38,5 +39,11 @@ reportRouter.post(`/:reportId/action/create`, isLoggedIn, isUser, postCreateActi
 /* Post approve report by Main */
 reportRouter.post('/:reportId/approve', isLoggedIn, isMainUser, postApproveReport)
 
+/* Get attachment from Report */
+reportRouter.get(
+  `/:reportId/attachment/:attachmentName`,
+  isLoggedIn,
+  getDownloadAttachment
+)
 
 module.exports = reportRouter
