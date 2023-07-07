@@ -276,6 +276,7 @@ const getDownloadAttachment = async (req, res, next) => {
     }
 
     if (attachmentData && attachmentFileName) {
+      // Defines the content type to set in header attributes
       const contentType = getContentType(attachmentFileName)
 
       res.setHeader("Content-Type", contentType)
@@ -283,6 +284,8 @@ const getDownloadAttachment = async (req, res, next) => {
         "Contet-disposition",
         `attachment; filename=${attachmentFileName}`
       )
+      
+      // The data is in Binary so is needed to convert it to buffer
       res.send(attachmentData.buffer)
     } else {
       res.status(404).send("Attachment not found")
