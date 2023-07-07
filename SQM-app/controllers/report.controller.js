@@ -6,6 +6,7 @@ const Complaint = require("../models/Complaint.model")
 const Report = require("../models/Report.model")
 const mongoose = require("mongoose")
 const { report } = require("../app")
+const { Binary } = require("bson")
 
 const getReportDetails = async (req, res, next) => {
   try {
@@ -50,7 +51,6 @@ const postReportUpdate = async (req, res, next) => {
       w4,
       w5,
       w6,
-      d3Attachment,
     } = req.body
     if (report.d3.teamMembers[0] !== null && !member0)
       member0 = report.d3.teamMembers[0]
@@ -71,11 +71,9 @@ const postReportUpdate = async (req, res, next) => {
     if (report.d3.w5h2[6] !== null && !w6) w6 = report.d3.w5h2[6]
     let w5h2 = Array(w0, w1, w2, w3, w4, w5, w6)
 
-    if (!member0 || !member1 || !member2 || !member3 || !w0 || !w1 || !w2 || !w3 || !w4 || !w5 || !w6) {
-      return res.redirect(`/report/${reportId}/details`)
-    }
-
-    if (report.d3.attachment != null && !d3Attachment) d3Attachment = report.d3.attachment
+    // if (!member0 || !member1 || !member2 || !member3 || !w0 || !w1 || !w2 || !w3 || !w4 || !w5 || !w6) {
+    //   return res.redirect(`/report/${reportId}/details`)
+    // }
 
     // d4 update values
     let {
@@ -91,7 +89,6 @@ const postReportUpdate = async (req, res, next) => {
       whyOcc4,
       rootCauseDet,
       rootCauseOcc,
-      d4Attachment,
     } = req.body
 
     if (report.d4.whyDet[0] !== null && !whyDet0)
@@ -123,22 +120,63 @@ const postReportUpdate = async (req, res, next) => {
     if (report.d4.rootCauseOcc != null && !rootCauseOcc)
       rootCauseOcc = report.d4.rootCauseOcc
 
-    if (report.d4.attachment != null && !d4Attachment)
+    // if (!whyDet0 || !whyDet1 || !whyDet2 || !whyOcc0 || !whyOcc1 || !whyOcc2 || !rootCauseDet || !rootCauseOcc) {
+    //   return res.redirect(`/report/${reportId}/details`)
+    // }
+
+
+    // Attachment upload
+    let d3Attachment = null, d4Attachment = null, d5d6Attachment = null, d7Attachment = null
+    if (req.files) {
+      if (req.files.d3Attachment) {
+        const d3File = req.files.d3Attachment[0];
+        d3Attachment = {
+          filename: d3File.originalname,
+          data: d3File.buffer,
+        }
+        d3File.buffer = Buffer.alloc(0)
+      } else {
+        d3Attachment = report.d3.attachment
+      }
+
+      if (req.files.d4Attachment) {
+        const d4File = req.files.d4Attachment[0]
+        d4Attachment = {
+          filename: d4File.originalname,
+          data: d4File.buffer,
+        }
+        d4File.buffer = Buffer.alloc(0)
+      } else {
+        d4Attachment = report.d4.attachment
+      }
+      
+      if (req.files.d5d6Attachment) {
+        const d5d6File = req.files.d5d6Attachment[0]
+        d5d6Attachment = {
+          filename: d5d6File.originalname,
+          data: d5d6File.buffer,
+        }
+        d5d6File.buffer = Buffer.alloc(0)
+      } else {
+        d5d6Attachment = report.d5d6.attachment
+      }
+
+      if (req.files.d7Attachment) {
+        const d7File = req.files.d7Attachment[0]
+        d7Attachment = {
+          filename: d7File.originalname,
+          data: d7File.buffer,
+        }
+        d7File.buffer = Buffer.alloc(0)
+      } else {
+        d7Attachment = report.d7.attachment
+      } 
+    } else {
+      d3Attachment = report.d3.attachment
       d4Attachment = report.d4.attachment
-    
-    if (!whyDet0 || !whyDet1 || !whyDet2 || !whyOcc0 || !whyOcc1 || !whyOcc2 || !rootCauseDet || !rootCauseOcc) {
-      return res.redirect(`/report/${reportId}/details`)
-    }
-
-    // d5d6 values
-    let { d5d6Attachment } = req.body
-    if (report.d5d6.attachment != null && !d5d6Attachment)
       d5d6Attachment = report.d5d6.attachment
-
-    // d7 values
-    let { d7Attachment } = req.body
-    if (report.d7.attachment != null && !d7Attachment)
       d7Attachment = report.d7.attachment
+    }
 
     // Update of Report
     const updatedReport = await Report.findByIdAndUpdate(

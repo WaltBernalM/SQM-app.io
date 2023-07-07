@@ -2,7 +2,7 @@
   <div class="container-fluid main-table mt-2">
     <table id="table" class="table table-hover table-dark">
       <thead>
-        <h2>Issue reported by Customer with Id {{_id}}: </h2>
+        <h2>Complaint #{{_id}}: </h2>
         <tr>
           <th scope="col">Part Number</th>
           <th scope="col">Problem Description</th>
@@ -26,7 +26,7 @@
   </div>
 {{/with}}
 
-<h2>Report: {{_id}}</h2>
+<h2>Report #{{report._id}}:</h2>
 
 {{!--  D3 Content --}}
 <div class="form-section d-flex flex-column 
@@ -37,7 +37,7 @@ bg-rejected
 {{/if}}
 ">
   {{!-- D3 form --}}
-  <form action="http://localhost:3000/report/{{report._id}}/update" method="post" class="col-md-12 row">
+  <form action="http://localhost:3000/report/{{report._id}}/update" method="post" class="col-md-12 row" enctype="multipart/form-data">
       <input type="hidden" name="submissionD" value="3">
       
       {{!-- D1 --}}
@@ -211,10 +211,10 @@ bg-rejected
 
       {{!-- D3 attachment--}}
       <div class="form-group">
-        <label class="form-label" for="problemImg">D3 attachment: </label>
+        <label class="form-label" for="d3Attachment">D3 attachment: </label>
         {{#unless userInSession.main}}
         <input 
-          class="form-field" 
+          class="form-control-file" 
           id="d3Attachment" 
           placeholder="" 
           type="file"
@@ -224,9 +224,12 @@ bg-rejected
         {{/unless}}
         <div class="container bg-transparent">
           {{#if report.d3.attachment}}
-          <a href="{{report.d3.attachment}}" class="btn btn-outline-primary" download>
-            Download Attachment
-          </a>
+          <div class="container bg-transparent d-flex flex-column">
+            <p>D3 attachment available</p>
+            <a href="/report/{{report._id}}/attachment/d3" class="btn btn-outline-primary" download>
+              Download
+            </a>
+          </div>
           {{else}}
           <p>No attachment for D3 section</p>
           {{/if}}
@@ -381,7 +384,7 @@ bg-rejected
 {{/if}}
 ">
   {{!-- D4 form --}}
-  <form action="http://localhost:3000/report/{{report._id}}/update" method="post" class="col-md-12 row">
+  <form action="http://localhost:3000/report/{{report._id}}/update" method="post" class="col-md-12 row" enctype="multipart/form-data">
     <input type="hidden" name="submissionD" value="4">
     {{!-- 5 whys and Root Causes--}}
     <div class="form-group">
@@ -570,10 +573,10 @@ bg-rejected
 
     {{!-- D4 attachment--}}
     <div class="form-group">
-      <label class="form-label" for="problemImg">D4 attachment: </label>
+      <label class="form-label" for="d4Attachment">D4 attachment: </label>
       {{#unless userInSession.main}}
       <input 
-        class="form-field" 
+        class="form-control-file" 
         id="d4Attachment" 
         placeholder="" 
         type="file"
@@ -583,9 +586,12 @@ bg-rejected
       {{/unless}}
       <div class="container bg-transparent">
         {{#if report.d4.attachment}}
-        <a href="{{report.d4.attachment}}" class="btn btn-outline-primary" download>
-          Download Attachment
-        </a>
+        <div class="container bg-transparent d-flex flex-column">
+          <p>D4 attachment available</p>
+          <a href="/report/{{report._id}}/attachment/d4" class="btn btn-outline-primary" download>
+            Download
+          </a>
+        </div>
         {{else}}
         <p>No attachment for D4 section</p>
         {{/if}}
@@ -628,14 +634,14 @@ bg-rejected
 {{/if}}
 ">
   {{!-- D5 & D6 form --}}
-  <form action="http://localhost:3000/report/{{report._id}}/update" method="post" class="col-md-12 row">
+  <form action="http://localhost:3000/report/{{report._id}}/update" method="post" class="col-md-12 row" enctype="multipart/form-data">
     <input type="hidden" name="submissionD" value="5">
     {{!-- attachments--}}
     <div class="form-group">
-      <label class="form-label" for="problemImg">D5/D6 attachment: </label>
+      <label class="form-label" for="d5d6Attachment">D5/D6 attachment: </label>
       {{#unless userInSession.main}}
       <input 
-        class="form-field" 
+        class="form-control-file" 
         id="d5d6Attachment" 
         placeholder="" 
         type="file"
@@ -645,9 +651,12 @@ bg-rejected
       {{/unless}}
       <div class="container bg-transparent">
         {{#if report.d5d6.attachment}}
-        <a href="{{report.d5d6.attachment}}" class="btn btn-outline-primary" download>
-          Download Attachment
-        </a>
+        <div class="container bg-transparent d-flex flex-column">
+          <p>D5/D6 attachment available</p>
+          <a href="/report/{{report._id}}/attachment/d5d6" class="btn btn-outline-primary" download>
+            Download
+          </a>
+        </div>
         {{else}}
         <p>No attachment for D5/D6 section</p>
         {{/if}}
@@ -801,14 +810,14 @@ bg-rejected
 {{/if}}
 ">
   {{!-- D7 Attachments --}}
-  <form action="http://localhost:3000/report/{{report._id}}/update" method="post" class="col-md-12 row">
+  <form action="http://localhost:3000/report/{{report._id}}/update" method="post" class="col-md-12 row" enctype="multipart/form-data">
     <input type="hidden" name="submissionD" value="7">
     {{!-- attachments--}}
     <div class="form-group">
-      <label class="form-label" for="problemImg">D7 attachment: </label>
+      <label class="form-label" for="d7Attachment">D7 attachment: </label>
       {{#unless userInSession.main}}
       <input 
-        class="form-field" 
+        class="form-control-file" 
         id="d7Attachment" 
         placeholder="" 
         type="file"
@@ -818,9 +827,12 @@ bg-rejected
       {{/unless}}
       <div class="container bg-transparent">
         {{#if report.d7.attachment}}
-        <a href="{{report.d7.attachment}}" class="btn btn-outline-primary" download>
-          Download Attachment
-        </a>
+        <div class="container bg-transparent d-flex flex-column">
+          <p>D7 attachment available</p>
+          <a href="/report/{{report._id}}/attachment/d7" class="btn btn-outline-primary" download>
+            Download
+          </a>
+        </div>
         {{else}}
         <p>No attachment for D7 section</p>
         {{/if}}
