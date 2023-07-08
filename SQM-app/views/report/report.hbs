@@ -357,22 +357,22 @@ bg-rejected
   </div>
 
   {{!-- D3 Main approve --}}
+  {{#if userInSession.main}}
   <div class="form-section d-flex flex-column">
     <form action="http://localhost:3000/report/{{report._id}}/approve" method="post" class="col-md-12 row">
       <div class="form-group">
         <div class="container d-flex justify-content-center bg-transparent">
-        {{#if userInSession.main}}
           <input type="hidden" name="approveD" value="3">
           {{#if report.d3.approval}}
           <button id="approve-d3-btn" type="submit" class="btn btn-danger">Reject D3</button>
           {{else}}
           <button id="approve-d3-btn" type="submit" class="btn btn-success">Approve D3</button>
           {{/if}}
-        {{/if}}
         </div>
       </div>
     </form>
   </div>
+  {{/if}}
 </div>
 
 {{!-- D4 content --}}
@@ -607,22 +607,22 @@ bg-rejected
   </form>
 
   {{!-- D4 Main approve --}}
+  {{#if userInSession.main}}
   <div class="form-section d-flex flex-column">
     <form action="http://localhost:3000/report/{{report._id}}/approve" method="post" class="col-md-12 row">
       <div class="form-group">
         <div class="container d-flex justify-content-center bg-transparent">
-        {{#if userInSession.main}}
           <input type="hidden" name="approveD" value="4">
           {{#if report.d4.approval}}
           <button id="approve-d4-btn" type="submit" class="btn btn-danger">Reject D4</button>
           {{else}}
           <button id="approve-d4-btn" type="submit" class="btn btn-success">Approve D4</button>
           {{/if}}
-        {{/if}}
         </div>
       </div>
     </form>
   </div>
+  {{/if}}
 </div>
 
 {{!-- D5 & D6 content --}}
@@ -783,23 +783,24 @@ bg-rejected
   </div>
 
   {{!-- D5D6 Main approve --}}
+  {{#if userInSession.main}}
   <div class="form-section d-flex flex-column">
     <form action="http://localhost:3000/report/{{report._id}}/approve" method="post" class="col-md-12 row">
       <div class="form-group">
         <div class="container d-flex justify-content-center bg-transparent">
-        {{#if userInSession.main}}
           <input type="hidden" name="approveD" value="5">
           {{#if report.d5d6.approval}}
           <button id="approve-d5d6-btn" type="submit" class="btn btn-danger">Reject D5</button>
           {{else}}
           <button id="approve-d5d6-btn" type="submit" class="btn btn-success">Approve D5</button>
           {{/if}}
-        {{/if}}
         </div>
       </div>
     </form>
   </div>
+  {{/if}}
 </div>
+
 
 {{!-- D7 content --}}
 <div class="form-section d-flex flex-column
@@ -959,27 +960,27 @@ bg-rejected
   </div>
 
   {{!-- D7 Main approve --}}
+  {{#if userInSession.main}}
   <div class="form-section d-flex flex-column">
     <form action="http://localhost:3000/report/{{report._id}}/approve" method="post" class="col-md-12 row">
       <div class="form-group">
         <div class="container d-flex justify-content-center bg-transparent">
-        {{#if userInSession.main}}
           <input type="hidden" name="approveD" value="7">
           {{#if report.d7.approval}}
           <button id="approve-d7-btn" type="submit" class="btn btn-danger">Reject D7</button>
           {{else}}
           <button id="approve-d7-btn" type="submit" class="btn btn-success">Approve D7</button>
           {{/if}}
-        {{/if}}
         </div>
       </div>
     </form>
   </div>
+  {{/if}}
 </div>
 
 {{#unless userInSession.main}}
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAction">
+  <button id="create-action-btn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAction">
     + action
   </button>
 
