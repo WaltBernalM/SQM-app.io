@@ -376,6 +376,7 @@ bg-rejected
 </div>
 
 {{!-- D4 content --}}
+{{#if d4Step}}
 <div class="form-section d-flex flex-column
 {{#if report.d4.approval}}
 bg-approved
@@ -624,8 +625,11 @@ bg-rejected
   </div>
   {{/if}}
 </div>
+{{/if}}
 
 {{!-- D5 & D6 content --}}
+{{#if d4Step}}
+{{#if d5Step}}
 <div class="form-section d-flex flex-column
 {{#if report.d5d6.approval}}
 bg-approved
@@ -800,9 +804,13 @@ bg-rejected
   </div>
   {{/if}}
 </div>
-
+{{/if}}
+{{/if}}
 
 {{!-- D7 content --}}
+{{#if d4Step}}
+{{#if d5Step}}
+{{#if d7Step}}
 <div class="form-section d-flex flex-column
 {{#if report.d7.approval}}
 bg-approved
@@ -977,6 +985,9 @@ bg-rejected
   </div>
   {{/if}}
 </div>
+{{/if}}
+{{/if}}
+{{/if}}
 
 {{#unless userInSession.main}}
   <!-- Button trigger modal -->

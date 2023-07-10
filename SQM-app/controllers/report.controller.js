@@ -23,10 +23,45 @@ const getReportDetails = async (req, res, next) => {
 
     const { report } = complaint
 
+    const { d3, d4, actionsD3, actionsD5D6, actionsD7 } = report
+
+    const teamMembers = d3.teamMembers.reduce((acc, val) => {return acc + val}, '')
+    const w5h2 = d3.w5h2.reduce((acc, val) => {return acc + val}, '')
+    
+    const whyDet = d4.whyDet.reduce((acc, val) => {acc + val}, '')
+    const whyOcc = d4.whyOcc.reduce((acc, val) => {acc + val}, '')
+    const rootCauseDet = d4.rootCauseDet
+    const rootCauseOcc = d4.rootCauseOcc
+
+    let d3Step, d4Step, d5Step, d7Step, d8Step
+
+    if ((!teamMembers && !w5h2) || actionsD3.length < 1) {
+      d3Step = true
+    } else if (!whyDet && !whyOcc && !rootCauseDet && !rootCauseOcc) {
+      d3Step = true
+      d4Step = true
+    } else if (actionsD5D6.length < 1) { 
+      d3Step = true
+      d4Step = true
+      d5Step = true
+    } else if (actionsD7.length < 1) {
+      d3Step = true
+      d4Step = true
+      d5Step = true
+      d7Step = true
+    } else {
+      d3Step = true
+      d4Step = true
+      d5Step = true
+      d7Step = true
+      d8Step = true
+    }
+
     res.render("report/report", {
       userInSession: req.session.currentUser,
       report,
       complaint,
+      d3Step, d4Step, d5Step, d7Step
     })
   } catch (error) {
     next(error)
