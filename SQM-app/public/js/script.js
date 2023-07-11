@@ -1,3 +1,4 @@
+// @ts-nocheck
 // https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event
 document.addEventListener("DOMContentLoaded", () => {
   console.log("SQM-app JS imported successfully!");
@@ -20,6 +21,42 @@ window.addEventListener('load', () => {
     date.innerHTML = utcDate.slice(4, 15)
   })
 
+  // calculation of aging 
+  const complaints = document.querySelectorAll('.complaint')
+  complaints.forEach(complaint => {
+    const complaintStatus = complaint.querySelector(".status")?.innerText
+    let complaintAging = complaint.querySelector(".aging")?.innerText
+    const complaintLastUpdate = complaint.querySelector(".last-update")?.innerText
+
+    const startDate = new Date(complaintAging)
+    const lastUpdate = new Date(complaintLastUpdate)
+    const today = new Date()
+    let elapsedDays 
+
+    console.log(complaintStatus)
+
+    if (complaintStatus === "On-going") {
+      elapsedDays = ((today - startDate) / 1000 / 60 / 60 / 24).toFixed('')
+      complaint.querySelector(".aging").innerText = elapsedDays + " days"
+
+      if (elapsedDays > 21) {
+        complaint.querySelector(".aging").style.color = "orange"
+      } else if (elapsedDays > 14) {
+        complaint.querySelector('.aging').style.color = 'red'
+      } else {
+        complaint.querySelector(".aging").style.color = "green"
+      }
+
+    } else if (complaintStatus === "Closed") {
+      elapsedDays = ((lastUpdate - startDate) / 1000 / 60 / 60 / 24).toFixed('')
+      complaint.querySelector(".aging").innerText = elapsedDays + " days"
+    }
+  })
+
   // Setup for date in New Action form
   document.querySelector('#dueDate')?.setAttribute('min', fullDate)
 })
+
+const sectionUnlocker = () => {
+  
+}

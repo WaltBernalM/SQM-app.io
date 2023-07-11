@@ -2,7 +2,7 @@
   <div class="container-fluid main-table mt-2">
     <table id="table" class="table table-hover table-dark">
       <thead>
-        <h2>Issue reported by Customer with Id {{_id}}: </h2>
+        <h2>Complaint #{{_id}}: </h2>
         <tr>
           <th scope="col">Part Number</th>
           <th scope="col">Problem Description</th>
@@ -26,7 +26,7 @@
   </div>
 {{/with}}
 
-<h2>Report: {{_id}}</h2>
+<h2>Report #{{report._id}}:</h2>
 
 {{!--  D3 Content --}}
 <div class="form-section d-flex flex-column 
@@ -37,7 +37,7 @@ bg-rejected
 {{/if}}
 ">
   {{!-- D3 form --}}
-  <form action="http://localhost:3000/report/{{report._id}}/update" method="post" class="col-md-12 row">
+  <form action="http://localhost:3000/report/{{report._id}}/update" method="post" class="col-md-12 row" enctype="multipart/form-data">
       <input type="hidden" name="submissionD" value="3">
       
       {{!-- D1 --}}
@@ -211,10 +211,10 @@ bg-rejected
 
       {{!-- D3 attachment--}}
       <div class="form-group">
-        <label class="form-label" for="problemImg">D3 attachment: </label>
+        <label class="form-label" for="d3Attachment">D3 attachment: </label>
         {{#unless userInSession.main}}
         <input 
-          class="form-field" 
+          class="form-control-file" 
           id="d3Attachment" 
           placeholder="" 
           type="file"
@@ -224,9 +224,12 @@ bg-rejected
         {{/unless}}
         <div class="container bg-transparent">
           {{#if report.d3.attachment}}
-          <a href="{{report.d3.attachment}}" class="btn btn-outline-primary" download>
-            Download Attachment
-          </a>
+          <div class="container bg-transparent d-flex flex-column">
+            <p>D3 attachment available</p>
+            <a href="/report/{{report._id}}/attachment/d3" class="btn btn-outline-primary" download>
+              Download
+            </a>
+          </div>
           {{else}}
           <p>No attachment for D3 section</p>
           {{/if}}
@@ -354,25 +357,26 @@ bg-rejected
   </div>
 
   {{!-- D3 Main approve --}}
+  {{#if userInSession.main}}
   <div class="form-section d-flex flex-column">
     <form action="http://localhost:3000/report/{{report._id}}/approve" method="post" class="col-md-12 row">
       <div class="form-group">
         <div class="container d-flex justify-content-center bg-transparent">
-        {{#if userInSession.main}}
           <input type="hidden" name="approveD" value="3">
           {{#if report.d3.approval}}
           <button id="approve-d3-btn" type="submit" class="btn btn-danger">Reject D3</button>
           {{else}}
           <button id="approve-d3-btn" type="submit" class="btn btn-success">Approve D3</button>
           {{/if}}
-        {{/if}}
         </div>
       </div>
     </form>
   </div>
+  {{/if}}
 </div>
 
 {{!-- D4 content --}}
+{{#if d4Step}}
 <div class="form-section d-flex flex-column
 {{#if report.d4.approval}}
 bg-approved
@@ -381,7 +385,7 @@ bg-rejected
 {{/if}}
 ">
   {{!-- D4 form --}}
-  <form action="http://localhost:3000/report/{{report._id}}/update" method="post" class="col-md-12 row">
+  <form action="http://localhost:3000/report/{{report._id}}/update" method="post" class="col-md-12 row" enctype="multipart/form-data">
     <input type="hidden" name="submissionD" value="4">
     {{!-- 5 whys and Root Causes--}}
     <div class="form-group">
@@ -570,10 +574,10 @@ bg-rejected
 
     {{!-- D4 attachment--}}
     <div class="form-group">
-      <label class="form-label" for="problemImg">D4 attachment: </label>
+      <label class="form-label" for="d4Attachment">D4 attachment: </label>
       {{#unless userInSession.main}}
       <input 
-        class="form-field" 
+        class="form-control-file" 
         id="d4Attachment" 
         placeholder="" 
         type="file"
@@ -583,9 +587,12 @@ bg-rejected
       {{/unless}}
       <div class="container bg-transparent">
         {{#if report.d4.attachment}}
-        <a href="{{report.d4.attachment}}" class="btn btn-outline-primary" download>
-          Download Attachment
-        </a>
+        <div class="container bg-transparent d-flex flex-column">
+          <p>D4 attachment available</p>
+          <a href="/report/{{report._id}}/attachment/d4" class="btn btn-outline-primary" download>
+            Download
+          </a>
+        </div>
         {{else}}
         <p>No attachment for D4 section</p>
         {{/if}}
@@ -601,25 +608,28 @@ bg-rejected
   </form>
 
   {{!-- D4 Main approve --}}
+  {{#if userInSession.main}}
   <div class="form-section d-flex flex-column">
     <form action="http://localhost:3000/report/{{report._id}}/approve" method="post" class="col-md-12 row">
       <div class="form-group">
         <div class="container d-flex justify-content-center bg-transparent">
-        {{#if userInSession.main}}
           <input type="hidden" name="approveD" value="4">
           {{#if report.d4.approval}}
           <button id="approve-d4-btn" type="submit" class="btn btn-danger">Reject D4</button>
           {{else}}
           <button id="approve-d4-btn" type="submit" class="btn btn-success">Approve D4</button>
           {{/if}}
-        {{/if}}
         </div>
       </div>
     </form>
   </div>
+  {{/if}}
 </div>
+{{/if}}
 
 {{!-- D5 & D6 content --}}
+{{#if d4Step}}
+{{#if d5Step}}
 <div class="form-section d-flex flex-column
 {{#if report.d5d6.approval}}
 bg-approved
@@ -628,14 +638,14 @@ bg-rejected
 {{/if}}
 ">
   {{!-- D5 & D6 form --}}
-  <form action="http://localhost:3000/report/{{report._id}}/update" method="post" class="col-md-12 row">
+  <form action="http://localhost:3000/report/{{report._id}}/update" method="post" class="col-md-12 row" enctype="multipart/form-data">
     <input type="hidden" name="submissionD" value="5">
     {{!-- attachments--}}
     <div class="form-group">
-      <label class="form-label" for="problemImg">D5/D6 attachment: </label>
+      <label class="form-label" for="d5d6Attachment">D5/D6 attachment: </label>
       {{#unless userInSession.main}}
       <input 
-        class="form-field" 
+        class="form-control-file" 
         id="d5d6Attachment" 
         placeholder="" 
         type="file"
@@ -645,9 +655,12 @@ bg-rejected
       {{/unless}}
       <div class="container bg-transparent">
         {{#if report.d5d6.attachment}}
-        <a href="{{report.d5d6.attachment}}" class="btn btn-outline-primary" download>
-          Download Attachment
-        </a>
+        <div class="container bg-transparent d-flex flex-column">
+          <p>D5/D6 attachment available</p>
+          <a href="/report/{{report._id}}/attachment/d5d6" class="btn btn-outline-primary" download>
+            Download
+          </a>
+        </div>
         {{else}}
         <p>No attachment for D5/D6 section</p>
         {{/if}}
@@ -774,25 +787,30 @@ bg-rejected
   </div>
 
   {{!-- D5D6 Main approve --}}
+  {{#if userInSession.main}}
   <div class="form-section d-flex flex-column">
     <form action="http://localhost:3000/report/{{report._id}}/approve" method="post" class="col-md-12 row">
       <div class="form-group">
         <div class="container d-flex justify-content-center bg-transparent">
-        {{#if userInSession.main}}
           <input type="hidden" name="approveD" value="5">
           {{#if report.d5d6.approval}}
           <button id="approve-d5d6-btn" type="submit" class="btn btn-danger">Reject D5</button>
           {{else}}
           <button id="approve-d5d6-btn" type="submit" class="btn btn-success">Approve D5</button>
           {{/if}}
-        {{/if}}
         </div>
       </div>
     </form>
   </div>
+  {{/if}}
 </div>
+{{/if}}
+{{/if}}
 
 {{!-- D7 content --}}
+{{#if d4Step}}
+{{#if d5Step}}
+{{#if d7Step}}
 <div class="form-section d-flex flex-column
 {{#if report.d7.approval}}
 bg-approved
@@ -801,14 +819,14 @@ bg-rejected
 {{/if}}
 ">
   {{!-- D7 Attachments --}}
-  <form action="http://localhost:3000/report/{{report._id}}/update" method="post" class="col-md-12 row">
+  <form action="http://localhost:3000/report/{{report._id}}/update" method="post" class="col-md-12 row" enctype="multipart/form-data">
     <input type="hidden" name="submissionD" value="7">
     {{!-- attachments--}}
     <div class="form-group">
-      <label class="form-label" for="problemImg">D7 attachment: </label>
+      <label class="form-label" for="d7Attachment">D7 attachment: </label>
       {{#unless userInSession.main}}
       <input 
-        class="form-field" 
+        class="form-control-file" 
         id="d7Attachment" 
         placeholder="" 
         type="file"
@@ -818,9 +836,12 @@ bg-rejected
       {{/unless}}
       <div class="container bg-transparent">
         {{#if report.d7.attachment}}
-        <a href="{{report.d7.attachment}}" class="btn btn-outline-primary" download>
-          Download Attachment
-        </a>
+        <div class="container bg-transparent d-flex flex-column">
+          <p>D7 attachment available</p>
+          <a href="/report/{{report._id}}/attachment/d7" class="btn btn-outline-primary" download>
+            Download
+          </a>
+        </div>
         {{else}}
         <p>No attachment for D7 section</p>
         {{/if}}
@@ -947,27 +968,30 @@ bg-rejected
   </div>
 
   {{!-- D7 Main approve --}}
+  {{#if userInSession.main}}
   <div class="form-section d-flex flex-column">
     <form action="http://localhost:3000/report/{{report._id}}/approve" method="post" class="col-md-12 row">
       <div class="form-group">
         <div class="container d-flex justify-content-center bg-transparent">
-        {{#if userInSession.main}}
           <input type="hidden" name="approveD" value="7">
           {{#if report.d7.approval}}
           <button id="approve-d7-btn" type="submit" class="btn btn-danger">Reject D7</button>
           {{else}}
           <button id="approve-d7-btn" type="submit" class="btn btn-success">Approve D7</button>
           {{/if}}
-        {{/if}}
         </div>
       </div>
     </form>
   </div>
+  {{/if}}
 </div>
+{{/if}}
+{{/if}}
+{{/if}}
 
 {{#unless userInSession.main}}
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAction">
+  <button id="create-action-btn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAction">
     + action
   </button>
 

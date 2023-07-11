@@ -309,3 +309,24 @@ a {
 .bg-approved {
   background-color: rgb(0, 19, 3);
 }
+
+#create-action-btn {
+  position: fixed !important;
+  right: -60px !important;
+  top: 40% !important;
+  text-align: left !important;
+}
+
+#create-action-btn:hover {
+  width: 150px !important;
+}
+
+#cqi-logo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#main {
+  overflow: hidden;
+}

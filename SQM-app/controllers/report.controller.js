@@ -1,11 +1,12 @@
 // @ts-nocheck
-
-const User = require("../models/User.model")
-const Main = require("../models/Main.model")
+// const User = require("../models/User.model")
+// const Main = require("../models/Main.model")
+// const mongoose = require("mongoose")
+// const { report } = require("../app")
+// const { Binary } = require("bson")
 const Complaint = require("../models/Complaint.model")
 const Report = require("../models/Report.model")
-const mongoose = require("mongoose")
-const { report } = require("../app")
+const getContentType = require("../utils/getContentType")
 
 const getReportDetails = async (req, res, next) => {
   try {
@@ -21,11 +22,35 @@ const getReportDetails = async (req, res, next) => {
     })
 
     const { report } = complaint
+    const { d4, actionsD5D6, actionsD7 } = report
+
+    const whyDet = d4.whyDet.reduce((acc, val) => {acc + val}, '')
+    const whyOcc = d4.whyOcc.reduce((acc, val) => {acc + val}, '')
+    const rootCauseDet = d4.rootCauseDet
+    const rootCauseOcc = d4.rootCauseOcc
+
+    let d4Step, d5Step, d7Step, d8Step
+    if (!whyDet && !whyOcc && !rootCauseDet && !rootCauseOcc) {
+      d4Step = true
+    } else if (actionsD5D6.length < 1) { 
+      d4Step = true
+      d5Step = true
+    } else if (actionsD7.length < 1) {
+      d4Step = true
+      d5Step = true
+      d7Step = true
+    } else {
+      d4Step = true
+      d5Step = true
+      d7Step = true
+      d8Step = true
+    }
 
     res.render("report/report", {
       userInSession: req.session.currentUser,
       report,
       complaint,
+      d4Step, d5Step, d7Step
     })
   } catch (error) {
     next(error)
@@ -50,7 +75,6 @@ const postReportUpdate = async (req, res, next) => {
       w4,
       w5,
       w6,
-      d3Attachment,
     } = req.body
     if (report.d3.teamMembers[0] !== null && !member0)
       member0 = report.d3.teamMembers[0]
@@ -71,12 +95,6 @@ const postReportUpdate = async (req, res, next) => {
     if (report.d3.w5h2[6] !== null && !w6) w6 = report.d3.w5h2[6]
     let w5h2 = Array(w0, w1, w2, w3, w4, w5, w6)
 
-    if (!member0 || !member1 || !member2 || !member3 || !w0 || !w1 || !w2 || !w3 || !w4 || !w5 || !w6) {
-      return res.redirect(`/report/${reportId}/details`)
-    }
-
-    if (report.d3.attachment != null && !d3Attachment) d3Attachment = report.d3.attachment
-
     // d4 update values
     let {
       whyDet0,
@@ -91,7 +109,6 @@ const postReportUpdate = async (req, res, next) => {
       whyOcc4,
       rootCauseDet,
       rootCauseOcc,
-      d4Attachment,
     } = req.body
 
     if (report.d4.whyDet[0] !== null && !whyDet0)
@@ -123,22 +140,59 @@ const postReportUpdate = async (req, res, next) => {
     if (report.d4.rootCauseOcc != null && !rootCauseOcc)
       rootCauseOcc = report.d4.rootCauseOcc
 
-    if (report.d4.attachment != null && !d4Attachment)
+    // Attachment upload
+    let d3Attachment = null, d4Attachment = null, d5d6Attachment = null, d7Attachment = null
+    if (req.files) {
+      console.log(req.files)
+      if (req.files.d3Attachment) {
+        const d3File = req.files.d3Attachment[0];
+        d3Attachment = {
+          filename: d3File.originalname,
+          data: d3File.buffer,
+        }
+        d3File.buffer = Buffer.alloc(0)
+      } else {
+        d3Attachment = report.d3.attachment
+      }
+
+      if (req.files.d4Attachment) {
+        const d4File = req.files.d4Attachment[0]
+        d4Attachment = {
+          filename: d4File.originalname,
+          data: d4File.buffer,
+        }
+        d4File.buffer = Buffer.alloc(0)
+      } else {
+        d4Attachment = report.d4.attachment
+      }
+      
+      if (req.files.d5d6Attachment) {
+        const d5d6File = req.files.d5d6Attachment[0]
+        d5d6Attachment = {
+          filename: d5d6File.originalname,
+          data: d5d6File.buffer,
+        }
+        d5d6File.buffer = Buffer.alloc(0)
+      } else {
+        d5d6Attachment = report.d5d6.attachment
+      }
+
+      if (req.files.d7Attachment) {
+        const d7File = req.files.d7Attachment[0]
+        d7Attachment = {
+          filename: d7File.originalname,
+          data: d7File.buffer,
+        }
+        d7File.buffer = Buffer.alloc(0)
+      } else {
+        d7Attachment = report.d7.attachment
+      } 
+    } else {
+      d3Attachment = report.d3.attachment
       d4Attachment = report.d4.attachment
-    
-    if (!whyDet0 || !whyDet1 || !whyDet2 || !whyOcc0 || !whyOcc1 || !whyOcc2 || !rootCauseDet || !rootCauseOcc) {
-      return res.redirect(`/report/${reportId}/details`)
-    }
-
-    // d5d6 values
-    let { d5d6Attachment } = req.body
-    if (report.d5d6.attachment != null && !d5d6Attachment)
       d5d6Attachment = report.d5d6.attachment
-
-    // d7 values
-    let { d7Attachment } = req.body
-    if (report.d7.attachment != null && !d7Attachment)
       d7Attachment = report.d7.attachment
+    }
 
     // Update of Report
     const updatedReport = await Report.findByIdAndUpdate(
@@ -193,8 +247,6 @@ const postApproveReport = async (req, res, next) => {
       reportFullApproval = false
     }
 
-    console.log('report Full approval: ', reportFullApproval)
-
     const partialApprovedReport = await Report.findByIdAndUpdate(
       reportId,
       {
@@ -213,8 +265,53 @@ const postApproveReport = async (req, res, next) => {
   }
 }
 
+const getDownloadAttachment = async (req, res, next) => { 
+  try {
+    const { reportId, attachmentName } = req.params
+
+    const report = await Report.findById(reportId)
+
+    let attachmentData, attachmentFileName
+    if (attachmentName === "d3" && report.d3.attachment) {
+      attachmentData = report.d3.attachment.data
+      attachmentFileName = report.d3.attachment.filename
+    }
+    if (attachmentName === "d4" && report.d4.attachment) {
+      attachmentData = report.d4.attachment.data
+      attachmentFileName = report.d4.attachment.filename
+    }
+    if (attachmentName === "d5d6" && report.d5d6.attachment) {
+      attachmentData = report.d5d6.attachment.data
+      attachmentFileName = report.d5d6.attachment.filename
+    }
+    if (attachmentName === "d7" && report.d7.attachment) {
+      attachmentData = report.d7.attachment.data
+      attachmentFileName = report.d7.attachment.filename
+    }
+
+    if (attachmentData && attachmentFileName) {
+      // Defines the content type to set in header attributes
+      const contentType = getContentType(attachmentFileName)
+
+      res.setHeader("Content-Type", contentType)
+      res.setHeader(
+        "Contet-disposition",
+        `attachment; filename=${attachmentFileName}`
+      )
+      
+      // The data is in Binary so is needed to convert it to buffer
+      res.send(attachmentData.buffer)
+    } else {
+      res.status(404).send("Attachment not found")
+    }
+  } catch (error) {
+    next(error)
+  }
+}
+
 module.exports = {
   getReportDetails,
   postReportUpdate,
-  postApproveReport
+  postApproveReport,
+  getDownloadAttachment,
 }

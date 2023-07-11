@@ -34,28 +34,32 @@
           <tr>
             <th scope="col">Complaint ID</th>
             <th scope="col">Report ID</th>
-            <th scope="col">Part Number</th>
+            <th scope="col">PN</th>
             <th scope="col">Supplier</th>
-            <th scope="col">Creation date</th>
-            <th scope="col">Report approval</th>
+            <th scope="col">Creation</th>
+            <th scope="col">Status</th>
+            <th scope="col">Aging</th>
+            <th scope="col" hidden>Last update</th>
             <td scope="col"></td>
           </tr>
         </thead>
         <tbody>
           {{#each allComplaints}}
-          <tr>
+          <tr class="complaint">
             <td><a class="btn btn-outline-primary"href="/complaint/{{_id}}/details">{{_id}}</a></td>
             <td><a class="btn btn-outline-info" href="/report/{{report._id}}/details">{{report._id}}</a></td>
             <td>{{partNumber}}</td>
             <td>{{userId.org}}</td>
             <td class="date-type">{{createdAt}}</td>
-            <td>
+            <td class="status">
               {{#if report.approval}}
-              Approved
+              Closed
               {{else}}
               On-going
               {{/if}}
             </td>
+            <td class="aging">{{createdAt}}</td>
+            <td class="last-update" hidden>{{report.updatedAt}}</td>
             <td>
               {{!-- Modal button to POST delete Compalint --}}
               <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteComplaint{{_id}}">Delete</button>
@@ -91,15 +95,17 @@
           <tr>
             <th scope="col">Complaint ID</th>
             <th scope="col">Report ID</th>
-            <th scope="col">Part Number</th>
-            <th scope="col">Creation date</th>
-            <th scope="col">Approval</th>
+            <th scope="col">PN</th>
+            <th scope="col">Creation</th>
+            <th scope="col">Status</th>
+            <th scope="col">Aging</th>
+            <th scope="col" hidden>Last update</th>
           </tr>
         </thead>
         <tbody>
           {{#each allComplaints}}
-          <tr>
-            <td><a class="btn btn-outline-primary" href="/report/{{_id}}/details">{{_id}}</a></td>
+          <tr class="complaint">
+            <td><a class="btn btn-outline-primary" href="/complaint/{{_id}}/details">{{_id}}</a></td>
             <td>
               <a class="btn btn-outline-info" href="/report/{{report._id}}/details">
               {{report._id}}
@@ -107,13 +113,15 @@
             </td>
             <td>{{partNumber}}</td>
             <td class="date-type">{{report.createdAt}}</td>
-            <td>
+            <td class="status">
               {{#if report.approval}}
               Approved
               {{else}}
               On-going
               {{/if}}
             </td>
+            <td class="aging">{{createdAt}}</td>
+            <td class="last-update" hidden>{{report.updatedAt}}</td>
           </tr>
           {{/each}}
         </tbody>
