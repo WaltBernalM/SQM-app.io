@@ -43,17 +43,14 @@ userRouter.get("/create-user", isLoggedIn, logStatus, isMainUser, getCreateUser)
 
 userRouter.post("/create-user", postCreateUser)
 
-userRouter.get(
-  "/users-list",
-  isLoggedIn,
-  logStatus,
-  isMainUser,
-  getUsersList
-)
+userRouter.get("/users-list", isLoggedIn, logStatus, isMainUser, getUsersList)
 
 userRouter.get("/edit-user/:userId", isLoggedIn, logStatus, isMainUser, getUpdateUser)
 
-userRouter.post("/edit-user/:userId")
+/* 
+//incomplete edition by now
+userRouter.post("/edit-user/:userId") 
+*/
 
 userRouter.post("/delete-user/:userId", isLoggedIn, logStatus, isMainUser, postDeleteUser)
 

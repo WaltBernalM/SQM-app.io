@@ -33,8 +33,6 @@ window.addEventListener('load', () => {
     const today = new Date()
     let elapsedDays 
 
-    console.log(complaintStatus)
-
     if (complaintStatus === "On-going") {
       elapsedDays = ((today - startDate) / 1000 / 60 / 60 / 24).toFixed('')
       complaint.querySelector(".aging").innerText = elapsedDays + " days"

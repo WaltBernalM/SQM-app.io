@@ -6,30 +6,29 @@
             <a href="/auth/create-user" class="btn btn-success">Add Supplier Account</a>
           </div>
           <div class="nav-item mx-2">
-            <a href="/complaint/create" class="btn btn-warning">Add Complaint</a>
+            <a href="/auth/users-list" class="btn btn-warning">Supplier list</a>
           </div>
           <div class="nav-item mx-2">
-            <a href="/auth/users-list" class="btn btn-warning">Supplier list</a>
+            <a href="/complaint/create" class="btn btn-danger">Add Complaint</a>
           </div>
         {{/if}}
       </div>
   </nav>
 
-  <h2>Your Profile</h2>
-  <h3>Welcome, {{ userInSession.username }}!</h3>
-  <p>This is your profile page my friend from {{userInSession.org}}!</p>
-  <p>email: {{userInSession.email}}</p>
+  <div class="container mt-3 p-2 mb-3 text-center">
+    <h2>Your Profile</h2>
+    <h3>Welcome, {{ userInSession.username }}!</h3>
+    <p>This is your profile page my friend from {{userInSession.org}}!</p>
+    <p>Email: {{userInSession.email}}</p>
 
-  {{#if userInSession.main}}
-    <p>in Main account</p>
-  {{/if}}
-
-  <div class="container-fluid" id="main-table">
-    <div id="toolbar">
-    </div>
-    
     {{#if userInSession.main}}
-      <table id="table" class="table table-hover table-dark">
+      <p class="text-warning">You have Main Account privileges</p>
+    {{/if}}
+  </div>
+
+  <div class="container-fluid table-responsive" id="main-table">
+    {{#if userInSession.main}}
+      <table id="table" class="table table-hover table-dark table-sm">
         <thead>
           <tr>
             <th scope="col">Complaint ID</th>
@@ -90,7 +89,7 @@
         </tbody>
       </table>
     {{else}}
-      <table id="table" class="table table-hover table-dark">
+      <table id="table" class="table table-hover table-dark table-sm">
         <thead>
           <tr>
             <th scope="col">Complaint ID</th>
