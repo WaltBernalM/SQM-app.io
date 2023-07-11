@@ -15,14 +15,14 @@
       </div>
   </nav>
 
-  <div class="container mt-3 p-2 mb-3">
+  <div class="container mt-3 p-2 mb-3 text-center">
     <h2>Your Profile</h2>
     <h3>Welcome, {{ userInSession.username }}!</h3>
     <p>This is your profile page my friend from {{userInSession.org}}!</p>
     <p>Email: {{userInSession.email}}</p>
 
     {{#if userInSession.main}}
-      <p>You have Main Acctoun privileges</p>
+      <p class="text-warning">You have Main Account privileges</p>
     {{/if}}
   </div>
 
