@@ -320,3 +320,13 @@ a {
 #create-action-btn:hover {
   width: 150px !important;
 }
+
+#cqi-logo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#main {
+  overflow: hidden;
+}

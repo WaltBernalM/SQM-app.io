@@ -22,35 +22,24 @@ const getReportDetails = async (req, res, next) => {
     })
 
     const { report } = complaint
+    const { d4, actionsD5D6, actionsD7 } = report
 
-    const { d3, d4, actionsD3, actionsD5D6, actionsD7 } = report
-
-    const teamMembers = d3.teamMembers.reduce((acc, val) => {return acc + val}, '')
-    const w5h2 = d3.w5h2.reduce((acc, val) => {return acc + val}, '')
-    
     const whyDet = d4.whyDet.reduce((acc, val) => {acc + val}, '')
     const whyOcc = d4.whyOcc.reduce((acc, val) => {acc + val}, '')
     const rootCauseDet = d4.rootCauseDet
     const rootCauseOcc = d4.rootCauseOcc
 
-    let d3Step, d4Step, d5Step, d7Step, d8Step
-
-    if ((!teamMembers && !w5h2) || actionsD3.length < 1) {
-      d3Step = true
-    } else if (!whyDet && !whyOcc && !rootCauseDet && !rootCauseOcc) {
-      d3Step = true
+    let d4Step, d5Step, d7Step, d8Step
+    if (!whyDet && !whyOcc && !rootCauseDet && !rootCauseOcc) {
       d4Step = true
     } else if (actionsD5D6.length < 1) { 
-      d3Step = true
       d4Step = true
       d5Step = true
     } else if (actionsD7.length < 1) {
-      d3Step = true
       d4Step = true
       d5Step = true
       d7Step = true
     } else {
-      d3Step = true
       d4Step = true
       d5Step = true
       d7Step = true
@@ -61,7 +50,7 @@ const getReportDetails = async (req, res, next) => {
       userInSession: req.session.currentUser,
       report,
       complaint,
-      d3Step, d4Step, d5Step, d7Step
+      d4Step, d5Step, d7Step
     })
   } catch (error) {
     next(error)
@@ -105,10 +94,6 @@ const postReportUpdate = async (req, res, next) => {
     if (report.d3.w5h2[5] !== null && !w5) w5 = report.d3.w5h2[5]
     if (report.d3.w5h2[6] !== null && !w6) w6 = report.d3.w5h2[6]
     let w5h2 = Array(w0, w1, w2, w3, w4, w5, w6)
-
-    // if (!member0 || !member1 || !member2 || !member3 || !w0 || !w1 || !w2 || !w3 || !w4 || !w5 || !w6) {
-    //   return res.redirect(`/report/${reportId}/details`)
-    // }
 
     // d4 update values
     let {
@@ -154,10 +139,6 @@ const postReportUpdate = async (req, res, next) => {
       rootCauseDet = report.d4.rootCauseDet
     if (report.d4.rootCauseOcc != null && !rootCauseOcc)
       rootCauseOcc = report.d4.rootCauseOcc
-
-    // if (!whyDet0 || !whyDet1 || !whyDet2 || !whyOcc0 || !whyOcc1 || !whyOcc2 || !rootCauseDet || !rootCauseOcc) {
-    //   return res.redirect(`/report/${reportId}/details`)
-    // }
 
     // Attachment upload
     let d3Attachment = null, d4Attachment = null, d5d6Attachment = null, d7Attachment = null
@@ -265,8 +246,6 @@ const postApproveReport = async (req, res, next) => {
     } else {
       reportFullApproval = false
     }
-
-    console.log('report Full approval: ', reportFullApproval)
 
     const partialApprovedReport = await Report.findByIdAndUpdate(
       reportId,
