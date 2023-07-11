@@ -376,7 +376,7 @@ bg-rejected
 </div>
 
 {{!-- D4 content --}}
-{{#if d4Step}}
+{{#if d3Done}}
 <div class="form-section d-flex flex-column
 {{#if report.d4.approval}}
 bg-approved
@@ -628,8 +628,8 @@ bg-rejected
 {{/if}}
 
 {{!-- D5 & D6 content --}}
-{{#if d4Step}}
-{{#if d5Step}}
+{{#if d3Done}}
+{{#if d4Done}}
 <div class="form-section d-flex flex-column
 {{#if report.d5d6.approval}}
 bg-approved
@@ -808,9 +808,9 @@ bg-rejected
 {{/if}}
 
 {{!-- D7 content --}}
-{{#if d4Step}}
-{{#if d5Step}}
-{{#if d7Step}}
+{{#if d3Done}}
+{{#if d4Done}}
+{{#if d5Done}}
 <div class="form-section d-flex flex-column
 {{#if report.d7.approval}}
 bg-approved

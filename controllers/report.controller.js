@@ -22,35 +22,42 @@ const getReportDetails = async (req, res, next) => {
     })
 
     const { report } = complaint
-    const { d4, actionsD5D6, actionsD7 } = report
-
-    const whyDet = d4.whyDet.reduce((acc, val) => {acc + val}, '')
-    const whyOcc = d4.whyOcc.reduce((acc, val) => {acc + val}, '')
+    const { d3, actionsD3, d4, actionsD5D6, actionsD7 } = report
+    
+    const teamMembers = d3.teamMembers.reduce((acc, val) => {
+      if (val === null) val = ''
+      return acc + val
+    }, '')
+    const w5h2 = d3.w5h2.reduce((acc, val) => {
+      if (val === null) val = ""
+      return acc + val
+    }, '')
+    const whyDet = d4.whyDet.reduce((acc, val) => {
+      if (val === null) val = ''
+      return acc + val
+    }, '')
+    const whyOcc = d4.whyOcc.reduce((acc, val) => {
+      if (val === null) val = ""
+      return acc + val
+    }, '')
     const rootCauseDet = d4.rootCauseDet
     const rootCauseOcc = d4.rootCauseOcc
 
-    let d4Step, d5Step, d7Step, d8Step
-    if (!whyDet && !whyOcc && !rootCauseDet && !rootCauseOcc) {
-      d4Step = true
-    } else if (actionsD5D6.length < 1) { 
-      d4Step = true
-      d5Step = true
-    } else if (actionsD7.length < 1) {
-      d4Step = true
-      d5Step = true
-      d7Step = true
-    } else {
-      d4Step = true
-      d5Step = true
-      d7Step = true
-      d8Step = true
+    let d3Done = false, d4Done = false, d5Done = false
+    
+    if (Boolean(teamMembers) && Boolean(w5h2.length > 2) && (actionsD3.length > 0)) {
+      d3Done = true
     }
-
+    if (Boolean(whyDet) && Boolean(whyOcc) && Boolean(rootCauseDet) && Boolean(rootCauseOcc)) {
+      d4Done = true
+    }
+    if (actionsD5D6.length > 0) d5Done = true
+    
     res.render("report/report", {
       userInSession: req.session.currentUser,
       report,
       complaint,
-      d4Step, d5Step, d7Step
+      d3Done ,d4Done, d5Done
     })
   } catch (error) {
     next(error)
@@ -143,7 +150,6 @@ const postReportUpdate = async (req, res, next) => {
     // Attachment upload
     let d3Attachment = null, d4Attachment = null, d5d6Attachment = null, d7Attachment = null
     if (req.files) {
-      console.log(req.files)
       if (req.files.d3Attachment) {
         const d3File = req.files.d3Attachment[0];
         d3Attachment = {
