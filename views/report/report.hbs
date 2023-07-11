@@ -56,21 +56,21 @@ bg-rejected
           </li>
           <li class="list-group-item list-group-item-dark bg-dark">
             {{#if userInSession.main}}
-            <p>{{report.d3.teamMembers.[1]}}</p>
+            <p class="text-light">{{report.d3.teamMembers.[1]}}</p>
             {{else}}
             <input required="required" type="text" name="member1" id="" value="{{report.d3.teamMembers.[1]}}">
             {{/if}}
           </li>
           <li class="list-group-item list-group-item-dark bg-dark">
             {{#if userInSession.main}}
-            <p>{{report.d3.teamMembers.[2]}}</p>
+            <p class="text-light">{{report.d3.teamMembers.[2]}}</p>
             {{else}}
             <input required="required" type="text" name="member2" id="" value="{{report.d3.teamMembers.[2]}}">
             {{/if}}
           </li>
           <li class="list-group-item list-group-item-dark bg-dark">
             {{#if userInSession.main}}
-            {{report.d3.teamMembers.[3]}}
+            <p class="text-light">{{report.d3.teamMembers.[3]}}</p>
             {{else}}
             <input required="required" type="text" name="member3" id="" value="{{report.d3.teamMembers.[3]}}">
             {{/if}}
