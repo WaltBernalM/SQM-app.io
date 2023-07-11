@@ -1,12 +1,12 @@
 {{#with complaint}}
-  <div class="container-fluid main-table mt-2">
+  <div id='complaint-data' class="container-fluid main-table mt-2 show">
     <table id="table" class="table table-hover table-dark">
       <thead>
         <h2>Complaint #{{_id}}: </h2>
         <tr>
           <th scope="col">Part Number</th>
           <th scope="col">Problem Description</th>
-          <th scope="col">batch</th>
+          <th scope="col">Batch</th>
           <th scope="col">Quantity reported</th>
           <th scope="col">Issue Date</th>
           <th scope="col">Complaint date</th>
@@ -29,7 +29,7 @@
 <h2>Report #{{report._id}}:</h2>
 
 {{!--  D3 Content --}}
-<div class="form-section d-flex flex-column 
+<div class="d-step form-section d-flex flex-column 
 {{#if report.d3.approval}}
 bg-approved
 {{else}}
@@ -44,28 +44,31 @@ bg-rejected
       <div class="form-group">
       <label class="form-label" for="team"> D1 Build the Team: </label>
         <ul id="team" class="list-group list-group-flush rounded-2">
-          <li class="list-group-item list-group-item-dark">
+          <li class="list-group-item list-group-item-dark bg-dark">
+            <p class="text-light">Full names: </p>
+          </li>
+          <li class="list-group-item list-group-item-dark bg-dark">
             {{#if userInSession.main}}
-            <p>{{report.d3.teamMembers.[0]}}</p>
+            <p class="text-light">{{report.d3.teamMembers.[0]}}</p>
             {{else}}
             <input required="required" type="text" name="member0" id="" value="{{report.d3.teamMembers.[0]}}">
             {{/if}}
           </li>
-          <li class="list-group-item list-group-item-dark">
+          <li class="list-group-item list-group-item-dark bg-dark">
             {{#if userInSession.main}}
             <p>{{report.d3.teamMembers.[1]}}</p>
             {{else}}
             <input required="required" type="text" name="member1" id="" value="{{report.d3.teamMembers.[1]}}">
             {{/if}}
           </li>
-          <li class="list-group-item list-group-item-dark">
+          <li class="list-group-item list-group-item-dark bg-dark">
             {{#if userInSession.main}}
             <p>{{report.d3.teamMembers.[2]}}</p>
             {{else}}
             <input required="required" type="text" name="member2" id="" value="{{report.d3.teamMembers.[2]}}">
             {{/if}}
           </li>
-          <li class="list-group-item list-group-item-dark">
+          <li class="list-group-item list-group-item-dark bg-dark">
             {{#if userInSession.main}}
             {{report.d3.teamMembers.[3]}}
             {{else}}
@@ -376,8 +379,8 @@ bg-rejected
 </div>
 
 {{!-- D4 content --}}
-{{#if d4Step}}
-<div class="form-section d-flex flex-column
+{{#if d3Done}}
+<div class="d-step form-section d-flex flex-column
 {{#if report.d4.approval}}
 bg-approved
 {{else}}
@@ -628,9 +631,9 @@ bg-rejected
 {{/if}}
 
 {{!-- D5 & D6 content --}}
-{{#if d4Step}}
-{{#if d5Step}}
-<div class="form-section d-flex flex-column
+{{#if d3Done}}
+{{#if d4Done}}
+<div class="d-step form-section d-flex flex-column
 {{#if report.d5d6.approval}}
 bg-approved
 {{else}}
@@ -808,10 +811,10 @@ bg-rejected
 {{/if}}
 
 {{!-- D7 content --}}
-{{#if d4Step}}
-{{#if d5Step}}
-{{#if d7Step}}
-<div class="form-section d-flex flex-column
+{{#if d3Done}}
+{{#if d4Done}}
+{{#if d5Done}}
+<div class="mb-5 d-step form-section d-flex flex-column
 {{#if report.d7.approval}}
 bg-approved
 {{else}}

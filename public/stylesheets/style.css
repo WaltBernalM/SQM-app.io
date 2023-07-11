@@ -330,3 +330,12 @@ a {
 #main {
   overflow: hidden;
 }
+
+.d-step {
+  border: 1px solid white;
+  border-radius: 10px;
+}
+
+.text-justify {
+  text-align: justify;
+}

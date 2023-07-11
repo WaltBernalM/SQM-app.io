@@ -56,7 +56,3 @@ window.addEventListener('load', () => {
   // Setup for date in New Action form
   document.querySelector('#dueDate')?.setAttribute('min', fullDate)
 })
-
-const sectionUnlocker = () => {
-  
-}
