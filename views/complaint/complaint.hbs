@@ -1,14 +1,17 @@
+{{userInSession}}
+
 <div class="wrapper">
   <section class="form-section">
-    <form action="/complaint/{{complaint._id}}/update" method="post" enctype="multipart/form-data">
+    <form {{#if userInSession.main}}action="/complaint/{{complaint._id}}/update" {{/if}}method="post" enctype="multipart/form-data">
       {{#if errorMessage}}
 				<p class="error-message">{{errorMessage}}</p>
 			{{/if}}
 
+			{{#if userInSession.main}}
 			<div class="form-group">
 				<label class="form-label" for="userId"> Supplier: </label>
 				<select name="userId" class="form-control" id="">
-          {{#with complaint}}
+					{{#with complaint}}
           <option value="{{userId._id}}" selected>{{userId.org}}</option>
           {{/with}}
 
@@ -17,6 +20,7 @@
 					{{/each}}
 				</select>
 			</div>
+			{{/if}}
 
       
 			<div class="form-group">
@@ -26,6 +30,7 @@
 					id="partNumber" 
 					placeholder="123abc" 
 					type="text"
+					{{#unless userInSession.main}} disabled="disabled" {{/unless}}
 					required="required"
 					name="partNumber"
           value="{{complaint.partNumber}}"
@@ -39,6 +44,7 @@
 					id="batch" 
 					placeholder="" 
 					type="text"
+					{{#unless userInSession.main}} disabled="disabled" {{/unless}}
 					required="required"
 					name="batch"
           value="{{complaint.batch}}"
@@ -52,6 +58,7 @@
 					id="quantity" 
 					placeholder="0"
 					type="number"
+					{{#unless userInSession.main}} disabled="disabled" {{/unless}}
 					required="required"
 					name="quantity"
           min="1"
@@ -66,6 +73,7 @@
 					id="problemDesc" 
 					placeholder="description"
 					type="text"
+					{{#unless userInSession.main}} disabled="disabled" {{/unless}}
 					required="required"
 					name="problemDesc"
           cols="40"
@@ -79,6 +87,7 @@
 					class="form-control"
 					id="problemDateForm"
 					type="date"
+					{{#unless userInSession.main}} disabled="disabled" {{/unless}}
 					required="required"
 					name="problemDate"
 					max=""
@@ -86,6 +95,7 @@
 				>
 			</div>
 
+			{{#if userInSession.main}}
 			<div class="form-group">
 				<label class="form-label" for="problemImg">Problem images: </label>
 				<input type="text" name="existingProblemImg" hidden value="{{complaint.problemImg}}">
@@ -101,6 +111,7 @@
           accept=".gif, .jpg, .jpeg, .png,"
 				/>
 			</div>
+			{{/if}}
 
       {{#if complaint.problemImg}}
       <div class="container mb-2 d-flex flex-column">
@@ -112,9 +123,11 @@
       </div>
       {{/if}}
 
+			{{#if userInSession.main}}
 			<div>
 				<button class="pet-form-button" type="submit">Save</button>
 			</div>
+			{{/if}}
     </form>
   </section>
 </div>
