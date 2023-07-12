@@ -5,9 +5,7 @@ const Action = require("../models/Action.model")
 const Complaint = require("../models/Complaint.model")
 const Report = require("../models/Report.model")
 const mongoose = require("mongoose")
-const transporter = require('../config/transporter.config')
 const templates = require('../templates/template')
-
 const sendMail = require('../utils/sendMail')
 
 

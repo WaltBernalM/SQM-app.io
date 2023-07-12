@@ -6,6 +6,9 @@ const Complaint = require("../models/Complaint.model")
 const Report = require("../models/Report.model")
 const Main = require("../models/Main.model")
 
+const templates = require("../templates/template")
+const sendMail = require("../utils/sendMail")
+
 /* Get Sign up */
 const getSignup = (req, res) => res.render("auth/signup")
 
@@ -196,6 +199,11 @@ const postCreateUser = async (req, res, next) => {
       { $push: { users: userId } },
       { new: true }
     )
+
+    const { org: mainOrg } = req.session.currentUser
+    const subject = `Welcome to SQM.copilot - New User Account`
+    const message = `Your customer ${mainOrg} has assigned you a User Account in SQM.copilot.`
+    sendMail(email, subject, message, templates.userAccountAdded)
 
     res.redirect(`/auth/profile`)
   } catch (error) {

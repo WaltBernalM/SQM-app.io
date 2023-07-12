@@ -22,4 +22,15 @@ function actionAdded(message) {
   <h2>${message}</h2>`
 }
 
-module.exports = {complaintRaised, reportUpdated, reportApproved, actionAdded}
+function userAccountAdded(message) { 
+  return `<h1>You have a new account assigned in SQM.copilot</h1>
+  <h2>${message}</h2>`
+}
+
+module.exports = {
+  complaintRaised,
+  reportUpdated,
+  reportApproved,
+  actionAdded,
+  userAccountAdded,
+}
