@@ -60,5 +60,6 @@
 
 # Middleware
 - [x] Upload problemImg to Cloudinary
-- [ ] Upload files (pptx, pdf, xlsx, etc.) to DB
-- [ ] Migration to Atlas (by MongoDB)
+- [x] Upload files (pptx, pdf, xlsx, etc.) to DB
+- [x] Migration to Atlas (by MongoDB)
+- [x] Send email alerts
