@@ -1,12 +1,14 @@
 // @ts-nocheck
 // const User = require("../models/User.model")
-// const Main = require("../models/Main.model")
+const Main = require("../models/Main.model")
 // const mongoose = require("mongoose")
 // const { report } = require("../app")
 // const { Binary } = require("bson")
 const Complaint = require("../models/Complaint.model")
 const Report = require("../models/Report.model")
 const getContentType = require("../utils/getContentType")
+const sendMail = require("../utils/sendMail")
+const templates = require('../templates/template')
 
 const getReportDetails = async (req, res, next) => {
   try {
@@ -70,19 +72,8 @@ const postReportUpdate = async (req, res, next) => {
     const report = await Report.findById(reportId)
 
     // d3 update values
-    let {
-      member0,
-      member1,
-      member2,
-      member3,
-      w0,
-      w1,
-      w2,
-      w3,
-      w4,
-      w5,
-      w6,
-    } = req.body
+    let { member0, member1, member2, member3, w0, w1, w2, w3, w4, w5, w6 } =
+      req.body
     if (report.d3.teamMembers[0] !== null && !member0)
       member0 = report.d3.teamMembers[0]
     if (report.d3.teamMembers[1] !== null && !member1)
@@ -118,28 +109,18 @@ const postReportUpdate = async (req, res, next) => {
       rootCauseOcc,
     } = req.body
 
-    if (report.d4.whyDet[0] !== null && !whyDet0)
-      whyDet0 = report.d4.whyDet[0]
-    if (report.d4.whyDet[1] !== null && !whyDet1)
-      whyDet1 = report.d4.whyDet[1]
-    if (report.d4.whyDet[2] !== null && !whyDet2)
-      whyDet2 = report.d4.whyDet[2]
-    if (report.d4.whyDet[3] !== null && !whyDet3)
-      whyDet3 = report.d4.whyDet[3]
-    if (report.d4.whyDet[4] !== null && !whyDet4)
-      whyDet4 = report.d4.whyDet[4]
+    if (report.d4.whyDet[0] !== null && !whyDet0) whyDet0 = report.d4.whyDet[0]
+    if (report.d4.whyDet[1] !== null && !whyDet1) whyDet1 = report.d4.whyDet[1]
+    if (report.d4.whyDet[2] !== null && !whyDet2) whyDet2 = report.d4.whyDet[2]
+    if (report.d4.whyDet[3] !== null && !whyDet3) whyDet3 = report.d4.whyDet[3]
+    if (report.d4.whyDet[4] !== null && !whyDet4) whyDet4 = report.d4.whyDet[4]
     let whyDet = Array(whyDet0, whyDet1, whyDet2, whyDet3, whyDet4)
 
-    if (report.d4.whyOcc[0] !== null && !whyOcc0)
-      whyOcc0 = report.d4.whyOcc[0]
-    if (report.d4.whyOcc[1] !== null && !whyOcc1)
-      whyOcc1 = report.d4.whyOcc[1]
-    if (report.d4.whyOcc[2] !== null && !whyOcc2)
-      whyOcc2 = report.d4.whyOcc[2]
-    if (report.d4.whyOcc[3] !== null && !whyOcc3)
-      whyOcc3 = report.d4.whyOcc[3]
-    if (report.d4.whyOcc[4] !== null && !whyOcc4)
-      whyOcc4 = report.d4.whyOcc[4]
+    if (report.d4.whyOcc[0] !== null && !whyOcc0) whyOcc0 = report.d4.whyOcc[0]
+    if (report.d4.whyOcc[1] !== null && !whyOcc1) whyOcc1 = report.d4.whyOcc[1]
+    if (report.d4.whyOcc[2] !== null && !whyOcc2) whyOcc2 = report.d4.whyOcc[2]
+    if (report.d4.whyOcc[3] !== null && !whyOcc3) whyOcc3 = report.d4.whyOcc[3]
+    if (report.d4.whyOcc[4] !== null && !whyOcc4) whyOcc4 = report.d4.whyOcc[4]
     let whyOcc = Array(whyOcc0, whyOcc1, whyOcc2, whyOcc3, whyOcc4)
 
     if (report.d4.rootCauseDet != null && !rootCauseDet)
@@ -148,10 +129,13 @@ const postReportUpdate = async (req, res, next) => {
       rootCauseOcc = report.d4.rootCauseOcc
 
     // Attachment upload
-    let d3Attachment = null, d4Attachment = null, d5d6Attachment = null, d7Attachment = null
+    let d3Attachment = null,
+      d4Attachment = null,
+      d5d6Attachment = null,
+      d7Attachment = null
     if (req.files) {
       if (req.files.d3Attachment) {
-        const d3File = req.files.d3Attachment[0];
+        const d3File = req.files.d3Attachment[0]
         d3Attachment = {
           filename: d3File.originalname,
           data: d3File.buffer,
@@ -171,7 +155,7 @@ const postReportUpdate = async (req, res, next) => {
       } else {
         d4Attachment = report.d4.attachment
       }
-      
+
       if (req.files.d5d6Attachment) {
         const d5d6File = req.files.d5d6Attachment[0]
         d5d6Attachment = {
@@ -192,7 +176,7 @@ const postReportUpdate = async (req, res, next) => {
         d7File.buffer = Buffer.alloc(0)
       } else {
         d7Attachment = report.d7.attachment
-      } 
+      }
     } else {
       d3Attachment = report.d3.attachment
       d4Attachment = report.d4.attachment
@@ -218,9 +202,13 @@ const postReportUpdate = async (req, res, next) => {
       { new: true }
     )
 
-    console.log(
-      `D${req.body.submissionD} was updated at ${updatedReport?.updatedAt}`
-    )
+    // email for updated report
+    const { _id: userId } = req.session.currentUser
+    const main = await Main.findOne({ users: userId }).exec()
+    const { email: mainEmail } = main
+    const subject = `Update of report ${updatedReport._id}`
+    const message = `D${req.body.submissionD} was updated, please reivew it as soon as possible`
+    sendMail(mainEmail, message, subject, templates.reportUpdated)
 
     res.redirect(`/report/${reportId}/details`)
   } catch (error) {
@@ -247,8 +235,17 @@ const postApproveReport = async (req, res, next) => {
     if (approveD === "5") d5d6Approval === false ? (d5d6Approval = true) : (d5d6Approval = false)
     if (approveD === "7") d7Approval === false ? (d7Approval = true) : (d7Approval = false)
 
+    
+
     if (d3Approval && d4Approval && d5d6Approval && d7Approval) {
       reportFullApproval = true
+      
+      // Email for approved report
+      const complaint = await Complaint.findOne({ report: reportId }).populate("userId")
+      const { email: userEmail } = complaint.userId
+      const subject = `Full approval of report ${reportId}`
+      const message = `Congratulations!, your efforts have been enough to solve the issues!`
+      sendMail(userEmail, subject, message, templates.reportApproved)
     } else {
       reportFullApproval = false
     }

@@ -5,7 +5,8 @@ const Action = require("../models/Action.model")
 const Complaint = require("../models/Complaint.model")
 const Report = require("../models/Report.model")
 const mongoose = require("mongoose")
-const bcrypt = require("bcrypt")
+const templates = require('../templates/template')
+const sendMail = require('../utils/sendMail')
 
 
 // Creation of Complaint and trigger of Report
@@ -111,6 +112,15 @@ const postCreateComplaint = async (req, res, next) => {
       complaintCreated._id,
       { report: reportCreated._id }
     )
+
+    // email for created complaint
+    const user = await User.findById(userId)
+    const { org: mainOrg } = main
+    const { email: userEmail, org: userOrg } = user
+    const { _id: complaintId } = complaintCreated
+    const subject = `New complaint ${complaintId}`
+    const message = `Complaint raised to ${userOrg} from ${mainOrg}`
+    sendMail(userEmail, message, subject, templates.complaintRaised )
 
     res.redirect(`/auth/profile`)
   } catch (error) {

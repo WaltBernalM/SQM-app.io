@@ -5,6 +5,8 @@ const Complaint = require("../models/Complaint.model")
 const Report = require("../models/Report.model")
 const mongoose = require("mongoose")
 const Action = require("../models/Action.model")
+const templates = require('../templates/template')
+const sendMail = require('../utils/sendMail')
 
 const postCreateAction = async (req, res, next) => {
   try {
@@ -44,6 +46,14 @@ const postCreateAction = async (req, res, next) => {
         { new: true }
       )
     }
+
+    // send email for action created
+    const complaint = await Complaint.findOne({ report: reportId })
+    const main = await Main.findOne({ complaints: complaint._id })
+    const { email: mainEmail } = main
+    const subject = `Action added to report ${reportId}`
+    const message = `Action added in ${destination}, please review the report as soon as possible`
+    sendMail(mainEmail, message, subject, templates.actionAdded)
 
     res.redirect(`/report/${reportId}/details`)
 
