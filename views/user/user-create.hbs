@@ -1,62 +1,65 @@
 <div class="wrapper">
-	<h2>Create Supplier User</h2>
+	<h2>Create User Account for Supplier</h2>
 	<section class="form-section">
-		<form action="/auth/create-user" method="POST">
+		<form action="/auth/create-user" method="POST" class="row g-3">
 			{{#if errorMessage}}
+				<div class="col-12 text-center">
 				<p class="error-message">{{errorMessage}}</p>
+				</div>
 			{{/if}}
-			<label class="form-label" for="username"> Username: </label>
-			<div>
+
+			<div class="col-12">
+				<label class="form-label" for="username">Username</label>
 				<input 
-					class="form-field" 
+					class="form-control" 
 					id="username" 
-					placeholder="username" 
+					placeholder="..." 
 					type="text" 
 					required="required"
 					name="username"
 				/>
 			</div>
 			
-			<label class="form-label" for="email">Email: </label>
-			<div>
+			<div class="col-12">
+				<label class="form-label" for="email">Email</label>
 				<input 
-					class="form-field" 
+					class="form-control" 
 					id="email" 
-					placeholder="email" 
+					placeholder="user@example.com" 
 					type="email" 
 					required="required"
 					name="email"
 				/>
 			</div>
 
-			<label class="form-label" for="password"> password: </label>
-			<div>
+			<div class="col-md-6">
+				<label class="form-label" for="password">Password</label>
 				<input
-					class="form-field" 
+					class="form-control" 
 					id="password" 
-					placeholder="password" 
+					placeholder="********" 
 					type="password"
 					name="password"
 				/>
 			</div>
 
-			<label class="form-label" for="confirmPassword"> Confirm password: </label>
-			<div>
+			<div class="col-md-6">
+				<label class="form-label" for="confirmPassword">Confirm password</label>
 				<input
-					class="form-field" 
+					class="form-control" 
 					id="confirmPassword" 
-					placeholder="confirm password" 
+					placeholder="********" 
 					type="password"
 					name="confirmPassword"
 				/>
 			</div>
 
-			<label class="form-label" for="username"> Organization: </label>
-			<div>
+			<div class="col-12">
+				<label class="form-label" for="username">Organization</label>
 				<input 
-					class="form-field" 
+					class="form-control"
 					id="username" 
-					placeholder="Organization Name" 
+					placeholder="Company Ltd." 
 					type="text"
 					required="required"
 					name="org"
@@ -64,7 +67,7 @@
 			</div>
 
 			<div>
-				<button class="pet-form-button" type="submit">Create account</button>
+				<button class="pet-form-button" type="submit">Create Account</button>
 			</div>
 		</form>
 	</section>
