@@ -45,10 +45,10 @@ window.addEventListener('load', () => {
         complaint.querySelector(".aging").style.color = "green"
       }
 
-    } else if (complaintStatus === "Closed") {
+    } else if (complaintStatus === "Closed" || complaintStatus === "Approved") {
       elapsedDays = ((lastUpdate - startDate) / 1000 / 60 / 60 / 24).toFixed('')
       complaint.querySelector(".aging").innerText = elapsedDays + " days"
-    }
+    } 
   })
 
   // Setup for date in New Action form

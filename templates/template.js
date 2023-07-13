@@ -18,7 +18,7 @@ function reportApproved(message) {
 }
 
 function actionAdded(message) {
-  return `<h1>A new has been added</h1>
+  return `<h1>A new action has been added</h1>
   <h2>${message}</h2>`
 }
 

@@ -9,6 +9,7 @@ const sendMail = async (email, message, subject, template) => {
       text: `${message}`,
       html: template(message),
     })
+    console.log('A mail was sent successfully')
   } catch (error) {
     console.log(error)
     require("../error-handling")(error)
