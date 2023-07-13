@@ -11,6 +11,7 @@ const sendMail = async (email, message, subject, template) => {
     })
   } catch (error) {
     console.log(error)
+    require("../error-handling")(error)
   }
 }
 
