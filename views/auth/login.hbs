@@ -1,28 +1,31 @@
 <div class="wrapper">
-	<h2>User Login</h2>
+	<h2>Account Login</h2>
 	<section class="form-section">
-		<form action="/auth/login" method="POST">
+		<form action="/auth/login" method="POST" class="row g-3">
 			{{#if errorMessage}}
-				<p class="error-message">{{errorMessage}}</p>
+				<div class="col-12 text-center">
+					<p class="error-message">{{errorMessage}}</p>
+				</div>
 			{{/if}}
-			<label class="form-label" for="email">Email: </label>
-			<div>
+			
+			<div class="col-12">
+				<label class="form-label" for="email">Email</label>
 				<input 
-					class="form-field" 
+					class="form-control" 
 					id="email" 
-					placeholder="email" 
+					placeholder="user@example.com" 
 					type="text" 
 					required="required"
 					name="email"
 				/>
 			</div>
 
-			<label class="form-label" for="password"> password: </label>
-			<div>
+			<div class="col-12">
+				<label class="form-label" for="password">Password</label>
 				<input
-					class="form-field" 
+					class="form-control" 
 					id="password" 
-					placeholder="password" 
+					placeholder="********" 
 					type="password"
 					name="password"
 				/>
