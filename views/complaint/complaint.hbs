@@ -1,7 +1,11 @@
 <div class="text-center">
   <section class="form-section">
     <form {{#if userInSession.main}}action="/complaint/{{complaint._id}}/update" {{/if}}method="post" enctype="multipart/form-data" class="row g-3 bg-moonstone mt-1">
-			<h4 class="my-0" style="text-shadow: 1px 1px 1px black">Complaint Details</h4>
+			<div class="my-0 py-0 d-flex text-center flex-row align-items-center justify-content-center">
+				<img src="/images/complaint-icon.png" alt="complaint-icon" height="40px">
+				<h4 class="my-0 mx-1 px-1" style="text-shadow: 1px 1px 1px black">Complaint Details</h4>
+			</div>
+			
       {{#if errorMessage}}
 				<div class="col-12 text-center">
 				<p class="error-message">{{errorMessage}}</p>
@@ -115,8 +119,8 @@
 
       {{#if complaint.problemImg}}
       <div class="container mb-2 d-flex flex-column text-center mt-3 align-items-center justify-content-center">
-				<p>There's an image previously uploaded</p>
-				<div class="d-flex flex-row align-items-center justify-content-center mb-2">
+				{{!-- <p>There's an image previously uploaded</p> --}}
+				<div class="d-flex flex-row align-items-center justify-content-center my-3">
 					<div class="px-4">
 						<img src="{{complaint.problemImg}}" alt="problem-image" width="50px">
 					</div>
