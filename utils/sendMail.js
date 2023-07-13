@@ -9,6 +9,7 @@ const sendMail = async (email, message, subject, template, next) => {
       text: `${message}`,
       html: template(message),
     })
+    console.log('A mail was sent successfully')
   } catch (error) {
     next(error)
   }
