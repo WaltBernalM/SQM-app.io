@@ -53,8 +53,8 @@ header {
 
 .navbar-button {
   margin-left: 10px;
-  background-color: #009FB7;
-  color: #fff;
+  background-color: #EFF1F3;
+  color: #696773;
   border: none;
   border-radius: 4px;
   padding: 8px 16px;
@@ -140,10 +140,10 @@ a {
 
 /* Report status backgrounds */
 .bg-rejected {
-  background-color: rgb(22, 16, 0);
+  background-color: #696773;
 }
 .bg-approved {
-  background-color: rgb(0, 19, 3);
+  background-color: #009FB7;
 }
 
 
@@ -177,4 +177,8 @@ a {
 
 .d-form {
   width: 100%;
+}
+
+.btn {
+  text-shadow: none !important;
 }

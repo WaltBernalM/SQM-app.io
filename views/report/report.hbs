@@ -29,7 +29,7 @@
 <h2>Report #{{report._id}}:</h2>
 
 {{!--  D3 Content --}}
-<div class="d-step d-flex flex-column 
+<div class="d-step d-flex flex-column
 {{#if report.d3.approval}}
 bg-approved
 {{else}}
@@ -250,7 +250,7 @@ bg-rejected
               {{#if report.d3.attachment}}
               <div class="container bg-transparent d-flex flex-column text-center my-3 border pb-3 pt-2">
                 <p>There is a D3 attachment already available</p>
-                <a href="/report/{{report._id}}/attachment/d3" class="btn btn-outline-primary" download>
+                <a href="/report/{{report._id}}/attachment/d3" class="btn btn-warning" download>
                   Download
                 </a>
               </div>
@@ -271,8 +271,8 @@ bg-rejected
   {{!-- D3 Actions --}}
   <div class="mt-5 row g-3 d-flex text-center mb-3">
     <h4 class="row-11 mx-1" for="table">D3 Develop Interim Containment Actions</h4>
-    <div class="container-fluid main-table mt-2 row-11" id="d3-actions">
-      <table id="table" class="table table-hover table-dark table-responsive">
+    <div class="container-fluid table-responsive main-table mt-2 row-11" id="d3-actions">
+      <table id="table" class="table table-hover table-dark table-sm">
         <thead>
           <tr>
             <th scope="col">D3 actions</th>
@@ -381,7 +381,7 @@ bg-rejected
 
   {{!-- D3 Main approve --}}
   {{#if userInSession.main}}
-  <div class="form-section d-flex flex-column">
+  <div class="form-section d-flex flex-column align-items-center mb-3">
     <form action="/report/{{report._id}}/approve" method="post" class="col-md-12 row">
       <div class="form-group">
         <div class="container d-flex justify-content-center bg-transparent">
@@ -615,7 +615,7 @@ bg-rejected
             {{#if report.d4.attachment}}
             <div class="container bg-transparent d-flex flex-column text-center mb-2 mt-3 border pb-3">
               <p>Ther is a D4 attachment already available</p>
-              <a href="/report/{{report._id}}/attachment/d4" class="btn btn-outline-primary" download>
+              <a href="/report/{{report._id}}/attachment/d4" class="btn btn-warning" download>
                 Download
               </a>
             </div>
@@ -635,7 +635,7 @@ bg-rejected
 
   {{!-- D4 Main approve --}}
   {{#if userInSession.main}}
-  <div class="form-section d-flex flex-column">
+  <div class="form-section d-flex flex-column align-items-center mb-3">
     <form action="/report/{{report._id}}/approve" method="post" class="col-md-12 row">
       <div class="form-group">
         <div class="container d-flex justify-content-center bg-transparent">
@@ -666,8 +666,8 @@ bg-rejected
   {{!-- D5 & D6 Actions --}}
   <div class="mt-5 row g-3 d-flex text-center mb-3">
     <h4 class="row-11 mx-1">D5 Choose and Verify Permanent Corrective Actions</h4>
-    <div class="container-fluid main-table mt-2 row-11" id="d5D6-actions">
-      <table id="table" class="table table-hover table-dark table-responsive">
+    <div class="container-fluid table-responsive mt-2 row-11" id="d5D6-actions">
+      <table id="table" class="table table-hover table-dark table-sm">
         <thead>
           <tr>
             <th scope="col">D5/D6 actions</th>
@@ -795,7 +795,7 @@ bg-rejected
           {{#if report.d5d6.attachment}}
           <div class="container bg-transparent d-flex flex-column text-center mb-2 mt-3 border pb-3 pt-2">
             <p>There is a D6 attachment already available</p>
-            <a href="/report/{{report._id}}/attachment/d5d6" class="btn btn-outline-primary" download>
+            <a href="/report/{{report._id}}/attachment/d5d6" class="btn btn-warning" download>
               Download
             </a>
           </div>
@@ -815,15 +815,15 @@ bg-rejected
 
   {{!-- D5D6 Main approve --}}
   {{#if userInSession.main}}
-  <div class="form-section d-flex flex-column">
+  <div class="form-section d-flex flex-column align-items-center mb-3">
     <form action="/report/{{report._id}}/approve" method="post" class="col-md-12 row">
       <div class="form-group">
         <div class="container d-flex justify-content-center bg-transparent">
           <input type="hidden" name="approveD" value="5">
           {{#if report.d5d6.approval}}
-          <button id="approve-d5d6-btn" type="submit" class="btn btn-danger">Reject D5</button>
+          <button id="approve-d5d6-btn" type="submit" class="btn btn-danger">Reject D5 & D6</button>
           {{else}}
-          <button id="approve-d5d6-btn" type="submit" class="btn btn-success">Approve D5</button>
+          <button id="approve-d5d6-btn" type="submit" class="btn btn-success">Approve D5 & D6</button>
           {{/if}}
         </div>
       </div>
@@ -848,8 +848,8 @@ bg-rejected
   {{!-- D7 Actions --}}
   <div class="mt-5 row g-3 d-flex text-center mb-3">
     <h4 class="row-11 mx-1">D7 Take Preventive Measures</h4>
-    <div class="container-fluid main-table mt-2 row-11" id="d5D6-actions">
-      <table id="table" class="table table-hover table-dark table-responsive">
+    <div class="container-fluid table-responsive mt-2 row-11" id="d5D6-actions">
+      <table id="table" class="table table-hover table-dark table-sm">
         <thead>
           <tr>
             <th scope="col">D7 actions</th>
@@ -976,7 +976,7 @@ bg-rejected
           {{#if report.d7.attachment}}
           <div class="container bg-transparent d-flex flex-column text-center mb-2 mt-3 border pb-3 pt-2">
             <p> There is a D7 attachment already available</p>
-            <a href="/report/{{report._id}}/attachment/d7" class="btn btn-outline-primary" download>
+            <a href="/report/{{report._id}}/attachment/d7" class="btn btn-warning" download>
               Download
             </a>
           </div>
@@ -995,7 +995,7 @@ bg-rejected
 
   {{!-- D7 Main approve --}}
   {{#if userInSession.main}}
-  <div class="form-section d-flex flex-column">
+  <div class="form-section d-flex flex-column align-items-center mb-3">
     <form action="/report/{{report._id}}/approve" method="post" class="col-md-12 row">
       <div class="form-group">
         <div class="container d-flex justify-content-center bg-transparent">
