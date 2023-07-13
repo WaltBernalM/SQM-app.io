@@ -1,5 +1,5 @@
 <div class="wrapper">
-	<h2>View Complaint</h2>
+	<h2>Complaint Details</h2>
   <section class="form-section">
     <form {{#if userInSession.main}}action="/complaint/{{complaint._id}}/update" {{/if}}method="post" enctype="multipart/form-data" class="row g-3">
       {{#if errorMessage}}
@@ -10,8 +10,8 @@
 
 			{{#if userInSession.main}}
 			<div class="col-md-4">
-				<label class="form-label" for="supplier">Supplier</label>
-				<select name="userId" class="form-control" id="supplier" required="required">
+				<label class="form-label" for="userId">Supplier</label>
+				<select name="userId" class="form-control" id="userId" required="required">
 					{{#with complaint}}
           <option value="{{userId._id}}" selected>{{userId.org}}</option>
           {{/with}}
@@ -42,7 +42,7 @@
 				<input 
 					class="form-control {{#unless userInSession.main}}bg-dark text-light{{/unless}}" 
 					id="batch" 
-					placeholder="" 
+					placeholder="..." 
 					type="text"
 					{{#unless userInSession.main}} disabled="disabled" {{/unless}}
 					required="required"

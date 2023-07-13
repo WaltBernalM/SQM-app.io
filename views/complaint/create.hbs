@@ -1,14 +1,16 @@
 <div class="wrapper">
+	<h2>Create New Complaint</h2>
   <section class="form-section">
-		
-    <form action="/complaint/create" method="post" enctype="multipart/form-data">
+    <form action="/complaint/create" method="post" enctype="multipart/form-data" class="row g-3">
       {{#if errorMessage}}
+			<div class="col-12 text-center">
 				<p class="error-message">{{errorMessage}}</p>
+			</div>
 			{{/if}}
 
-			<div class="form-group">
-				<label class="form-label" for="userId"> Supplier: </label>
-				<select name="userId" class="form-control" id="">
+			<div class="col-md-4">
+				<label class="form-label" for="userId"> Supplier</label>
+				<select name="userId" class="form-control" id="" required="required">
 					{{#each allSuppliers}}
 						<option value="{{_id}}">{{org}}</option>
 					{{/each}}
@@ -16,32 +18,32 @@
 			</div>
 
       
-			<div class="form-group">
-				<label class="form-label" for="partNumber">Part Number: </label>
+			<div class="col-md-8">
+				<label class="form-label" for="partNumber">Part Number</label>
 				<input 
-					class="form-field" 
+					class="form-control"
 					id="partNumber" 
-					placeholder="123abc" 
+					placeholder="..." 
 					type="text"
 					required="required"
 					name="partNumber"
 				/>
 			</div>
 
-			<div class="form-group">
-				<label class="form-label" for="batch">Batch: </label>
+			<div class="col-md-4">
+				<label class="form-label" for="batch">Batch</label>
 				<input 
-					class="form-field" 
+					class="form-control"
 					id="batch" 
-					placeholder="" 
+					placeholder="..." 
 					type="text"
 					required="required"
 					name="batch"
 				/>
 			</div>
 
-			<div class="form-group">
-				<label class="form-label" for="quantity">Quantity: </label>
+			<div class="col-md-3">
+				<label class="form-label" for="quantity">Quantity</label>
 				<input 
 					class="form-control" 
 					id="quantity" 
@@ -53,22 +55,8 @@
 				/>
 			</div>
 
-			<div class="form-group">
-				<label class="form-label" for="problemDesc">Problem: </label>
-				<textarea 
-					class="form-field"
-					id="problemDesc" 
-					placeholder="description"
-					type="text"
-					required="required"
-					name="problemDesc"
-          cols="40"
-          rows="3"
-				></textarea>
-			</div>
-
-			<div class="form-group">
-				<label for="problemDate" class="form-label">Problem date:</label>
+			<div class="col-md-5">
+				<label for="problemDate" class="form-label">Problem date</label>
 				<input 
 					class="form-control"
 					id="problemDateForm"
@@ -79,10 +67,24 @@
 				>
 			</div>
 
-			<div class="form-group">
-				<label class="form-label" for="problemImg">Problem image: </label>
+			<div class="col-12">
+				<label class="form-label" for="problemDesc">Problem Description</label>
+				<textarea 
+					class="form-control"
+					id="problemDesc" 
+					placeholder="..."
+					type="text"
+					required="required"
+					name="problemDesc"
+          cols="40"
+          rows="3"
+				></textarea>
+			</div>
+
+			<div class="col-12">
+				<label class="form-label" for="problemImg">Problem Image</label>
 				<input 
-					class="form-control-file" 
+					class="form-control" 
 					id="problemImg" 
 					placeholder="" 
 					type="file"
@@ -93,7 +95,7 @@
 			</div>
 
 			<div>
-				<button class="pet-form-button" type="submit">Submit</button>
+				<button class="pet-form-button" type="submit">Create Complaint</button>
 			</div>
     </form>
   </section>
