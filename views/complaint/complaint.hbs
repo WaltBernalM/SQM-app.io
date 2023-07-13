@@ -1,5 +1,3 @@
-{{userInSession}}
-
 <div class="wrapper">
   <section class="form-section">
     <form {{#if userInSession.main}}action="/complaint/{{complaint._id}}/update" {{/if}}method="post" enctype="multipart/form-data">
@@ -26,7 +24,7 @@
 			<div class="form-group">
 				<label class="form-label" for="partNumber">Part Number: </label>
 				<input 
-					class="form-field" 
+					class="form-field {{#unless userInSession.main}}bg-dark text-light{{/unless}}" 
 					id="partNumber" 
 					placeholder="123abc" 
 					type="text"
@@ -40,7 +38,7 @@
 			<div class="form-group">
 				<label class="form-label" for="batch">Batch: </label>
 				<input 
-					class="form-field" 
+					class="form-field {{#unless userInSession.main}}bg-dark text-light{{/unless}}" 
 					id="batch" 
 					placeholder="" 
 					type="text"
@@ -54,7 +52,7 @@
 			<div class="form-group">
 				<label class="form-label" for="quantity">Quantity: </label>
 				<input 
-					class="form-control" 
+					class="form-control {{#unless userInSession.main}}bg-dark text-light{{/unless}}" 
 					id="quantity" 
 					placeholder="0"
 					type="number"
@@ -69,7 +67,7 @@
 			<div class="form-group">
 				<label class="form-label" for="problemDesc">Problem: </label>
 				<textarea 
-					class="form-field"
+					class="form-field {{#unless userInSession.main}}bg-dark text-light{{/unless}}"
 					id="problemDesc" 
 					placeholder="description"
 					type="text"
@@ -84,7 +82,7 @@
 			<div class="form-group">
 				<label for="problemDate" class="form-label">Problem date:</label>
 				<input 
-					class="form-control"
+					class="form-control {{#unless userInSession.main}}bg-dark text-light{{/unless}}"
 					id="problemDateForm"
 					type="date"
 					{{#unless userInSession.main}} disabled="disabled" {{/unless}}
