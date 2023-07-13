@@ -1,5 +1,5 @@
 {{#with complaint}}
-  <div id='complaint-data' class="container-fluid main-table mt-2 show">
+  <div id='complaint-data' class="text-center container-fluid main-table mt-2 show" style="text-shadow: 1px 1px 1px black;">
     <table id="table" class="table table-hover table-dark table-responsive">
       <thead>
         <h2>Complaint #{{_id}}: </h2>
@@ -26,8 +26,6 @@
   </div>
 {{/with}}
 
-<h2>Report #{{report._id}}:</h2>
-
 {{!--  D3 Content --}}
 <div class="d-step d-flex flex-column
 {{#if report.d3.approval}}
@@ -35,7 +33,7 @@ bg-approved
 {{else}}
 bg-rejected
 {{/if}}
-">
+" style="text-shadow: 1px 1px 1px black;">
   {{!-- D3 form --}}
   <form action="/report/{{report._id}}/update" method="post" class="d-form" enctype="multipart/form-data">
       <input type="hidden" name="submissionD" value="3">
@@ -597,7 +595,7 @@ bg-rejected
         </table>
       </div>
 
-      <div class="d-flex flex-column justify-content-center align-items-center mt-4 mb-4">
+      <div class="d-flex flex-column justify-content-center align-items-center mt-4 mb-3">
         {{!-- D4 attachment--}}
         <div class="col-3 text-center">
           <label class="form-label" for="d4Attachment">D4 Attachment</label>
@@ -613,8 +611,8 @@ bg-rejected
           {{/unless}}
           <div class="container bg-transparent">
             {{#if report.d4.attachment}}
-            <div class="container bg-transparent d-flex flex-column text-center mb-2 mt-3 border pb-3">
-              <p>Ther is a D4 attachment already available</p>
+            <div class="container bg-transparent d-flex flex-column text-center mb-1 mt-3 border pb-3">
+              <p>There is a D4 attachment already available</p>
               <a href="/report/{{report._id}}/attachment/d4" class="btn btn-warning" download>
                 Download
               </a>
@@ -664,13 +662,13 @@ bg-rejected
 {{/if}}
 ">
   {{!-- D5 & D6 Actions --}}
-  <div class="mt-5 row g-3 d-flex text-center mb-3">
+  <div class="mt-5 row g-3 d-flex text-center mb-5">
     <h4 class="row-11 mx-1">D5 Choose and Verify Permanent Corrective Actions</h4>
     <div class="container-fluid table-responsive mt-2 row-11" id="d5D6-actions">
       <table id="table" class="table table-hover table-dark table-sm">
         <thead>
           <tr>
-            <th scope="col">D5/D6 actions</th>
+            <th scope="col">D5 Actions</th>
             <th scope="col">Action Description</th>
             <th scope="col">Owner</th>
             <th scope="col">Creation date</th>
