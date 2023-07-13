@@ -42,16 +42,6 @@ header {
   color: #fff;
 }
 
-.header-title {
-  font-size: 40px;
-  margin-bottom: 10px;
-}
-
-.header-punchline {
-  font-size: 16px;
-  font-style: italic;
-}
-
 .navbar {
   display: flex;
   align-items: center;
@@ -76,63 +66,8 @@ header {
   color: #009FB7
 }
 
-.title-nav {
-  padding-left: 150px;
-}
-
-
 .navigation {
   display: flex;
-}
-
-.main {
-  padding: 20px;
-}
-
-.hero-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 50px 200px;
-}
-
-.main-content {
-  margin-top: 50px;
-  align-self: center;
-}
-
-
-.hero-section-title {
-  font-size: 34px;
-  margin-bottom: 10px;
-}
-
-.double {
-  display: flex;
-}
-
-.hero-section-description {
-  margin-right: 80px;
-  font-size: 22px;
-  margin-bottom: 20px;
-}
-
-
-
-.cta-button {
-  margin-top: 50px;
-  text-align: center;
-  padding: 15px 20px;
-  background-color: #26ad00;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.cta-button:hover {
-  background-color: #555;
 }
 
 /* form styles */
@@ -157,7 +92,6 @@ form {
 form div {
   text-align: left;
 }
-
 .form-field {
   position: relative;
   width: 100%;
@@ -173,7 +107,6 @@ form div {
   padding: 0.8rem;
   border-radius: 0.4rem;
 }
-
 .pet-form-button:hover {
   cursor: pointer;
   box-shadow: 0 0 11px yellow; 
@@ -183,120 +116,16 @@ a {
 }
 
 
-.image {
-  display: flex;
-  justify-content: center;
-}
-
-/* Cards List*/
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.card {
-  background-color: #484a51;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.card-image {
-  position: relative;
-}
-
-.card-image img {
-  width: 100%;
-  border-radius: 4px 4px 0 0;
-}
-
-.card-content {
-  padding: 20px;
-}
-
-.media {
-  display: flex;
-  justify-content: space-between;
-}
-
-.title.is-4 {
-  margin-bottom: 0;
-  font-size: 2rem;
-}
-
-.delete-form {
-  display: inline;
-  margin-top: 10px;
-}
-
-.delete-button {
-  background-color: #ff3860;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
-  cursor: pointer;
-}
-
-.delete-button:hover {
-  background-color: #d12e4e;
-}
 
 /* Detail Styles */
 
 .container {
-  background-color: #27292d;
+  background-color: #272727;
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   max-width: 500px;
   margin: 0 auto;
 }
 
-.container-image {
-  position: relative;
-  overflow: hidden;
-  border-radius: 4px;
-}
-
-.container-image img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.update-form{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-.container-content {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  color: #b4b9c2;
-  margin-bottom: 10px;
-}
-
-.title.is-4 {
-  margin-bottom: 10px;
-  font-weight: bold;
-  color: #b4b9c2;
-}
-
-.update-button {
-  background-color: #072192;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
-  cursor: pointer;
-  text-decoration: none;
-  margin: 0 20px;
-}
-
-.update-button:hover {
-  background-color: #072192;
-}
 
 @media (max-width: 576px) {
   .card {
@@ -308,13 +137,15 @@ a {
   color: rgb(255, 49, 49);
 }
 
+
+/* Report status backgrounds */
 .bg-rejected {
   background-color: rgb(22, 16, 0);
 }
-
 .bg-approved {
   background-color: rgb(0, 19, 3);
 }
+
 
 #create-action-btn {
   position: fixed !important;
@@ -322,15 +153,8 @@ a {
   top: 40% !important;
   text-align: left !important;
 }
-
 #create-action-btn:hover {
   width: 150px !important;
-}
-
-#cqi-logo-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 #main {
