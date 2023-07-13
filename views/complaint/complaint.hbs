@@ -30,7 +30,7 @@
 					id="partNumber" 
 					placeholder="..." 
 					type="text"
-					{{#unless userInSession.main}} disabled="disabled" {{/unless}}
+					{{#unless userInSession.main}} readonly="readonly" {{/unless}}
 					required="required"
 					name="partNumber"
           value="{{complaint.partNumber}}"
@@ -44,7 +44,7 @@
 					id="batch" 
 					placeholder="..." 
 					type="text"
-					{{#unless userInSession.main}} disabled="disabled" {{/unless}}
+					{{#unless userInSession.main}} readonly="readonly" {{/unless}}
 					required="required"
 					name="batch"
           value="{{complaint.batch}}"
@@ -58,7 +58,7 @@
 					id="quantity" 
 					placeholder="0"
 					type="number"
-					{{#unless userInSession.main}} disabled="disabled" {{/unless}}
+					{{#unless userInSession.main}} readonly="readonly" {{/unless}}
 					required="required"
 					name="quantity"
           min="1"
@@ -72,7 +72,7 @@
 					class="form-control {{#unless userInSession.main}}bg-dark text-light{{/unless}}"
 					id="problemDateForm"
 					type="date"
-					{{#unless userInSession.main}} disabled="disabled" {{/unless}}
+					{{#unless userInSession.main}} readonly="readonly" {{/unless}}
 					required="required"
 					name="problemDate"
 					max=""
@@ -87,7 +87,7 @@
 					id="problemDesc" 
 					placeholder="description"
 					type="text"
-					{{#unless userInSession.main}} disabled="disabled" {{/unless}}
+					{{#unless userInSession.main}} readonly="readonly" {{/unless}}
 					required="required"
 					name="problemDesc"
           cols="40"
