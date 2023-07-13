@@ -1,3 +1,10 @@
+/* Palette du color */
+/* #272727 Raisin black */
+/* #FED766 Mustard */
+/* #009FB7 Moonstone */
+/* #696773 Dimgray */
+/* #EFF1F3 Anti-flash white */
+
 /* Reset default browser styles */
 * {
   margin: 0;
@@ -17,7 +24,7 @@
 
 body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  background-color: #F4D35E;
+  background-color: #FED766;
   color: white;
   line-height: 1.6;
 }
@@ -49,14 +56,14 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #083D77;
+  background-color: #272727;
   color: #fff;
   padding: 10px;
 }
 
 .navbar-button {
   margin-left: 10px;
-  background-color: #DA4167;
+  background-color: #009FB7;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -65,7 +72,8 @@ header {
 }
 
 .navbar-button:hover {
-  background-color: #ff5a3c;
+  background-color: #EFF1F3;
+  color: #009FB7
 }
 
 .title-nav {
@@ -160,7 +168,8 @@ form div {
 .pet-form-button {
   width: 100%;
   border: none;
-  background-color: #F78764;
+  color: white;
+  background-color: #696773;
   padding: 0.8rem;
   border-radius: 0.4rem;
 }
