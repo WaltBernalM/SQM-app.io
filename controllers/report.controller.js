@@ -246,6 +246,7 @@ const postApproveReport = async (req, res, next) => {
       const subject = `Full approval of report ${reportId}`
       const message = `Congratulations!, your efforts have been enough to solve the issues!`
       sendMail(userEmail, subject, message, templates.reportApproved)
+      console.log('Approved report!')
     } else {
       reportFullApproval = false
     }
