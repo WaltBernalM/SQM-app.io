@@ -174,3 +174,7 @@ a {
 .text-justify {
   text-align: justify;
 }
+
+.d-form {
+  width: 100%;
+}
