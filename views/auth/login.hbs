@@ -1,28 +1,35 @@
 <div class="wrapper">
-	<h2>User Login</h2>
 	<section class="form-section">
-		<form action="/auth/login" method="POST">
+		<form action="/auth/login" method="POST" class="row g-3 bg-moonstone">
+			<div class="my-0 py-0 d-flex text-center flex-row align-items-center justify-content-center">
+				<img src="/images/account-icon.png" alt="complaint-icon" height="40px" style="filter: invert(100%);">
+				<h4 class="my-0 mx-1 px-1" style="text-shadow: 1px 1px 1px black">Main Account Signup</h4>
+			</div>
+			
 			{{#if errorMessage}}
-				<p class="error-message">{{errorMessage}}</p>
+				<div class="col-12 text-center">
+					<p class="error-message">{{errorMessage}}</p>
+				</div>
 			{{/if}}
-			<label class="form-label" for="email">Email: </label>
-			<div>
+			
+			<div class="col-12">
+				<label class="form-label" for="email">Email</label>
 				<input 
-					class="form-field" 
+					class="form-control" 
 					id="email" 
-					placeholder="email" 
+					placeholder="user@example.com" 
 					type="text" 
 					required="required"
 					name="email"
 				/>
 			</div>
 
-			<label class="form-label" for="password"> password: </label>
-			<div>
+			<div class="col-12">
+				<label class="form-label" for="password">Password</label>
 				<input
-					class="form-field" 
+					class="form-control" 
 					id="password" 
-					placeholder="password" 
+					placeholder="********" 
 					type="password"
 					name="password"
 				/>

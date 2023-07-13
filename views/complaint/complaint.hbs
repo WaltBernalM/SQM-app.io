@@ -1,14 +1,21 @@
-<div class="wrapper">
+<div class="text-center">
   <section class="form-section">
-    <form {{#if userInSession.main}}action="/complaint/{{complaint._id}}/update" {{/if}}method="post" enctype="multipart/form-data">
+    <form {{#if userInSession.main}}action="/complaint/{{complaint._id}}/update" {{/if}}method="post" enctype="multipart/form-data" class="row g-3 bg-moonstone mt-1">
+			<div class="my-0 py-0 d-flex text-center flex-row align-items-center justify-content-center">
+				<img src="/images/complaint-icon.png" alt="complaint-icon" height="40px">
+				<h4 class="my-0 mx-1 px-1" style="text-shadow: 1px 1px 1px black">Complaint Details</h4>
+			</div>
+			
       {{#if errorMessage}}
+				<div class="col-12 text-center">
 				<p class="error-message">{{errorMessage}}</p>
+				</div>
 			{{/if}}
 
 			{{#if userInSession.main}}
-			<div class="form-group">
-				<label class="form-label" for="userId"> Supplier: </label>
-				<select name="userId" class="form-control" id="">
+			<div class="col-md-4">
+				<label class="form-label" for="userId">Supplier</label>
+				<select name="userId" class="form-control" id="userId" required="required">
 					{{#with complaint}}
           <option value="{{userId._id}}" selected>{{userId.org}}</option>
           {{/with}}
@@ -19,44 +26,43 @@
 				</select>
 			</div>
 			{{/if}}
-
       
-			<div class="form-group">
-				<label class="form-label" for="partNumber">Part Number: </label>
+			<div class="col-md-8">
+				<label class="form-label" for="partNumber">Part Number</label>
 				<input 
-					class="form-field {{#unless userInSession.main}}bg-dark text-light{{/unless}}" 
+					class="form-control {{#unless userInSession.main}}bg-dark text-light{{/unless}}" 
 					id="partNumber" 
-					placeholder="123abc" 
+					placeholder="..." 
 					type="text"
-					{{#unless userInSession.main}} disabled="disabled" {{/unless}}
+					{{#unless userInSession.main}} readonly="readonly" {{/unless}}
 					required="required"
 					name="partNumber"
           value="{{complaint.partNumber}}"
 				/>
 			</div>
 
-			<div class="form-group">
-				<label class="form-label" for="batch">Batch: </label>
+			<div class="col-md-3">
+				<label class="form-label" for="batch">Batch</label>
 				<input 
-					class="form-field {{#unless userInSession.main}}bg-dark text-light{{/unless}}" 
+					class="form-control {{#unless userInSession.main}}bg-dark text-light{{/unless}}" 
 					id="batch" 
-					placeholder="" 
+					placeholder="..." 
 					type="text"
-					{{#unless userInSession.main}} disabled="disabled" {{/unless}}
+					{{#unless userInSession.main}} readonly="readonly" {{/unless}}
 					required="required"
 					name="batch"
           value="{{complaint.batch}}"
 				/>
 			</div>
 
-			<div class="form-group">
-				<label class="form-label" for="quantity">Quantity: </label>
+			<div class="col-md-3">
+				<label class="form-label" for="quantity">Quantity</label>
 				<input 
 					class="form-control {{#unless userInSession.main}}bg-dark text-light{{/unless}}" 
 					id="quantity" 
 					placeholder="0"
 					type="number"
-					{{#unless userInSession.main}} disabled="disabled" {{/unless}}
+					{{#unless userInSession.main}} readonly="readonly" {{/unless}}
 					required="required"
 					name="quantity"
           min="1"
@@ -64,28 +70,13 @@
 				/>
 			</div>
 
-			<div class="form-group">
-				<label class="form-label" for="problemDesc">Problem: </label>
-				<textarea 
-					class="form-field {{#unless userInSession.main}}bg-dark text-light{{/unless}}"
-					id="problemDesc" 
-					placeholder="description"
-					type="text"
-					{{#unless userInSession.main}} disabled="disabled" {{/unless}}
-					required="required"
-					name="problemDesc"
-          cols="40"
-          rows="3"
-				>{{complaint.problemDesc}}</textarea>
-			</div>
-
-			<div class="form-group">
-				<label for="problemDate" class="form-label">Problem date:</label>
+			<div class="col-md-6">
+				<label for="problemDate" class="form-label">Problem Date</label>
 				<input 
 					class="form-control {{#unless userInSession.main}}bg-dark text-light{{/unless}}"
 					id="problemDateForm"
 					type="date"
-					{{#unless userInSession.main}} disabled="disabled" {{/unless}}
+					{{#unless userInSession.main}} readonly="readonly" {{/unless}}
 					required="required"
 					name="problemDate"
 					max=""
@@ -93,12 +84,27 @@
 				>
 			</div>
 
+			<div class="col-12">
+				<label class="form-label" for="problemDesc">Problem Description</label>
+				<textarea 
+					class="form-control {{#unless userInSession.main}}bg-dark text-light{{/unless}}"
+					id="problemDesc" 
+					placeholder="description"
+					type="text"
+					{{#unless userInSession.main}} readonly="readonly" {{/unless}}
+					required="required"
+					name="problemDesc"
+          cols="40"
+          rows="3"
+				>{{complaint.problemDesc}}</textarea>
+			</div>
+
 			{{#if userInSession.main}}
-			<div class="form-group">
-				<label class="form-label" for="problemImg">Problem images: </label>
+			<div class="col-12">
+				<label class="form-label" for="problemImg">Problem Images</label>
 				<input type="text" name="existingProblemImg" hidden value="{{complaint.problemImg}}">
 				<input 
-					class="form-control-file" 
+					class="form-control" 
 					id="problemImg" 
 					placeholder=""
 					type="file"
@@ -112,12 +118,18 @@
 			{{/if}}
 
       {{#if complaint.problemImg}}
-      <div class="container mb-2 d-flex flex-column">
-				<p>There's an image previously uploaded</p>
-				<img src="{{complaint.problemImg}}" alt="" width="50px" class="mb-3">
-        <a href="{{complaint.problemImg}}" class="btn btn-outline-primary" download>
-          See full Image
-        </a>
+      <div class="container mb-2 d-flex flex-column text-center mt-3 align-items-center justify-content-center">
+				{{!-- <p>There's an image previously uploaded</p> --}}
+				<div class="d-flex flex-row align-items-center justify-content-center my-3">
+					<div class="px-4">
+						<img src="{{complaint.problemImg}}" alt="problem-image" width="50px">
+					</div>
+					<div class="px-4">
+						<a href="{{complaint.problemImg}}" class="btn btn-outline-primary" download>
+							See full Image
+						</a>
+					</div>
+				</div>
       </div>
       {{/if}}
 

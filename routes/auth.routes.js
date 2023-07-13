@@ -27,7 +27,7 @@ userRouter.get("/login", isLoggedOut, getLogin)
 userRouter.post("/login", postLogin)
 
 /* Profile */
-userRouter.get("/profile", logStatus, isLoggedIn, getProfile)
+userRouter.get("/profile", isLoggedIn, logStatus, getProfile)
 
 /* Logout */
 userRouter.get("/logout", isLoggedIn, logStatus, (req, res, next) => {

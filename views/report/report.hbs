@@ -1,8 +1,11 @@
 {{#with complaint}}
-  <div id='complaint-data' class="container-fluid main-table mt-2 show">
+  <div id='complaint-data' class="text-center container-fluid main-table mt-2 show my-3" style="text-shadow: 1px 1px 1px black;">
+    <div class="d-flex flex-row align-items-center justify-content-center mb-2">
+      <div class="mx-3"><img src="/images/complaint-icon.png" alt="" height="60px"></div>
+      <h2>Complaint #{{_id}}</h2>
+    </div>
     <table id="table" class="table table-hover table-dark table-responsive">
       <thead>
-        <h2>Complaint #{{_id}}: </h2>
         <tr>
           <th scope="col">Part Number</th>
           <th scope="col">Problem Description</th>
@@ -26,235 +29,258 @@
   </div>
 {{/with}}
 
-<h2>Report #{{report._id}}:</h2>
-
 {{!--  D3 Content --}}
-<div class="d-step form-section d-flex flex-column 
+<div class="d-step d-flex flex-column
 {{#if report.d3.approval}}
 bg-approved
 {{else}}
 bg-rejected
 {{/if}}
-">
+" style="text-shadow: 1px 1px 1px black;">
   {{!-- D3 form --}}
-  <form action="/report/{{report._id}}/update" method="post" class="col-md-12 row" enctype="multipart/form-data">
+  <form action="/report/{{report._id}}/update" method="post" class="d-form" enctype="multipart/form-data">
       <input type="hidden" name="submissionD" value="3">
       
-      {{!-- D1 --}}
-      <div class="form-group">
-      <label class="form-label" for="team"> D1 Build the Team: </label>
-        <ul id="team" class="list-group list-group-flush rounded-2">
-          <li class="list-group-item list-group-item-dark bg-dark">
-            <p class="text-light">Full names: </p>
-          </li>
-          <li class="list-group-item list-group-item-dark bg-dark">
-            {{#if userInSession.main}}
-            <p class="text-light">{{report.d3.teamMembers.[0]}}</p>
-            {{else}}
-            <input required="required" type="text" name="member0" id="" value="{{report.d3.teamMembers.[0]}}">
-            {{/if}}
-          </li>
-          <li class="list-group-item list-group-item-dark bg-dark">
-            {{#if userInSession.main}}
-            <p class="text-light">{{report.d3.teamMembers.[1]}}</p>
-            {{else}}
-            <input required="required" type="text" name="member1" id="" value="{{report.d3.teamMembers.[1]}}">
-            {{/if}}
-          </li>
-          <li class="list-group-item list-group-item-dark bg-dark">
-            {{#if userInSession.main}}
-            <p class="text-light">{{report.d3.teamMembers.[2]}}</p>
-            {{else}}
-            <input required="required" type="text" name="member2" id="" value="{{report.d3.teamMembers.[2]}}">
-            {{/if}}
-          </li>
-          <li class="list-group-item list-group-item-dark bg-dark">
-            {{#if userInSession.main}}
-            <p class="text-light">{{report.d3.teamMembers.[3]}}</p>
-            {{else}}
-            <input required="required" type="text" name="member3" id="" value="{{report.d3.teamMembers.[3]}}">
-            {{/if}}
-          </li>
-        </ul>
-      </div>
-
-      {{!-- D2 --}}
-      <div class="form-group">
-        <label class="form-label" for="table">D2 Describe the problem:</label>
-        <table id="table" class="table table-hover table-dark table-responsive">
-          <thead>
-            <tr>
-              <th scope="col">5W2H</th>
-              <th scope="col">Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>What?</td>
-              <td>
-                {{#if userInSession.main}}
-                <p>{{report.d3.w5h2.[0]}}</p>
-                {{else}}
-                <textarea class="form-field"
-                  id="problemDesc" 
-                  placeholder="What is the problem"
-                  type="text"
-                  required="required"
-                  name="w0"
-                  cols="40"
-                  rows="1"
-                >{{report.d3.w5h2.[0]}}</textarea>
-                {{/if}}
-              </td>
-            </tr>
-            <tr>
-              <td>When?</td>
-              <td>
-                {{#if userInSession.main}}
-                <p>{{report.d3.w5h2.[1]}}</p>
-                {{else}}
-                <textarea class="form-field"
-                  id="problemDesc" 
-                  placeholder="When did it happen?"
-                  type="text"
-                  required="required"
-                  name="w1"
-                  cols="40"
-                  rows="1"
-                >{{report.d3.w5h2.[1]}}</textarea>
-                {{/if}}
-              </td>
-            </tr>
-            <tr>
-              <td>Where?</td>
-              <td>
-                {{#if userInSession.main}}
-                <p>{{report.d3.w5h2.[2]}}</p>
-                {{else}}
-                <textarea class="form-field"
-                  id="problemDesc" 
-                  placeholder="Where was detected?"
-                  type="text"
-                  required="required"
-                  name="w2"
-                  cols="40"
-                  rows="1"
-                >{{report.d3.w5h2.[2]}}</textarea></td>
-                {{/if}}
-            </tr>
-            <tr>
-              <td>Who?</td>
-              <td>
-                {{#if userInSession.main}}
-                <p>{{report.d3.w5h2.[3]}}</p>
-                {{else}}
-                <textarea class="form-field"
-                  id="problemDesc" 
-                  placeholder="Who detected the problem?"
-                  type="text"
-                  required="required"
-                  name="w3"
-                  cols="40"
-                  rows="1"
-                >{{report.d3.w5h2.[3]}}</textarea></td>
-                {{/if}}
-            </tr>
-            <tr>
-              <td>Why?</td>
-              <td>
-                {{#if userInSession.main}}
-                <p>{{report.d3.w5h2.[4]}}</p>
-                {{else}}<textarea class="form-field"
-                  id="problemDesc" 
-                  placeholder="Why it's a problem?"
-                  type="text"
-                  required="required"
-                  name="w4"
-                  cols="40"
-                  rows="1"
-                >{{report.d3.w5h2.[4]}}</textarea></td>
-                {{/if}}
-            </tr>
-            <tr>
-              <td>How?</td>
-              <td>
-                {{#if userInSession.main}}
-                <p>{{report.d3.w5h2.[5]}}</p>
-                {{else}}
-                <textarea class="form-field"
-                  id="problemDesc" 
-                  placeholder="How it was detected?"
-                  type="text"
-                  required="required"
-                  name="w5"
-                  cols="40"
-                  rows="1"
-                >{{report.d3.w5h2.[5]}}</textarea></td>
-                {{/if}}
-            </tr>
-            <tr>
-              <td>How many?</td>
-              <td>
-                {{#if userInSession.main}}
-                <p>{{report.d3.w5h2.[6]}}</p>
-                {{else}}<textarea class="form-field"
-                  id="problemDesc" 
-                  placeholder="How many units are affected?"
-                  type="text"
-                  required="required"
-                  name="w6"
-                  cols="40"
-                  rows="1"
-                >{{report.d3.w5h2.[6]}}</textarea></td>
-                {{/if}}
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      {{!-- D3 attachment--}}
-      <div class="form-group">
-        <label class="form-label" for="d3Attachment">D3 attachment: </label>
-        {{#unless userInSession.main}}
-        <input 
-          class="form-control-file" 
-          id="d3Attachment" 
-          placeholder="" 
-          type="file"
-          name="d3Attachment"
-          accept=".xlsx, .xlsm, .pdf, .docx, .pptx, .pptm" 
-        />
-        {{/unless}}
-        <div class="container bg-transparent">
-          {{#if report.d3.attachment}}
-          <div class="container bg-transparent d-flex flex-column">
-            <p>D3 attachment available</p>
-            <a href="/report/{{report._id}}/attachment/d3" class="btn btn-outline-primary" download>
-              Download
-            </a>
+      <div class="d-flex flex-column justify-content-center pt-3">
+        <div class="row g-3 justify-content-around">
+          {{!-- D1 --}}
+          <div class="col-md-3 text-center">
+            <img src="/images/d1-icon.png" alt="" height="60px">
+            <h4 class="form-label" for="team"> D1 Establish the Team</h4>
+            <table id="team" class="table table-hover table-dark table-responsive">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Names</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>
+                    {{#if userInSession.main}}
+                    <p class="text-light">{{report.d3.teamMembers.[0]}}</p>
+                    {{else}}
+                    <input required="required" type="text" name="member0" id="member0" value="{{report.d3.teamMembers.[0]}}">
+                    {{/if}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>
+                    {{#if userInSession.main}}
+                    <p class="text-light">{{report.d3.teamMembers.[1]}}</p>
+                    {{else}}
+                    <input required="required" type="text" name="member1" id="" value="{{report.d3.teamMembers.[1]}}">
+                    {{/if}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>
+                    {{#if userInSession.main}}
+                    <p class="text-light">{{report.d3.teamMembers.[2]}}</p>
+                    {{else}}
+                    <input required="required" type="text" name="member2" id="" value="{{report.d3.teamMembers.[2]}}">
+                    {{/if}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>
+                    {{#if userInSession.main}}
+                    <p class="text-light">{{report.d3.teamMembers.[3]}}</p>
+                    {{else}}
+                    <input required="required" type="text" name="member3" id="" value="{{report.d3.teamMembers.[3]}}">
+                    {{/if}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          {{else}}
-          <p>No attachment for D3 section</p>
-          {{/if}}
-        </div>
-      </div>
 
-      {{!-- Save changes Button --}}
-      <div class="container d-flex justify-content-center bg-transparent">
-        {{#unless userInSession.main}}
-        <button type="submit" class="btn btn-success">Save D3</button>
-        {{/unless}}
+          {{!-- D2 --}}
+          <div class="col-md-6 text-center">
+            <img src="/images/d2-icon.png" alt="" height="60px">
+            <h4 class="form-label" for="table">D2 Define and Describe the Problem</h4>
+            <table id="table" class="table table-hover table-dark table-responsive">
+              <thead>
+                <tr>
+                  <th scope="col">5W2H</th>
+                  <th scope="col">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>What?</td>
+                  <td>
+                    {{#if userInSession.main}}
+                    <p>{{report.d3.w5h2.[0]}}</p>
+                    {{else}}
+                    <textarea class="form-field"
+                      id="problemDesc" 
+                      placeholder="What is the problem"
+                      type="text"
+                      required="required"
+                      name="w0"
+                      cols="40"
+                      rows="1"
+                    >{{report.d3.w5h2.[0]}}</textarea>
+                    {{/if}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>When?</td>
+                  <td>
+                    {{#if userInSession.main}}
+                    <p>{{report.d3.w5h2.[1]}}</p>
+                    {{else}}
+                    <textarea class="form-field"
+                      id="problemDesc" 
+                      placeholder="When did it happen?"
+                      type="text"
+                      required="required"
+                      name="w1"
+                      cols="40"
+                      rows="1"
+                    >{{report.d3.w5h2.[1]}}</textarea>
+                    {{/if}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Where?</td>
+                  <td>
+                    {{#if userInSession.main}}
+                    <p>{{report.d3.w5h2.[2]}}</p>
+                    {{else}}
+                    <textarea class="form-field"
+                      id="problemDesc" 
+                      placeholder="Where was detected?"
+                      type="text"
+                      required="required"
+                      name="w2"
+                      cols="40"
+                      rows="1"
+                    >{{report.d3.w5h2.[2]}}</textarea></td>
+                    {{/if}}
+                </tr>
+                <tr>
+                  <td>Who?</td>
+                  <td>
+                    {{#if userInSession.main}}
+                    <p>{{report.d3.w5h2.[3]}}</p>
+                    {{else}}
+                    <textarea class="form-field"
+                      id="problemDesc" 
+                      placeholder="Who detected the problem?"
+                      type="text"
+                      required="required"
+                      name="w3"
+                      cols="40"
+                      rows="1"
+                    >{{report.d3.w5h2.[3]}}</textarea></td>
+                    {{/if}}
+                </tr>
+                <tr>
+                  <td>Why?</td>
+                  <td>
+                    {{#if userInSession.main}}
+                    <p>{{report.d3.w5h2.[4]}}</p>
+                    {{else}}<textarea class="form-field"
+                      id="problemDesc" 
+                      placeholder="Why it's a problem?"
+                      type="text"
+                      required="required"
+                      name="w4"
+                      cols="40"
+                      rows="1"
+                    >{{report.d3.w5h2.[4]}}</textarea></td>
+                    {{/if}}
+                </tr>
+                <tr>
+                  <td>How?</td>
+                  <td>
+                    {{#if userInSession.main}}
+                    <p>{{report.d3.w5h2.[5]}}</p>
+                    {{else}}
+                    <textarea class="form-field"
+                      id="problemDesc" 
+                      placeholder="How it was detected?"
+                      type="text"
+                      required="required"
+                      name="w5"
+                      cols="40"
+                      rows="1"
+                    >{{report.d3.w5h2.[5]}}</textarea></td>
+                    {{/if}}
+                </tr>
+                <tr>
+                  <td>How many?</td>
+                  <td>
+                    {{#if userInSession.main}}
+                    <p>{{report.d3.w5h2.[6]}}</p>
+                    {{else}}<textarea class="form-field"
+                      id="problemDesc" 
+                      placeholder="How many units are affected?"
+                      type="text"
+                      required="required"
+                      name="w6"
+                      cols="40"
+                      rows="1"
+                    >{{report.d3.w5h2.[6]}}</textarea></td>
+                    {{/if}}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="d-flex flex-column justify-content-center align-items-center mt-4">
+          {{!-- D3 attachment--}}
+          <div class="col-3 text-center">
+            <label class="form-label" for="d3Attachment">D3 Attachment</label>
+            {{#unless userInSession.main}}
+            <input 
+              class="form-control" 
+              id="d3Attachment" 
+              placeholder="" 
+              type="file"
+              name="d3Attachment"
+              accept=".xlsx, .xlsm, .pdf, .docx, .pptx, .pptm" 
+            />
+            {{/unless}}
+            <div class="container bg-transparent">
+              {{#if report.d3.attachment}}
+              <div class="container bg-transparent d-flex flex-column text-center my-3 border pb-3 pt-2">
+                <p>There is a D3 attachment already available</p>
+                <a href="/report/{{report._id}}/attachment/d3" class="btn btn-warning" download>
+                  Download
+                </a>
+              </div>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+
+        {{!-- Save changes Button --}}
+        <div class="container d-flex justify-content-center bg-transparent">
+          {{#unless userInSession.main}}
+          <button type="submit" class="btn btn-success">Save D1 / D2 Changes</button>
+          {{/unless}}
+        </div>
       </div>
   </form>
 
   {{!-- D3 Actions --}}
-  <div class="form-group">
-    <div class="container-fluid main-table mt-2">
-      <table id="table" class="table table-hover table-dark table-responsive">
+  <div class="mt-5 row g-3 d-flex text-center mb-3 justify-content-center align-items-center">
+    <div class="mb-0 pb-0"><img src="/images/d3-icon.png" alt="" height="60px"></div>
+    <h4 class="row-11 mx-1 mt-0 pt-0" for="table">D3 Develop Interim Containment Actions</h4>
+    <div class="container-fluid table-responsive main-table mt-2 row-11" id="d3-actions">
+      <table id="table" class="table table-hover table-dark table-sm">
         <thead>
           <tr>
             <th scope="col">D3 actions</th>
-            <th scope="col">Action description</th>
+            <th scope="col">Action Description</th>
             <th scope="col">Owner</th>
             <th scope="col">Creation date</th>
             <th scope="col">Due date</th>
@@ -290,25 +316,23 @@ bg-rejected
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <div class="container d-flex flex-column">
-                        {{!-- Update Action description --}}
-                        <div class="form-group">
-                          <label for="content" class="form-label">Action: </label>
-                          <input class="form-field" type="text" name="content" id="" required="required" value="{{content}}">
+                      <div class="row g-3">
+                        {{!-- Update Owner --}}
+                        <div class="col-md-6">
+                          <label for="content" class="form-label">Owner Name</label>
+                          <input class="form-control" type="text" name="ownerName" id="" required="required" value="{{ownerName}}">
                         </div>
 
-                        {{!-- Update Owner --}}
-                        <div class="form-group">
-                          <label for="content" class="form-label">Owner: </label>
-                          <input class="form-field" type="text" name="ownerName" id="" required="required" value="{{ownerName}}">
-                        </div>
-                        
                         {{!-- Update Closure Date --}}
-                        <div class="form-group">
-                          <div class="container">
-                            <label for="closeDate" class="form-label">Closure Date: </label>
-                          </div>
-                          <input class="form-field" type="date" id="closeDate" name="closeDate" max="">
+                        <div class="col-md-6">
+                          <label for="closeDate" class="form-label">Closure Date</label>
+                          <input class="form-control" type="date" id="closeDate" name="closeDate" max="">
+                        </div>
+
+                        {{!-- Update Action description --}}
+                        <div class="col-12">
+                          <label for="content" class="form-label">Action Description</label>
+                          <input class="form-control" type="text" name="content" id="" required="required" value="{{content}}">
                         </div>
                       </div>
                     </div>
@@ -361,7 +385,7 @@ bg-rejected
 
   {{!-- D3 Main approve --}}
   {{#if userInSession.main}}
-  <div class="form-section d-flex flex-column">
+  <div class="form-section d-flex flex-column align-items-center mb-3 mt-4">
     <form action="/report/{{report._id}}/approve" method="post" class="col-md-12 row">
       <div class="form-group">
         <div class="container d-flex justify-content-center bg-transparent">
@@ -380,7 +404,7 @@ bg-rejected
 
 {{!-- D4 content --}}
 {{#if d3Done}}
-<div class="d-step form-section d-flex flex-column
+<div class="d-step form-section d-flex flex-column my-4
 {{#if report.d4.approval}}
 bg-approved
 {{else}}
@@ -388,231 +412,235 @@ bg-rejected
 {{/if}}
 ">
   {{!-- D4 form --}}
-  <form action="/report/{{report._id}}/update" method="post" class="col-md-12 row" enctype="multipart/form-data">
+  <form action="/report/{{report._id}}/update" method="post" class="d-form" enctype="multipart/form-data">
     <input type="hidden" name="submissionD" value="4">
-    {{!-- 5 whys and Root Causes--}}
-    <div class="form-group">
-      <label class="form-label" for="table">D4 Root Cause Analysis:</label>
-      <table id="table" class="table table-hover table-dark table-responsive">
-        <thead>
-          <tr>
-            <th scope="col">5 why</th>                
-            <th scope="col">Why it was not detected?</th>
-            <th scope="col">Why did it occurred?</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Why?</td>
-            <td>
-              {{#if userInSession.main}}
-              <p>{{report.d4.whyDet.[0]}}</p>
-              {{else}}
-              <textarea class="form-field" 
-                type="text"
-                required="required"
-                name="whyDet0"
-                cols="20"
-                rows="1"
-              >{{report.d4.whyDet.[0]}}</textarea>
-              {{/if}}
-            </td>
-            <td>
-              {{#if userInSession.main}}
-              <p>{{report.d4.whyOcc.[0]}}</p>
-              {{else}}
-              <textarea class="form-field" 
-                type="text"
-                required="required"
-                name="whyOcc0"
-                cols="20"
-                rows="1"
-              >{{report.d4.whyOcc.[0]}}</textarea>
-              {{/if}}
-            </td>
-          </tr>
-          <tr>
-            <td>Why?</td>
-            <td>
-              {{#if userInSession.main}}
-              <p>{{report.d4.whyDet.[1]}}</p>
-              {{else}}
-              <textarea class="form-field" 
-                type="text"
-                required="required"
-                name="whyDet1"
-                cols="20"
-                rows="1"
-              >{{report.d4.whyDet.[1]}}</textarea>
-              {{/if}}
-            </td>
-            <td>
-              {{#if userInSession.main}}
-              {{report.d4.whyOcc.[1]}}
-              {{else}}
-              <textarea class="form-field" 
-                type="text"
-                required="required"
-                name="whyOcc1"
-                cols="20"
-                rows="1"
-              >{{report.d4.whyOcc.[1]}}</textarea>
-              {{/if}}
-            </td>
-          </tr>
-          <tr>
-            <td>Why?</td>
-            <td>
-              {{#if userInSession.main}}
-              {{report.d4.whyDet.[2]}}
-              {{else}}
-              <textarea class="form-field" 
-                type="text"
-                required="required"
-                name="whyDet2"
-                cols="20"
-                rows="1"
-              >{{report.d4.whyDet.[2]}}</textarea>
-              {{/if}}
-            </td>
-            <td>
-              {{#if userInSession.main}}
-              <p>{{report.d4.whyOcc.[2]}}</p>
-              {{else}}
-              <textarea class="form-field" 
-                type="text"
-                name="whyOcc2"
-                cols="20"
-                rows="1"
-              >{{report.d4.whyOcc.[2]}}</textarea>
-              {{/if}}
-            </td>
-          </tr>
-          <tr>
-            <td>Why?</td>
-            <td>
-              {{#if userInSession.main}}
-              <p>{{report.d4.whyDet.[3]}}</p>
-              {{else}}
-              <textarea class="form-field" 
-                type="text"
-                name="whyDet3"
-                cols="20"
-                rows="1"
-              >{{report.d4.whyDet.[3]}}</textarea>
-              {{/if}}
-            </td>
-            <td>
-              {{#if userInSession.main}}
-              <p>{{report.d4.whyOcc.[3]}}</p>
-              {{else}}
-              <textarea class="form-field" 
-                type="text"
-                name="whyOcc3"
-                cols="20"
-                rows="1"
-              >{{report.d4.whyOcc.[3]}}</textarea>
-              {{/if}}
-            </td>
-          </tr>
-          <tr>
-            <td>Why?</td>
-            <td>
-              {{#if userInSession.main}}
-              <p>{{report.d4.whyDet.[4]}}</p>
-              {{else}}
-              <textarea class="form-field" 
-                type="text"
-                name="whyDet4"
-                cols="20"
-                rows="1"
-              >{{report.d4.whyDet.[4]}}</textarea>
-              {{/if}}
-            </td>
-            <td>
-              {{#if userInSession.main}}
-              <p>{{report.d4.whyOcc.[4]}}</p>
-              {{else}}
-              <textarea class="form-field" 
-                type="text"
-                name="whyOcc4"
-                cols="20"
-                rows="1"
-              >{{report.d4.whyOcc.[4]}}</textarea>
-              {{/if}}
-            </td>
-          </tr>
-          <tr>
-            <td>Root Cause:</td>
-            <td>
-              {{#if userInSession.main}}
-              <p>{{report.d4.rootCauseDet}}</p>
-              {{else}}
-              <textarea class="form-field" 
-                type="text"
-                required="required"
-                name="rootCauseDet"
-                cols="20"
-                rows="1"
-              >{{report.d4.rootCauseDet}}</textarea>
-              {{/if}}
-            </td>
-            <td>
-              {{#if userInSession.main}}
-              {{report.d4.rootCauseOcc}}
-              {{else}}
-              <textarea class="form-field" 
-                type="text"
-                required="required"
-                name="rootCauseOcc"
-                cols="20"
-                rows="1"
-              >{{report.d4.rootCauseOcc}}</textarea>
-              {{/if}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    {{!-- D4 attachment--}}
-    <div class="form-group">
-      <label class="form-label" for="d4Attachment">D4 attachment: </label>
-      {{#unless userInSession.main}}
-      <input 
-        class="form-control-file" 
-        id="d4Attachment" 
-        placeholder="" 
-        type="file"
-        name="d4Attachment"
-        accept=".xlsx, .xlsm, .pdf, .docx, .pptx, .pptm" 
-      />
-      {{/unless}}
-      <div class="container bg-transparent">
-        {{#if report.d4.attachment}}
-        <div class="container bg-transparent d-flex flex-column">
-          <p>D4 attachment available</p>
-          <a href="/report/{{report._id}}/attachment/d4" class="btn btn-outline-primary" download>
-            Download
-          </a>
-        </div>
-        {{else}}
-        <p>No attachment for D4 section</p>
-        {{/if}}
+    
+    <div class="d-flex flex-column align-items-center justify-content-center row g-3 pb-4">
+      {{!-- 5 whys and Root Causes--}}
+      <div class="col-10 text-center pt-3">
+        <img src="/images/d4-icon.png" alt="" height="60px">
+        <h4 class="form-label pb-2" for="table-w5h2">D4 Define and Verify Root Cause</h4>
+        <table id="table-w5h2" class="table table-hover table-dark table-responsive">
+          <thead>
+            <tr>
+              <th scope="col">5 why</th>                
+              <th scope="col">Why it was not detected?</th>
+              <th scope="col">Why did it occurred?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Why?</td>
+              <td>
+                {{#if userInSession.main}}
+                <p>{{report.d4.whyDet.[0]}}</p>
+                {{else}}
+                <textarea class="form-field" 
+                  type="text"
+                  required="required"
+                  name="whyDet0"
+                  cols="20"
+                  rows="1"
+                >{{report.d4.whyDet.[0]}}</textarea>
+                {{/if}}
+              </td>
+              <td>
+                {{#if userInSession.main}}
+                <p>{{report.d4.whyOcc.[0]}}</p>
+                {{else}}
+                <textarea class="form-field" 
+                  type="text"
+                  required="required"
+                  name="whyOcc0"
+                  cols="20"
+                  rows="1"
+                >{{report.d4.whyOcc.[0]}}</textarea>
+                {{/if}}
+              </td>
+            </tr>
+            <tr>
+              <td>Why?</td>
+              <td>
+                {{#if userInSession.main}}
+                <p>{{report.d4.whyDet.[1]}}</p>
+                {{else}}
+                <textarea class="form-field" 
+                  type="text"
+                  required="required"
+                  name="whyDet1"
+                  cols="20"
+                  rows="1"
+                >{{report.d4.whyDet.[1]}}</textarea>
+                {{/if}}
+              </td>
+              <td>
+                {{#if userInSession.main}}
+                {{report.d4.whyOcc.[1]}}
+                {{else}}
+                <textarea class="form-field" 
+                  type="text"
+                  required="required"
+                  name="whyOcc1"
+                  cols="20"
+                  rows="1"
+                >{{report.d4.whyOcc.[1]}}</textarea>
+                {{/if}}
+              </td>
+            </tr>
+            <tr>
+              <td>Why?</td>
+              <td>
+                {{#if userInSession.main}}
+                {{report.d4.whyDet.[2]}}
+                {{else}}
+                <textarea class="form-field" 
+                  type="text"
+                  required="required"
+                  name="whyDet2"
+                  cols="20"
+                  rows="1"
+                >{{report.d4.whyDet.[2]}}</textarea>
+                {{/if}}
+              </td>
+              <td>
+                {{#if userInSession.main}}
+                <p>{{report.d4.whyOcc.[2]}}</p>
+                {{else}}
+                <textarea class="form-field" 
+                  type="text"
+                  name="whyOcc2"
+                  cols="20"
+                  rows="1"
+                >{{report.d4.whyOcc.[2]}}</textarea>
+                {{/if}}
+              </td>
+            </tr>
+            <tr>
+              <td>Why?</td>
+              <td>
+                {{#if userInSession.main}}
+                <p>{{report.d4.whyDet.[3]}}</p>
+                {{else}}
+                <textarea class="form-field" 
+                  type="text"
+                  name="whyDet3"
+                  cols="20"
+                  rows="1"
+                >{{report.d4.whyDet.[3]}}</textarea>
+                {{/if}}
+              </td>
+              <td>
+                {{#if userInSession.main}}
+                <p>{{report.d4.whyOcc.[3]}}</p>
+                {{else}}
+                <textarea class="form-field" 
+                  type="text"
+                  name="whyOcc3"
+                  cols="20"
+                  rows="1"
+                >{{report.d4.whyOcc.[3]}}</textarea>
+                {{/if}}
+              </td>
+            </tr>
+            <tr>
+              <td>Why?</td>
+              <td>
+                {{#if userInSession.main}}
+                <p>{{report.d4.whyDet.[4]}}</p>
+                {{else}}
+                <textarea class="form-field" 
+                  type="text"
+                  name="whyDet4"
+                  cols="20"
+                  rows="1"
+                >{{report.d4.whyDet.[4]}}</textarea>
+                {{/if}}
+              </td>
+              <td>
+                {{#if userInSession.main}}
+                <p>{{report.d4.whyOcc.[4]}}</p>
+                {{else}}
+                <textarea class="form-field" 
+                  type="text"
+                  name="whyOcc4"
+                  cols="20"
+                  rows="1"
+                >{{report.d4.whyOcc.[4]}}</textarea>
+                {{/if}}
+              </td>
+            </tr>
+            <tr>
+              <td>Root Cause:</td>
+              <td>
+                {{#if userInSession.main}}
+                <p>{{report.d4.rootCauseDet}}</p>
+                {{else}}
+                <textarea class="form-field" 
+                  type="text"
+                  required="required"
+                  name="rootCauseDet"
+                  cols="20"
+                  rows="1"
+                >{{report.d4.rootCauseDet}}</textarea>
+                {{/if}}
+              </td>
+              <td>
+                {{#if userInSession.main}}
+                {{report.d4.rootCauseOcc}}
+                {{else}}
+                <textarea class="form-field" 
+                  type="text"
+                  required="required"
+                  name="rootCauseOcc"
+                  cols="20"
+                  rows="1"
+                >{{report.d4.rootCauseOcc}}</textarea>
+                {{/if}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </div>
 
-    {{!-- Save changes Button --}}
-    <div class="container d-flex justify-content-center bg-transparent">
-      {{#unless userInSession.main}}
-      <button type="submit" class="btn btn-success">Save D4</button>
-      {{/unless}}
+      <div class="d-flex flex-column justify-content-center align-items-center mt-4 mb-3">
+        {{!-- D4 attachment--}}
+        <div class="col-3 text-center">
+          <label class="form-label" for="d4Attachment">D4 Attachment</label>
+          {{#unless userInSession.main}}
+          <input 
+            class="form-control" 
+            id="d4Attachment" 
+            placeholder="" 
+            type="file"
+            name="d4Attachment"
+            accept=".xlsx, .xlsm, .pdf, .docx, .pptx, .pptm" 
+          />
+          {{/unless}}
+          <div class="container bg-transparent">
+            {{#if report.d4.attachment}}
+            <div class="container bg-transparent d-flex flex-column text-center mb-1 mt-3 border pb-3">
+              <p>There is a D4 attachment already available</p>
+              <a href="/report/{{report._id}}/attachment/d4" class="btn btn-warning" download>
+                Download
+              </a>
+            </div>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      {{!-- Save changes Button --}}
+      <div class="container d-flex justify-content-center bg-transparent">
+        {{#unless userInSession.main}}
+        <button type="submit" class="btn btn-success">Save D4 Changes</button>
+        {{/unless}}
+      </div>
     </div>
   </form>
 
   {{!-- D4 Main approve --}}
   {{#if userInSession.main}}
-  <div class="form-section d-flex flex-column">
+  <div class="form-section d-flex flex-column align-items-center mb-3">
     <form action="/report/{{report._id}}/approve" method="post" class="col-md-12 row">
       <div class="form-group">
         <div class="container d-flex justify-content-center bg-transparent">
@@ -633,59 +661,23 @@ bg-rejected
 {{!-- D5 & D6 content --}}
 {{#if d3Done}}
 {{#if d4Done}}
-<div class="d-step form-section d-flex flex-column
+<div class="d-step form-section d-flex flex-column my-4
 {{#if report.d5d6.approval}}
 bg-approved
 {{else}}
 bg-rejected
 {{/if}}
 ">
-  {{!-- D5 & D6 form --}}
-  <form action="/report/{{report._id}}/update" method="post" class="col-md-12 row" enctype="multipart/form-data">
-    <input type="hidden" name="submissionD" value="5">
-    {{!-- attachments--}}
-    <div class="form-group">
-      <label class="form-label" for="d5d6Attachment">D5/D6 attachment: </label>
-      {{#unless userInSession.main}}
-      <input 
-        class="form-control-file" 
-        id="d5d6Attachment" 
-        placeholder="" 
-        type="file"
-        name="d5d6Attachment"
-        accept=".xlsx, .xlsm, .pdf, .docx, .pptx, .pptm" 
-      />
-      {{/unless}}
-      <div class="container bg-transparent">
-        {{#if report.d5d6.attachment}}
-        <div class="container bg-transparent d-flex flex-column">
-          <p>D5/D6 attachment available</p>
-          <a href="/report/{{report._id}}/attachment/d5d6" class="btn btn-outline-primary" download>
-            Download
-          </a>
-        </div>
-        {{else}}
-        <p>No attachment for D5/D6 section</p>
-        {{/if}}
-      </div>
-    </div>
-
-    {{!-- Save changes Button --}}
-    <div class="container d-flex justify-content-center bg-transparent">
-      {{#unless userInSession.main}}
-      <button type="submit" class="btn btn-success">Save D5/D6</button>
-      {{/unless}}
-    </div>
-  </form>
-
   {{!-- D5 & D6 Actions --}}
-  <div class="form-group">
-    <div class="container-fluid main-table mt-2">
-      <table id="table" class="table table-hover table-dark table-responsive">
+  <div class="mt-3 row g-3 d-flex text-center mb-5">
+    <div class="mb-0 pb-0"><img src="/images/d5-icon.png" alt="" height="60px"></div>
+    <h4 class="row-11 mx-1 mt-0 pt-0">D5 Choose and Verify Permanent Corrective Actions</h4>
+    <div class="container-fluid table-responsive mt-2 row-11" id="d5D6-actions">
+      <table id="table" class="table table-hover table-dark table-sm">
         <thead>
           <tr>
-            <th scope="col">D5/D6 actions</th>
-            <th scope="col">Action description</th>
+            <th scope="col">D5 Actions</th>
+            <th scope="col">Action Description</th>
             <th scope="col">Owner</th>
             <th scope="col">Creation date</th>
             <th scope="col">Due date</th>
@@ -720,25 +712,23 @@ bg-rejected
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <div class="container d-flex flex-column">
-                        {{!-- Update Action description --}}
-                        <div class="form-group">
-                          <label for="content" class="form-label">Action: </label>
-                          <input class="form-field" type="text" name="content" id="" required="required" value="{{content}}">
+                      <div class="row g-3">
+                        {{!-- Update Owner --}}
+                        <div class="col-md-6">
+                          <label for="content" class="form-label">Owner Name</label>
+                          <input class="form-control" type="text" name="ownerName" id="" required="required" value="{{ownerName}}">
                         </div>
 
-                        {{!-- Update Owner --}}
-                        <div class="form-group">
-                          <label for="content" class="form-label">Owner: </label>
-                          <input class="form-field" type="text" name="ownerName" id="" required="required" value="{{ownerName}}">
-                        </div>
-                        
                         {{!-- Update Closure Date --}}
-                        <div class="form-group">
-                          <div class="container">
-                            <label for="closeDate" class="form-label">Closure Date: </label>
-                          </div>
-                          <input class="form-field" type="date" id="closeDate" name="closeDate" max="">
+                        <div class="col-md-6">
+                          <label for="closeDate" class="form-label">Closure Date</label>
+                          <input class="form-control" type="date" id="closeDate" name="closeDate" max="">
+                        </div>
+
+                        {{!-- Update Action description --}}
+                        <div class="col-12">
+                          <label for="content" class="form-label">Action Description</label>
+                          <input class="form-control" type="text" name="content" id="" required="required" value="{{content}}">
                         </div>
                       </div>
                     </div>
@@ -789,17 +779,58 @@ bg-rejected
     </div>
   </div>
 
+  {{!-- D5 & D6 form --}}
+  <form action="/report/{{report._id}}/update" method="post" class="d-form text-center mt-2 pb-4" enctype="multipart/form-data">
+    <div class="mb-0 pb-0 text-center"><img src="/images/d6-icon.png" alt="" height="60px"></div>
+    <h4 class="row-11 mx-1">D6 Implement and Validate Corrective Actions</h4>
+    <input type="hidden" name="submissionD" value="5">
+    {{!-- attachments--}}
+    <div class="row g-3 d-flex flex-align-center justify-content-center text-center my-4">
+      <div class="col-3 text-center">
+        <label class="form-label" for="d5d6Attachment">D6 Attachment</label>
+        {{#unless userInSession.main}}
+        <input 
+          class="form-control" 
+          id="d5d6Attachment" 
+          placeholder="" 
+          type="file"
+          name="d5d6Attachment"
+          accept=".xlsx, .xlsm, .pdf, .docx, .pptx, .pptm" 
+        />
+        {{/unless}}
+        <div class="container bg-transparent">
+          {{#if report.d5d6.attachment}}
+          <div class="container bg-transparent d-flex flex-column text-center mb-2 mt-3 border pb-3 pt-2">
+            <p>There is a D6 attachment already available</p>
+            <a href="/report/{{report._id}}/attachment/d5d6" class="btn btn-warning" download>
+              Download
+            </a>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    
+
+    {{!-- Save changes Button --}}
+    <div class="container d-flex justify-content-center bg-transparent mb-2">
+      {{#unless userInSession.main}}
+      <button type="submit" class="btn btn-success">Save D6 Attachment</button>
+      {{/unless}}
+    </div>
+  </form>
+
   {{!-- D5D6 Main approve --}}
   {{#if userInSession.main}}
-  <div class="form-section d-flex flex-column">
+  <div class="form-section d-flex flex-column align-items-center mb-3">
     <form action="/report/{{report._id}}/approve" method="post" class="col-md-12 row">
       <div class="form-group">
         <div class="container d-flex justify-content-center bg-transparent">
           <input type="hidden" name="approveD" value="5">
           {{#if report.d5d6.approval}}
-          <button id="approve-d5d6-btn" type="submit" class="btn btn-danger">Reject D5</button>
+          <button id="approve-d5d6-btn" type="submit" class="btn btn-danger">Reject D5 & D6</button>
           {{else}}
-          <button id="approve-d5d6-btn" type="submit" class="btn btn-success">Approve D5</button>
+          <button id="approve-d5d6-btn" type="submit" class="btn btn-success">Approve D5 & D6</button>
           {{/if}}
         </div>
       </div>
@@ -814,59 +845,23 @@ bg-rejected
 {{#if d3Done}}
 {{#if d4Done}}
 {{#if d5Done}}
-<div class="mb-5 d-step form-section d-flex flex-column
+<div class="d-step form-section d-flex flex-column my-4
 {{#if report.d7.approval}}
 bg-approved
 {{else}}
 bg-rejected
 {{/if}}
 ">
-  {{!-- D7 Attachments --}}
-  <form action="/report/{{report._id}}/update" method="post" class="col-md-12 row" enctype="multipart/form-data">
-    <input type="hidden" name="submissionD" value="7">
-    {{!-- attachments--}}
-    <div class="form-group">
-      <label class="form-label" for="d7Attachment">D7 attachment: </label>
-      {{#unless userInSession.main}}
-      <input 
-        class="form-control-file" 
-        id="d7Attachment" 
-        placeholder="" 
-        type="file"
-        name="d7Attachment"
-        accept=".xlsx, .xlsm, .pdf, .docx, .pptx, .pptm" 
-      />
-      {{/unless}}
-      <div class="container bg-transparent">
-        {{#if report.d7.attachment}}
-        <div class="container bg-transparent d-flex flex-column">
-          <p>D7 attachment available</p>
-          <a href="/report/{{report._id}}/attachment/d7" class="btn btn-outline-primary" download>
-            Download
-          </a>
-        </div>
-        {{else}}
-        <p>No attachment for D7 section</p>
-        {{/if}}
-      </div>
-    </div>
-
-    {{!-- Save changes Button --}}
-    <div class="container d-flex justify-content-center bg-transparent">
-      {{#unless userInSession.main}}
-      <button type="submit" class="btn btn-success">Save D7</button>
-      {{/unless}}
-    </div>
-  </form>
-  
   {{!-- D7 Actions --}}
-  <div class="form-group">
-    <div class="container-fluid main-table mt-2">
-      <table id="table" class="table table-hover table-dark table-responsive">
+  <div class="mt-3 row g-3 d-flex text-center mb-3">
+    <div class="mb-0 pb-0 text-center"><img src="/images/d7-icon.png" alt="" height="60px"></div>
+    <h4 class="row-11 mx-1 mt-0 pt-0">D7 Take Preventive Measures</h4>
+    <div class="container-fluid table-responsive mt-2 row-11" id="d5D6-actions">
+      <table id="table" class="table table-hover table-dark table-sm">
         <thead>
           <tr>
             <th scope="col">D7 actions</th>
-            <th scope="col">Action description</th>
+            <th scope="col">Action Description</th>
             <th scope="col">Owner</th>
             <th scope="col">Creation date</th>
             <th scope="col">Due date</th>
@@ -901,25 +896,23 @@ bg-rejected
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <div class="container d-flex flex-column">
-                        {{!-- Update Action description --}}
-                        <div class="form-group">
-                          <label for="content" class="form-label">Action: </label>
-                          <input class="form-field" type="text" name="content" id="" required="required" value="{{content}}">
+                      <div class="row g-3">
+                        {{!-- Update Owner --}}
+                        <div class="col-md-6">
+                          <label for="content" class="form-label">Owner Name</label>
+                          <input class="form-control" type="text" name="ownerName" id="" required="required" value="{{ownerName}}">
                         </div>
 
-                        {{!-- Update Owner --}}
-                        <div class="form-group">
-                          <label for="content" class="form-label">Owner: </label>
-                          <input class="form-field" type="text" name="ownerName" id="" required="required" value="{{ownerName}}">
-                        </div>
-                        
                         {{!-- Update Closure Date --}}
-                        <div class="form-group">
-                          <div class="container">
-                            <label for="closeDate" class="form-label">Closure Date: </label>
-                          </div>
-                          <input class="form-field" type="date" id="closeDate" name="closeDate" max="">
+                        <div class="col-md-6">
+                          <label for="closeDate" class="form-label">Closure Date</label>
+                          <input class="form-control" type="date" id="closeDate" name="closeDate" max="">
+                        </div>
+
+                        {{!-- Update Action description --}}
+                        <div class="col-12">
+                          <label for="content" class="form-label">Action Description</label>
+                          <input class="form-control" type="text" name="content" id="" required="required" value="{{content}}">
                         </div>
                       </div>
                     </div>
@@ -970,9 +963,47 @@ bg-rejected
     </div>
   </div>
 
+  {{!-- D7 Attachments --}}
+  <form action="/report/{{report._id}}/update" method="post" class="d-form" enctype="multipart/form-data">
+    <input type="hidden" name="submissionD" value="7">
+    {{!-- attachments--}}
+    <div class="row g-3 d-flex flex-align-center justify-content-center text-center my-4">
+      <div class="col-3 text-center">
+        <label class="form-label" for="d7Attachment">D7 Attachment</label>
+        {{#unless userInSession.main}}
+        <input 
+          class="form-control" 
+          id="d7Attachment" 
+          placeholder="" 
+          type="file"
+          name="d7Attachment"
+          accept=".xlsx, .xlsm, .pdf, .docx, .pptx, .pptm" 
+        />
+        {{/unless}}
+        <div class="container bg-transparent">
+          {{#if report.d7.attachment}}
+          <div class="container bg-transparent d-flex flex-column text-center mb-2 mt-3 border pb-3 pt-2">
+            <p> There is a D7 attachment already available</p>
+            <a href="/report/{{report._id}}/attachment/d7" class="btn btn-warning" download>
+              Download
+            </a>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    {{!-- Save changes Button --}}
+    <div class="container d-flex justify-content-center bg-transparent pb-3">
+      {{#unless userInSession.main}}
+      <button type="submit" class="btn btn-success">Save D7 Attachment</button>
+      {{/unless}}
+    </div>
+  </form>
+
   {{!-- D7 Main approve --}}
   {{#if userInSession.main}}
-  <div class="form-section d-flex flex-column">
+  <div class="form-section d-flex flex-column align-items-center mb-3">
     <form action="/report/{{report._id}}/approve" method="post" class="col-md-12 row">
       <div class="form-group">
         <div class="container d-flex justify-content-center bg-transparent">
@@ -992,6 +1023,17 @@ bg-rejected
 {{/if}}
 {{/if}}
 
+{{!-- D8 content --}}
+{{#if report.approval}}
+<div class="d-step text-center form-section d-flex flex-column mb-5 bg-antiflash-white text-moonstone">
+  <div class="py-3">
+  <img src="/images/d8-icon.png" alt="" height="200px">
+  <h3>This report has been fully approved!</h3>
+  <p>We suggest you to have a retrospective and take notes on the be lessons learned with all of the team members</p>
+  </div>
+</div>
+{{/if}}
+
 {{#unless userInSession.main}}
   <!-- Button trigger modal -->
   <button id="create-action-btn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAction">
@@ -1003,35 +1045,30 @@ bg-rejected
     <div class="modal-dialog form-section">
       <form class="modal-content bg-dark" action="/report/{{report._id}}/action/create" method="POST">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">New action</h1>
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Add New Action</h1>
         </div>
         
         <div class="modal-body">
-          <div class="container d-flex flex-column">
-            <div class="form-group">
-              <div class="container">
-                <label for="dStep" class="form-label">Step: </label>
-              </div>
-              <select name="dStep" id="" class="ml-4 form-control">
+          <div class="row g-3">
+            <div class="col-md-3">
+              <label for="dStep" class="form-label">D Step</label>
+              <select name="dStep" id="dStep" class="form-control">
                 <option value="d3">D3</option>
                 <option value="d5d6">D5</option>
                 <option value="d7">D7</option>
               </select>
             </div>
-            <div class="form-group">
-              <label for="content" class="form-label">Action: </label>
-              <input class="form-field" type="text" name="content" id="" required="required" placeholder="Brief description">
+            <div class="col-md-5">
+              <label for="ownerName" class="form-label">Owner Name</label>
+              <input class="form-control" type="text" name="ownerName" id="ownerName" required="required" placeholder="Full name">
             </div>
-            <div class="form-group">
-              <label for="content" class="form-label">Owner: </label>
-              <input class="form-field" type="text" name="ownerName" id="" required="required" placeholder="Full name">
+            <div class="col-md-4">
+              <label for="dueDate" class="form-label">Due Date</label>
+              <input class="form-control" type="date" id="dueDate" required="required" name="dueDate" max="">
             </div>
-            
-            <div class="form-group">
-              <div class="container">
-                <label for="dueDate" class="form-label">Due date: </label>
-              </div>
-              <input class="form-field" type="date" id="dueDate" required="required" name="dueDate" max="">
+            <div class="col-12">
+              <label for="content" class="form-label">Action Description</label>
+              <input class="form-control" type="text" name="content" id="" required="required" placeholder="Brief description">
             </div>
           </div>
         </div>
