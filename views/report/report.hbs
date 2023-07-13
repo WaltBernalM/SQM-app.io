@@ -1,8 +1,11 @@
 {{#with complaint}}
-  <div id='complaint-data' class="text-center container-fluid main-table mt-2 show" style="text-shadow: 1px 1px 1px black;">
+  <div id='complaint-data' class="text-center container-fluid main-table mt-2 show my-3" style="text-shadow: 1px 1px 1px black;">
+    <div class="d-flex flex-row align-items-center justify-content-center mb-2">
+      <div class="mx-3"><img src="/images/complaint-icon.png" alt="" height="60px"></div>
+      <h2>Complaint #{{_id}}</h2>
+    </div>
     <table id="table" class="table table-hover table-dark table-responsive">
       <thead>
-        <h2>Complaint #{{_id}}: </h2>
         <tr>
           <th scope="col">Part Number</th>
           <th scope="col">Problem Description</th>
@@ -38,10 +41,11 @@ bg-rejected
   <form action="/report/{{report._id}}/update" method="post" class="d-form" enctype="multipart/form-data">
       <input type="hidden" name="submissionD" value="3">
       
-      <div class="d-flex flex-column justify-content-center">
+      <div class="d-flex flex-column justify-content-center pt-3">
         <div class="row g-3 justify-content-around">
           {{!-- D1 --}}
           <div class="col-md-3 text-center">
+            <img src="/images/d1-icon.png" alt="" height="60px">
             <h4 class="form-label" for="team"> D1 Establish the Team</h4>
             <table id="team" class="table table-hover table-dark table-responsive">
               <thead>
@@ -97,6 +101,7 @@ bg-rejected
 
           {{!-- D2 --}}
           <div class="col-md-6 text-center">
+            <img src="/images/d2-icon.png" alt="" height="60px">
             <h4 class="form-label" for="table">D2 Define and Describe the Problem</h4>
             <table id="table" class="table table-hover table-dark table-responsive">
               <thead>
@@ -267,8 +272,9 @@ bg-rejected
   </form>
 
   {{!-- D3 Actions --}}
-  <div class="mt-5 row g-3 d-flex text-center mb-3">
-    <h4 class="row-11 mx-1" for="table">D3 Develop Interim Containment Actions</h4>
+  <div class="mt-5 row g-3 d-flex text-center mb-3 justify-content-center align-items-center">
+    <div class="mb-0 pb-0"><img src="/images/d3-icon.png" alt="" height="60px"></div>
+    <h4 class="row-11 mx-1 mt-0 pt-0" for="table">D3 Develop Interim Containment Actions</h4>
     <div class="container-fluid table-responsive main-table mt-2 row-11" id="d3-actions">
       <table id="table" class="table table-hover table-dark table-sm">
         <thead>
@@ -379,7 +385,7 @@ bg-rejected
 
   {{!-- D3 Main approve --}}
   {{#if userInSession.main}}
-  <div class="form-section d-flex flex-column align-items-center mb-3">
+  <div class="form-section d-flex flex-column align-items-center mb-3 mt-4">
     <form action="/report/{{report._id}}/approve" method="post" class="col-md-12 row">
       <div class="form-group">
         <div class="container d-flex justify-content-center bg-transparent">
@@ -412,6 +418,7 @@ bg-rejected
     <div class="d-flex flex-column align-items-center justify-content-center row g-3 pb-4">
       {{!-- 5 whys and Root Causes--}}
       <div class="col-10 text-center pt-3">
+        <img src="/images/d4-icon.png" alt="" height="60px">
         <h4 class="form-label pb-2" for="table-w5h2">D4 Define and Verify Root Cause</h4>
         <table id="table-w5h2" class="table table-hover table-dark table-responsive">
           <thead>
@@ -662,8 +669,9 @@ bg-rejected
 {{/if}}
 ">
   {{!-- D5 & D6 Actions --}}
-  <div class="mt-5 row g-3 d-flex text-center mb-5">
-    <h4 class="row-11 mx-1">D5 Choose and Verify Permanent Corrective Actions</h4>
+  <div class="mt-3 row g-3 d-flex text-center mb-5">
+    <div class="mb-0 pb-0"><img src="/images/d5-icon.png" alt="" height="60px"></div>
+    <h4 class="row-11 mx-1 mt-0 pt-0">D5 Choose and Verify Permanent Corrective Actions</h4>
     <div class="container-fluid table-responsive mt-2 row-11" id="d5D6-actions">
       <table id="table" class="table table-hover table-dark table-sm">
         <thead>
@@ -773,6 +781,7 @@ bg-rejected
 
   {{!-- D5 & D6 form --}}
   <form action="/report/{{report._id}}/update" method="post" class="d-form text-center mt-2 pb-4" enctype="multipart/form-data">
+    <div class="mb-0 pb-0 text-center"><img src="/images/d6-icon.png" alt="" height="60px"></div>
     <h4 class="row-11 mx-1">D6 Implement and Validate Corrective Actions</h4>
     <input type="hidden" name="submissionD" value="5">
     {{!-- attachments--}}
@@ -836,7 +845,7 @@ bg-rejected
 {{#if d3Done}}
 {{#if d4Done}}
 {{#if d5Done}}
-<div class="mb-5 d-step form-section d-flex flex-column my-4
+<div class="d-step form-section d-flex flex-column my-4
 {{#if report.d7.approval}}
 bg-approved
 {{else}}
@@ -844,8 +853,9 @@ bg-rejected
 {{/if}}
 ">
   {{!-- D7 Actions --}}
-  <div class="mt-5 row g-3 d-flex text-center mb-3">
-    <h4 class="row-11 mx-1">D7 Take Preventive Measures</h4>
+  <div class="mt-3 row g-3 d-flex text-center mb-3">
+    <div class="mb-0 pb-0 text-center"><img src="/images/d7-icon.png" alt="" height="60px"></div>
+    <h4 class="row-11 mx-1 mt-0 pt-0">D7 Take Preventive Measures</h4>
     <div class="container-fluid table-responsive mt-2 row-11" id="d5D6-actions">
       <table id="table" class="table table-hover table-dark table-sm">
         <thead>
@@ -1011,6 +1021,17 @@ bg-rejected
 </div>
 {{/if}}
 {{/if}}
+{{/if}}
+
+{{!-- D8 content --}}
+{{#if report.approval}}
+<div class="d-step text-center form-section d-flex flex-column mb-5 bg-antiflash-white text-moonstone">
+  <div class="py-3">
+  <img src="/images/d8-icon.png" alt="" height="200px">
+  <h3>This report has been fully approved!</h3>
+  <p>We suggest you to have a retrospective and take notes on the be lessons learned with all of the team members</p>
+  </div>
+</div>
 {{/if}}
 
 {{#unless userInSession.main}}

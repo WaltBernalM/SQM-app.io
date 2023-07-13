@@ -169,6 +169,7 @@ a {
 .d-step {
   border: 1px solid white;
   border-radius: 10px;
+  overflow: hidden
 }
 
 .text-justify {
@@ -181,4 +182,12 @@ a {
 
 .btn {
   text-shadow: none !important;
+}
+
+.bg-antiflash-white {
+  background-color: #EFF1F3;
+}
+
+.text-moonstone {
+  color: #009FB7
 }
