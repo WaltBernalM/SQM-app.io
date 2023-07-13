@@ -1,6 +1,6 @@
 const transporter = require('../config/transporter.config')
 
-const sendMail = async (email, message, subject, template, next) => {
+const sendMail = async (email, message, subject, template) => {
   try {
     await transporter.sendMail({
       from: `"SQM.copilot" <${process.env.EMAIL_ADDRESS}>`,
@@ -10,7 +10,7 @@ const sendMail = async (email, message, subject, template, next) => {
       html: template(message),
     })
   } catch (error) {
-    next(error)
+    console.log(error)
   }
 }
 
