@@ -19,6 +19,9 @@ window.addEventListener('load', () => {
   dates.forEach(date => {
     const utcDate = new Date(date.innerHTML).toString()
     date.innerHTML = utcDate.slice(4, 15)
+    if (date.innerHTML === 'lid Date') {
+      date.innerHTML = `<span class="text-warning">Not defined</span>`
+    }
   })
 
   // calculation of aging 
