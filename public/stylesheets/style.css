@@ -195,3 +195,7 @@ a {
 .bg-moonstone {
   background-color: #009FB7;
 }
+
+.text-shadow {
+  text-shadow: 1px 1px 1px black;
+}
