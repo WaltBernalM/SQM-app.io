@@ -132,27 +132,24 @@ header {
   margin-top: 60px;
   text-align: center;
 }
+.wrapper h2:first-child {
+  text-shadow: 1px 1px 1px black;
+}
 .form-section {
-  margin-top: 40px;
+  /* margin-top: 40px; */
   display: flex;
   justify-content: center;
+  text-shadow: 1px 1px 1px black;
 }
 form {
-  width: 400px;
+  width: 600px;
   padding: 0.8rem 1.2rem;
   border-radius: 0.5rem;
 }
 form div {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  border-radius: 0.5rem;
+  text-align: left;
 }
-.form-label {
-  width: 30%;
-  display: block;
-}
+
 .form-field {
   position: relative;
   width: 100%;
@@ -163,7 +160,7 @@ form div {
 .pet-form-button {
   width: 100%;
   border: none;
-  background-image: linear-gradient(45deg, var(--color1), var(--color2));
+  background-color: #F78764;
   padding: 0.8rem;
   border-radius: 0.4rem;
 }
