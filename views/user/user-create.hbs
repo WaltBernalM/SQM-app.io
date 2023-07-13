@@ -1,7 +1,8 @@
-<div class="wrapper">
-	<h2>Create User Account for Supplier</h2>
+<div class="text-center mt-1">
 	<section class="form-section">
-		<form action="/auth/create-user" method="POST" class="row g-3">
+		<form action="/auth/create-user" method="POST" class="row g-3 bg-moonstone mt-1">
+			<div class="text-center"><img src="/images/supplier-icon.png" alt="" height="60px"></div>
+			<h4 class="my-0" style="text-shadow: 1px 1px 1px black">Create User for Supplier</h4>
 			{{#if errorMessage}}
 				<div class="col-12 text-center">
 				<p class="error-message">{{errorMessage}}</p>

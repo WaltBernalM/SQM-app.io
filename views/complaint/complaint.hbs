@@ -1,7 +1,7 @@
-<div class="wrapper">
-	<h2>Complaint Details</h2>
+<div class="text-center">
   <section class="form-section">
-    <form {{#if userInSession.main}}action="/complaint/{{complaint._id}}/update" {{/if}}method="post" enctype="multipart/form-data" class="row g-3">
+    <form {{#if userInSession.main}}action="/complaint/{{complaint._id}}/update" {{/if}}method="post" enctype="multipart/form-data" class="row g-3 bg-moonstone mt-1">
+			<h4 class="my-0" style="text-shadow: 1px 1px 1px black">Complaint Details</h4>
       {{#if errorMessage}}
 				<div class="col-12 text-center">
 				<p class="error-message">{{errorMessage}}</p>
@@ -37,7 +37,7 @@
 				/>
 			</div>
 
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<label class="form-label" for="batch">Batch</label>
 				<input 
 					class="form-control {{#unless userInSession.main}}bg-dark text-light{{/unless}}" 
@@ -66,7 +66,7 @@
 				/>
 			</div>
 
-			<div class="col-md-5">
+			<div class="col-md-6">
 				<label for="problemDate" class="form-label">Problem Date</label>
 				<input 
 					class="form-control {{#unless userInSession.main}}bg-dark text-light{{/unless}}"
