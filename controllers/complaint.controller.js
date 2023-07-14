@@ -234,7 +234,8 @@ const postUpdateComplaint = async (req, res, next) => {
       },
       { new: true }
     )
-    res.redirect(`/complaint/${complaintId}/details`)
+
+    res.redirect(`/auth/profile`)
     
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
