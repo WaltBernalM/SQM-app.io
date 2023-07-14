@@ -65,8 +65,9 @@ const postCreateAction = async (req, res, next) => {
 
 const postActionUpdate = async (req, res, next) => {
   try {
-    const { content, ownerName, closeDate, reportId } = req.body
+    const { content, ownerName, closeDate: dateToConvert } = req.body
     const { actionId } = req.params
+    const closeDate = new Date(dateToConvert)
     const updatedAction = await Action.findByIdAndUpdate(
       actionId,
       { content, ownerName, closeDate },
