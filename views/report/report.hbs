@@ -238,7 +238,7 @@ bg-rejected
         <div class="d-flex flex-column justify-content-center align-items-center mt-4">
           {{!-- D3 attachment--}}
           <div class="col-3 text-center">
-            <label class="form-label" for="d3Attachment">D3 Attachment</label>
+            <label class="form-label" for="d3Attachment">D3 evidences attachment:</label>
             {{#unless userInSession.main}}
             <input 
               class="form-control" 
@@ -252,7 +252,7 @@ bg-rejected
             <div class="container bg-transparent">
               {{#if report.d3.attachment}}
               <div class="container bg-transparent d-flex flex-column text-center my-3 border pb-3 pt-2">
-                <p>There is a D3 attachment already available</p>
+                <p>There is a file already available</p>
                 <a href="/report/{{report._id}}/attachment/d3" class="btn btn-warning" download>
                   Download
                 </a>
@@ -274,7 +274,7 @@ bg-rejected
   {{!-- D3 Actions --}}
   <div class="mt-5 row g-3 d-flex text-center mb-3 justify-content-center align-items-center">
     <div class="mb-0 pb-0"><img src="/images/d3-icon.png" alt="" height="60px"></div>
-    <h4 class="row-11 mx-1 mt-0 pt-0" for="table">D3 Develop Interim Containment Actions</h4>
+    <h4 class="row-11 mx-1 mt-0 pt-0" for="table">D3 Develop Interim Containment Actions / Corrections</h4>
     <div class="container-fluid table-responsive main-table mt-2 row-11" id="d3-actions">
       <table id="table" class="table table-hover table-dark table-sm">
         <thead>
@@ -425,7 +425,7 @@ bg-rejected
             <tr>
               <th scope="col">5 why</th>                
               <th scope="col">Why it was not detected?</th>
-              <th scope="col">Why did it occurred?</th>
+              <th scope="col">Why did it occurr?</th>
             </tr>
           </thead>
           <tbody>
@@ -605,7 +605,7 @@ bg-rejected
       <div class="d-flex flex-column justify-content-center align-items-center mt-4 mb-3">
         {{!-- D4 attachment--}}
         <div class="col-3 text-center">
-          <label class="form-label" for="d4Attachment">D4 Attachment</label>
+          <label class="form-label my-0 py-0" for="d4Attachment">Verificaiton of root causes, evidences and further analysis:</label>
           {{#unless userInSession.main}}
           <input 
             class="form-control" 
@@ -619,7 +619,7 @@ bg-rejected
           <div class="container bg-transparent">
             {{#if report.d4.attachment}}
             <div class="container bg-transparent d-flex flex-column text-center mb-1 mt-3 border pb-3">
-              <p>There is a D4 attachment already available</p>
+              <p>There is a file already available</p>
               <a href="/report/{{report._id}}/attachment/d4" class="btn btn-warning" download>
                 Download
               </a>
@@ -787,7 +787,7 @@ bg-rejected
     {{!-- attachments--}}
     <div class="row g-3 d-flex flex-align-center justify-content-center text-center my-4">
       <div class="col-3 text-center">
-        <label class="form-label" for="d5d6Attachment">D6 Attachment</label>
+        <label class="form-label mb-0 pb-0" for="d5d6Attachment">Validation activities, evidences and effectivity analysis: </label>
         {{#unless userInSession.main}}
         <input 
           class="form-control" 
@@ -801,7 +801,7 @@ bg-rejected
         <div class="container bg-transparent">
           {{#if report.d5d6.attachment}}
           <div class="container bg-transparent d-flex flex-column text-center mb-2 mt-3 border pb-3 pt-2">
-            <p>There is a D6 attachment already available</p>
+            <p>There is a file already available</p>
             <a href="/report/{{report._id}}/attachment/d5d6" class="btn btn-warning" download>
               Download
             </a>
@@ -855,7 +855,7 @@ bg-rejected
   {{!-- D7 Actions --}}
   <div class="mt-3 row g-3 d-flex text-center mb-3">
     <div class="mb-0 pb-0 text-center"><img src="/images/d7-icon.png" alt="" height="60px"></div>
-    <h4 class="row-11 mx-1 mt-0 pt-0">D7 Take Preventive Measures</h4>
+    <h4 class="row-11 mx-1 mt-0 pt-0">D7 Take Preventive Recurrences Measures</h4>
     <div class="container-fluid table-responsive mt-2 row-11" id="d5D6-actions">
       <table id="table" class="table table-hover table-dark table-sm">
         <thead>
@@ -969,7 +969,7 @@ bg-rejected
     {{!-- attachments--}}
     <div class="row g-3 d-flex flex-align-center justify-content-center text-center my-4">
       <div class="col-3 text-center">
-        <label class="form-label" for="d7Attachment">D7 Attachment</label>
+        <label class="form-label" for="d7Attachment">D7 evidences attachment:</label>
         {{#unless userInSession.main}}
         <input 
           class="form-control" 
@@ -983,7 +983,7 @@ bg-rejected
         <div class="container bg-transparent">
           {{#if report.d7.attachment}}
           <div class="container bg-transparent d-flex flex-column text-center mb-2 mt-3 border pb-3 pt-2">
-            <p> There is a D7 attachment already available</p>
+            <p> There is a file already available</p>
             <a href="/report/{{report._id}}/attachment/d7" class="btn btn-warning" download>
               Download
             </a>
@@ -1028,10 +1028,20 @@ bg-rejected
 <div class="d-step text-center form-section d-flex flex-column mb-5 bg-antiflash-white text-moonstone">
   <div class="py-3">
   <img src="/images/d8-icon.png" alt="" height="200px">
-  <h3>This report has been fully approved!</h3>
+  <h4 class="row-11 mx-1 mt-0 pt-0">D8 Congratulate the Team</h4>
+  <h5>This report has been fully approved!</h5>
   <p>We suggest you to have a retrospective and take notes on the be lessons learned with all of the team members</p>
   </div>
 </div>
+{{else}}
+<div class="d-step text-center form-section d-flex flex-column mb-5 bg-rejected py-3">
+  <div class="py-3">
+    <img src="/images/d8-icon2.png" alt="" height="60px">
+    <h4 class="row-11 mx-1 mt-0 pt-0">D8 Congratulate the Team</h4>
+    <p>This report is not finished yet, keep going!</p>
+  </div>
+</div>
+
 {{/if}}
 
 {{#unless userInSession.main}}
