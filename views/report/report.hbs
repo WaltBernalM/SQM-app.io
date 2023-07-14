@@ -4,28 +4,30 @@
       <div class="mx-3"><img src="/images/complaint-icon.png" alt="" height="60px"></div>
       <h2>Complaint #{{_id}}</h2>
     </div>
-    <table id="table" class="table table-hover table-dark table-responsive">
-      <thead>
-        <tr>
-          <th scope="col">Part Number</th>
-          <th scope="col">Problem Description</th>
-          <th scope="col">Batch</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Issue Date</th>
-          <th scope="col">Complaint date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>          
-          <td>{{partNumber}}</td>
-          <td>{{problemDesc}}</td>
-          <td>{{batch}}</td>
-          <td>{{quantity}}</td>
-          <td class="date-type">{{problemDate}}</td>
-          <td class="date-type">{{createdAt}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="container-fluid table-responsive main-table">
+      <table id="table" class="table table-hover table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Part Number</th>
+            <th scope="col">Problem Description</th>
+            <th scope="col">Batch</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Issue Date</th>
+            <th scope="col">Complaint date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>          
+            <td>{{partNumber}}</td>
+            <td>{{problemDesc}}</td>
+            <td>{{batch}}</td>
+            <td>{{quantity}}</td>
+            <td class="date-type">{{problemDate}}</td>
+            <td class="date-type">{{createdAt}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 {{/with}}
 
@@ -253,7 +255,7 @@ bg-rejected
               {{#if report.d3.attachment}}
               <div class="container bg-transparent d-flex flex-column text-center my-3 border pb-3 pt-2">
                 <p>There is a file already available</p>
-                <a href="/report/{{report._id}}/attachment/d3" class="btn btn-warning" download>
+                <a href="/report/{{report._id}}/attachment/d3" class="btn btn-sm btn-warning" download>
                   Download
                 </a>
               </div>
@@ -620,7 +622,7 @@ bg-rejected
             {{#if report.d4.attachment}}
             <div class="container bg-transparent d-flex flex-column text-center mb-1 mt-3 border pb-3">
               <p>There is a file already available</p>
-              <a href="/report/{{report._id}}/attachment/d4" class="btn btn-warning" download>
+              <a href="/report/{{report._id}}/attachment/d4" class="btn btn-sm btn-warning" download>
                 Download
               </a>
             </div>
@@ -802,7 +804,7 @@ bg-rejected
           {{#if report.d5d6.attachment}}
           <div class="container bg-transparent d-flex flex-column text-center mb-2 mt-3 border pb-3 pt-2">
             <p>There is a file already available</p>
-            <a href="/report/{{report._id}}/attachment/d5d6" class="btn btn-warning" download>
+            <a href="/report/{{report._id}}/attachment/d5d6" class="btn btn-sm btn-warning" download>
               Download
             </a>
           </div>
@@ -984,7 +986,7 @@ bg-rejected
           {{#if report.d7.attachment}}
           <div class="container bg-transparent d-flex flex-column text-center mb-2 mt-3 border pb-3 pt-2">
             <p> There is a file already available</p>
-            <a href="/report/{{report._id}}/attachment/d7" class="btn btn-warning" download>
+            <a href="/report/{{report._id}}/attachment/d7" class="btn btn-sm btn-warning" download>
               Download
             </a>
           </div>
