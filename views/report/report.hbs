@@ -1,6 +1,6 @@
 {{#with complaint}}
   <div id='complaint-data' class="text-center container-fluid main-table mt-2 show my-3" style="text-shadow: 1px 1px 1px black;">
-    <div class="d-flex flex-row align-items-center justify-content-center mb-2">
+    <div class="d-flex flex-column align-items-center justify-content-center mb-2 text-center">
       <div class="mx-3"><img src="/images/complaint-icon.png" alt="" height="60px"></div>
       <h3>Complaint #{{_id}}</h3>
     </div>
@@ -120,7 +120,7 @@ bg-rejected
                     <p>{{report.d3.w5h2.[0]}}</p>
                     {{else}}
                     <textarea class="form-field"
-                      id="problemDesc" 
+                      id="w0" 
                       placeholder="What is the problem"
                       type="text"
                       required="required"
@@ -138,7 +138,7 @@ bg-rejected
                     <p>{{report.d3.w5h2.[1]}}</p>
                     {{else}}
                     <textarea class="form-field"
-                      id="problemDesc" 
+                      id="w1" 
                       placeholder="When did it happen?"
                       type="text"
                       required="required"
@@ -156,7 +156,7 @@ bg-rejected
                     <p>{{report.d3.w5h2.[2]}}</p>
                     {{else}}
                     <textarea class="form-field"
-                      id="problemDesc" 
+                      id="w2" 
                       placeholder="Where was detected?"
                       type="text"
                       required="required"
@@ -173,7 +173,7 @@ bg-rejected
                     <p>{{report.d3.w5h2.[3]}}</p>
                     {{else}}
                     <textarea class="form-field"
-                      id="problemDesc" 
+                      id="w3" 
                       placeholder="Who detected the problem?"
                       type="text"
                       required="required"
@@ -189,7 +189,7 @@ bg-rejected
                     {{#if userInSession.main}}
                     <p>{{report.d3.w5h2.[4]}}</p>
                     {{else}}<textarea class="form-field"
-                      id="problemDesc" 
+                      id="w4" 
                       placeholder="Why it's a problem?"
                       type="text"
                       required="required"
@@ -206,7 +206,7 @@ bg-rejected
                     <p>{{report.d3.w5h2.[5]}}</p>
                     {{else}}
                     <textarea class="form-field"
-                      id="problemDesc" 
+                      id="w5" 
                       placeholder="How it was detected?"
                       type="text"
                       required="required"
@@ -222,7 +222,7 @@ bg-rejected
                     {{#if userInSession.main}}
                     <p>{{report.d3.w5h2.[6]}}</p>
                     {{else}}<textarea class="form-field"
-                      id="problemDesc" 
+                      id="w6" 
                       placeholder="How many units are affected?"
                       type="text"
                       required="required"
@@ -237,7 +237,7 @@ bg-rejected
           </div>
         </div>
 
-        <div class="d-flex flex-column justify-content-center align-items-center mt-4">
+        <div class="d-flex flex-column justify-content-center align-items-center mt-4 mb-3">
           {{!-- D3 attachment--}}
           <div class="col-3 text-center">
             <label class="form-label" for="d3Attachment">D3 evidences attachment:</label>
@@ -1026,24 +1026,29 @@ bg-rejected
 {{/if}}
 
 {{!-- D8 content --}}
+{{#if d3Done}}
+{{#if d4Done}}
+{{#if d5Done}}
 {{#if report.approval}}
-<div class="d-step text-center form-section d-flex flex-column mb-5 bg-antiflash-white text-moonstone">
-  <div class="py-3">
-  <img src="/images/d8-icon.png" alt="" height="200px">
-  <h4 class="row-11 mx-1 mt-0 pt-0">D8 Congratulate the Team</h4>
-  <h5>This report has been fully approved!</h5>
-  <p>We suggest you to have a retrospective and take notes on the be lessons learned with all of the team members</p>
-  </div>
-</div>
-{{else}}
-<div class="d-step text-center form-section d-flex flex-column mb-5 bg-rejected py-3">
-  <div class="py-3">
-    <img src="/images/d8-icon2.png" alt="" height="60px">
+  <div class="d-step text-center form-section d-flex flex-column mb-5 bg-antiflash-white text-moonstone">
+    <div class="py-3">
+    <img src="/images/d8-icon.png" alt="" height="200px">
     <h4 class="row-11 mx-1 mt-0 pt-0">D8 Congratulate the Team</h4>
-    <p>This report is not finished yet, keep going!</p>
+    <h5>This report has been fully approved!</h5>
+    <p>We suggest you to have a retrospective and take notes on the be lessons learned with all of the team members</p>
+    </div>
   </div>
-</div>
-
+{{else}}
+  <div class="d-step text-center form-section d-flex flex-column mb-5 bg-rejected py-3">
+    <div class="py-3">
+      <img src="/images/d8-icon2.png" alt="" height="60px">
+      <h4 class="row-11 mx-1 mt-0 pt-0">D8 Congratulate the Team</h4>
+      <p>This report is not finished yet, keep going!</p>
+    </div>
+  </div>
+{{/if}}
+{{/if}}
+{{/if}}
 {{/if}}
 
 {{#unless userInSession.main}}
@@ -1070,11 +1075,11 @@ bg-rejected
                 <option value="d7">D7</option>
               </select>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
               <label for="ownerName" class="form-label">Owner Name</label>
               <input class="form-control" type="text" name="ownerName" id="ownerName" required="required" placeholder="Full name">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
               <label for="dueDate" class="form-label">Due Date</label>
               <input class="form-control" type="date" id="dueDate" required="required" name="dueDate" max="">
             </div>
