@@ -142,7 +142,7 @@ const getDetailsComplaint = async (req, res, next) => {
   const date = new Date(problemDate)
   const year = date.getFullYear()
   const month = `0${date.getMonth() + 1}`.slice(-2)
-  const day = `0${date.getDate() + 1}`.slice(-2)
+  const day = `0${date.getDate()}`.slice(-2)
   let configuredDate = year + '-' + month + '-' + day
 
   if (isMain) {
