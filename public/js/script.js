@@ -15,12 +15,21 @@ window.addEventListener('load', () => {
   document.querySelector('#problemDateForm')?.setAttribute('max', fullDate)
 
   // setup dates for the table in profile
-  const dates = document.querySelectorAll('.date-type')
+  const dates = document.querySelectorAll('.date')
   dates.forEach(date => {
     const utcDate = new Date(date.innerHTML).toString()
     date.innerHTML = utcDate.slice(4, 15)
-    if (date.innerHTML === 'lid Date') {
-      date.innerHTML = `<span class="text-warning">Not defined</span>`
+  })
+
+  const dateTypes = document.querySelectorAll('.date-type')
+  dateTypes.forEach(dateType => { 
+    const dateUnset = new Date(dateType.innerHTML)
+    const date = new Date(dateUnset)
+    date.setDate(date.getDate() + 1)
+    dateType.innerHTML = date.toString().slice(4, 15)
+    
+    if (dateType.innerHTML === 'lid Date') {
+      dateType.innerHTML = `<span class="text-warning">Not defined</span>`
     }
   })
 

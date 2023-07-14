@@ -46,7 +46,7 @@
             <td><a class="btn btn-outline-info" href="/report/{{report._id}}/details">{{report._id}}</a></td>
             <td>{{partNumber}}</td>
             <td>{{userId.org}}</td>
-            <td class="date-type">{{createdAt}}</td>
+            <td class="date">{{createdAt}}</td>
             <td class="status">
               {{#if report.approval}}
               Closed
@@ -108,7 +108,7 @@
               </a>
             </td>
             <td>{{partNumber}}</td>
-            <td class="date-type">{{report.createdAt}}</td>
+            <td class="date">{{report.createdAt}}</td>
             <td class="status">
               {{#if report.approval}}
               Approved
