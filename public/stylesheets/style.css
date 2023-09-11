@@ -159,11 +159,17 @@ a {
 
 #main {
   overflow: hidden;
-  text-shadow: 1px 1px 1px black;
+  text-shadow: 2px 2px 2px black;
   background-image: url('../images/background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: -1000px 0;
+}
+#intro-container {
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 15px;
+  border-radius: 10px;
+  text-shadow: none;
 }
 
 .d-step {
@@ -185,7 +191,7 @@ a {
 }
 
 .bg-antiflash-white {
-  background-color: #EFF1F3;
+  background-color: #b4cae0;
 }
 
 .text-moonstone {
