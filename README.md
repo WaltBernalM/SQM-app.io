@@ -1,6 +1,6 @@
 # SQM-app.io
 
-This app is designed to help companies to keep in track their Supplier Complaint Procedures, by providin traceability and a common portal for both Customer and Supplier.
+This app is designed to help companies to keep in track their Supplier Complaint Procedures, by providing traceability and a common portal for both Customer and Supplier.
 
 When a Customer wants to manage trhoug this app, they first need to sign up, this will create a Main Account for them.
 A Main Account has the following Capabilites:
