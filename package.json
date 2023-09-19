@@ -7,6 +7,7 @@
     "dev": "nodemon server.js"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.4.9",
     "nodemon": "^2.0.22"
   },
   "dependencies": {
